@@ -6,9 +6,9 @@ using DataMining.DecisionTree.Attributes;
 
 namespace DataMining.DecisionTree.Splits
 {
-    public class CategoricalSplit : AbstractSplitBase
+    public class CategoricalSplit : SplitBase
     {
-        public override void CalcBestSplit(AbstractAttributeBase a)
+        public override void CalcBestSplit(AttributeBase a)
         {
             //double tmpQuality;
             //double tmpThreshold;

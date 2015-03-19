@@ -6,14 +6,14 @@ using DataMining.DecisionTree.Splits;
 
 namespace DataMining.DecisionTree.Attributes
 {
-    public class CategoricalAttribute : AbstractAttributeBase
+    public class CategoricalAttribute : AttributeBase
     {
         public int CategoriesCounter { get; set; }
         public List<int> Values { get; set; }
 
-        public override AbstractSplitBase GetBestSplit()
+        public override SplitBase GetBestSplit()
         {
-            AbstractSplitBase split = new CategoricalSplit();
+            SplitBase split = new CategoricalSplit();
 
             split.CalcBestSplit(this);
 

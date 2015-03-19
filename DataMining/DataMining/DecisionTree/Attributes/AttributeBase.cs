@@ -12,11 +12,11 @@ namespace DataMining.DecisionTree.Attributes
         Categorical
     }
 
-    public abstract class AbstractAttributeBase
+    public abstract class AttributeBase
     {
         public int Id { get; set; }
         public AttributType Type { get; set; }
 
-        public abstract AbstractSplitBase GetBestSplit();
+        public abstract SplitBase GetBestSplit();
     }
 }

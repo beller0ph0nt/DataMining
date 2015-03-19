@@ -7,14 +7,14 @@ using DataMining.DecisionTree.Attributes;
 
 namespace DataMining.DecisionTree.Splits
 {
-    public abstract class AbstractSplitBase
+    public abstract class SplitBase
     {
         public double Quality { get; set; }                                 // Оценка качества расщепления
         public double Threshold { get; set; }                               // Порог
         public List<List<double>> Splits { get; set; }                      // Полученные разбиения
         public ISplitQualityAlgorithm SplitQualityAlgorithm { get; set; }   // Алгоритм определения оценки качества расщепления
 
-        public AbstractSplitBase()
+        public SplitBase()
         {
             Splits = new List<List<double>>();
             SplitQualityAlgorithm = new GiniSplit();
@@ -24,6 +24,6 @@ namespace DataMining.DecisionTree.Splits
         /// Метод оптимально разбивает атрибут на подмножества
         /// </summary>
         /// <param name="a">Атрибут для разбиения</param>
-        public abstract void CalcBestSplit(AbstractAttributeBase a);
+        public abstract void CalcBestSplit(AttributeBase a);
     }
 }
