@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.31101.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataMining", "DataMining\DataMining.csproj", "{793FF771-392E-44B6-9D4E-A6684401D675}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataMiningUnitTest", "DataMiningUnitTest\DataMiningUnitTest.csproj", "{A4825C83-36BD-46BB-8C80-A481C9AA9F2C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{793FF771-392E-44B6-9D4E-A6684401D675}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{793FF771-392E-44B6-9D4E-A6684401D675}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{793FF771-392E-44B6-9D4E-A6684401D675}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{793FF771-392E-44B6-9D4E-A6684401D675}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A4825C83-36BD-46BB-8C80-A481C9AA9F2C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A4825C83-36BD-46BB-8C80-A481C9AA9F2C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A4825C83-36BD-46BB-8C80-A481C9AA9F2C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A4825C83-36BD-46BB-8C80-A481C9AA9F2C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,115 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{793FF771-392E-44B6-9D4E-A6684401D675}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DataMining</RootNamespace>
+    <AssemblyName>DataMining</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Debugging">
+      <HintPath>..\..\Debugging\Debugging\bin\Release\Debugging.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="DecisionTree\LearningAlgorithms\CARTLearning.cs" />
+    <Compile Include="DecisionTree\LearningAlgorithms\ILearningAlgorithm.cs" />
+    <Compile Include="DecisionTree\NodeBase\BinaryNode\AbstractBinaryNode\AbstractBinaryNode.cs" />
+    <Compile Include="DecisionTree\NodeBase\BinaryNode\AbstractBinaryNode\CARTNode\AbstractCARTNode\AbstractCARTNode.cs" />
+    <Compile Include="DecisionTree\NodeBase\GeneralNode\AbstractGeneralNode\AbstractGeneralNode.cs" />
+    <Compile Include="DecisionTree\NodeBase\AbstractNodeBase.cs" />
+    <Compile Include="DecisionTree\NodeBase\BinaryNode\AbstractBinaryNode\BinaryLeaf.cs" />
+    <Compile Include="DecisionTree\NodeBase\BinaryNode\AbstractBinaryNode\BinaryNode.cs" />
+    <Compile Include="DecisionTree\NodeBase\BinaryNode\AbstractBinaryNode\BinaryRoot.cs" />
+    <Compile Include="DecisionTree\NodeBase\BinaryNode\AbstractBinaryNode\CARTNode\AbstractCARTNode\CARTLeaf.cs" />
+    <Compile Include="DecisionTree\NodeBase\BinaryNode\AbstractBinaryNode\CARTNode\AbstractCARTNode\CARTRoot.cs" />
+    <Compile Include="DecisionTree\NodeBase\GeneralNode\AbstractGeneralNode\GeneralLeaf.cs" />
+    <Compile Include="DecisionTree\NodeBase\GeneralNode\AbstractGeneralNode\GeneralNode.cs" />
+    <Compile Include="DecisionTree\NodeBase\GeneralNode\AbstractGeneralNode\GeneralRoot.cs" />
+    <Compile Include="DecisionTree\NodeBase\BinaryNode\IBinaryNode.cs" />
+    <Compile Include="DecisionTree\NodeBase\BinaryNode\AbstractBinaryNode\CARTNode\ICARTNode.cs" />
+    <Compile Include="DecisionTree\NodeBase\GeneralNode\IGeneralNode.cs" />
+    <Compile Include="DecisionTree\NodeBase\INodeBase.cs" />
+    <Compile Include="DecisionTree\IRule.cs" />
+    <Compile Include="DecisionTree\ITree.cs" />
+    <Compile Include="DecisionTree\NodeBase\BinaryNode\AbstractBinaryNode\CARTNode\AbstractCARTNode\CARTNode.cs" />
+    <Compile Include="DecisionTree\CARTTree.cs" />
+    <Compile Include="DecisionTree\NodeFactory\AbstractNodeFactory.cs" />
+    <Compile Include="DecisionTree\NodeFactory\BinaryNodeFactory.cs" />
+    <Compile Include="DecisionTree\NodeFactory\CARTNodeFactory.cs" />
+    <Compile Include="DecisionTree\NodeFactory\GeneralNodeFactory.cs" />
+    <Compile Include="DecisionTree\NodeFactory\INodeFactory.cs" />
+    <Compile Include="DecisionTree\SplitQualityAlgorithm\GiniSplit.cs" />
+    <Compile Include="DecisionTree\SplitQualityAlgorithm\ISplitQualityAlgorithm.cs" />
+    <Compile Include="DecisionTree\SplitQualityAlgorithm\GiniSplitOptimized.cs" />
+    <Compile Include="ElmanNeuronNetwork\BackPropagation.cs" />
+    <Compile Include="ElmanNeuronNetwork\ElmanNeuronNetwork.cs" />
+    <Compile Include="ElmanNeuronNetwork\IActivationFunction.cs" />
+    <Compile Include="ElmanNeuronNetwork\Layer.cs" />
+    <Compile Include="ElmanNeuronNetwork\Neuron.cs" />
+    <Compile Include="NeuronNetwork\ActivationFunction\IActivationFunction.cs" />
+    <Compile Include="NeuronNetwork\INeuronNetwork.cs" />
+    <Compile Include="NeuronNetwork\Layer\ILayer.cs" />
+    <Compile Include="NeuronNetwork\Layer\Layer.cs" />
+    <Compile Include="NeuronNetwork\NeuronNetwork.cs" />
+    <Compile Include="NeuronNetwork\LearningAlgorithm\BackPropagation.cs" />
+    <Compile Include="NeuronNetwork\LearningAlgorithm\ILearningAlgorithm.cs" />
+    <Compile Include="NeuronNetwork\Neuron\AddSynapseStrategy\AddSynapseAllowed.cs" />
+    <Compile Include="NeuronNetwork\Neuron\AddSynapseStrategy\AddSynapseNotAllowed.cs" />
+    <Compile Include="NeuronNetwork\Neuron\AddSynapseStrategy\IAddSynapseStrategy.cs" />
+    <Compile Include="NeuronNetwork\Neuron\CalcAxonStrategy\CalcAxonAllowed.cs" />
+    <Compile Include="NeuronNetwork\Neuron\CalcAxonStrategy\CalcAxonNotAllowed.cs" />
+    <Compile Include="NeuronNetwork\Neuron\CalcAxonStrategy\ICalcAxonStrategy.cs" />
+    <Compile Include="NeuronNetwork\Neuron\INeuron.cs" />
+    <Compile Include="NeuronNetwork\Neuron\NeuronA.cs" />
+    <Compile Include="NeuronNetwork\Neuron\NeuronR.cs" />
+    <Compile Include="NeuronNetwork\Neuron\Neuron.cs" />
+    <Compile Include="NeuronNetwork\ActivationFunction\Sigmoid.cs" />
+    <Compile Include="NeuronNetwork\Neuron\NeuronS.cs" />
+    <Compile Include="NeuronNetwork\Neuron\SetAxonStrategy\ISetAxonStrategy.cs" />
+    <Compile Include="NeuronNetwork\Neuron\SetAxonStrategy\SetAxonAllowed.cs" />
+    <Compile Include="NeuronNetwork\Neuron\SetAxonStrategy\SetAxonNotAllowed.cs" />
+    <Compile Include="NeuronNetwork\Synapse\ISynapse.cs" />
+    <Compile Include="NeuronNetwork\Synapse\Synapse.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
