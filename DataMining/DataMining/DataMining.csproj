@@ -43,6 +43,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DecisionTree\Attributes\AbstractAttributeBase.cs" />
+    <Compile Include="DecisionTree\Attributes\CategoricalAttribute.cs" />
+    <Compile Include="DecisionTree\Attributes\NumericalAttribute.cs" />
     <Compile Include="DecisionTree\LearningAlgorithms\CARTLearning.cs" />
     <Compile Include="DecisionTree\LearningAlgorithms\ILearningAlgorithm.cs" />
     <Compile Include="DecisionTree\NodeBase\BinaryNode\AbstractBinaryNode\AbstractBinaryNode.cs" />
@@ -73,6 +76,9 @@
     <Compile Include="DecisionTree\SplitQualityAlgorithm\GiniSplit.cs" />
     <Compile Include="DecisionTree\SplitQualityAlgorithm\ISplitQualityAlgorithm.cs" />
     <Compile Include="DecisionTree\SplitQualityAlgorithm\GiniSplitOptimized.cs" />
+    <Compile Include="DecisionTree\Splits\AbstractSplitBase.cs" />
+    <Compile Include="DecisionTree\Splits\CategoricalSplit.cs" />
+    <Compile Include="DecisionTree\Splits\NumericalSplit.cs" />
     <Compile Include="ElmanNeuronNetwork\BackPropagation.cs" />
     <Compile Include="ElmanNeuronNetwork\ElmanNeuronNetwork.cs" />
     <Compile Include="ElmanNeuronNetwork\IActivationFunction.cs" />
