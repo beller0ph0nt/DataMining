@@ -11,12 +11,10 @@ namespace DataMining.DecisionTree.Splits
     {
         public double Quality { get; set; }                                 // Оценка качества расщепления
         public double Threshold { get; set; }                               // Порог
-        public List<List<double>> Splits { get; set; }                      // Полученные разбиения
         public ISplitQualityAlgorithm SplitQualityAlgorithm { get; set; }   // Алгоритм определения оценки качества расщепления
 
         public SplitBase()
         {
-            Splits = new List<List<double>>();
             SplitQualityAlgorithm = new GiniSplit();
         }
 

@@ -8,6 +8,14 @@ namespace DataMining.DecisionTree.Splits
 {
     public class NumericalSplit : SplitBase
     {
+        public List<List<double>> Splits { get; set; }      // Полученные разбиения
+
+        public NumericalSplit()
+            : base()
+        {
+            Splits = new List<List<double>>();
+        }
+
         public override void CalcBestSplit(AttributeBase a)
         {
             double tmpQuality;

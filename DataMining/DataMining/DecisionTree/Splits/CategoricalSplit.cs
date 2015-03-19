@@ -8,6 +8,14 @@ namespace DataMining.DecisionTree.Splits
 {
     public class CategoricalSplit : SplitBase
     {
+        public List<List<int>> Splits { get; set; }
+
+        public CategoricalSplit()
+            : base()
+        {
+            Splits = new List<List<int>>();
+        }
+
         public override void CalcBestSplit(AttributeBase a)
         {
             //double tmpQuality;
@@ -22,12 +30,15 @@ namespace DataMining.DecisionTree.Splits
                 for (int j = 0; j < b.Values.Count; j++)
                 {
                     // Вычисляем порог. Порог уже есть - это set
-
                     // Разбиваем множество
-                    var secondSplit = b.Values.Where(i => (~set & i) == 0);
-                    //var secondSplit = a.Values.Where(e => e > tmpThreshold).ToList();
+                    var firstSplit = b.Values.Where(i => (~set & i) == 0).ToList();
+                    var secondSplit = b.Values.Where(i => (~set & i) != 0).ToList();
 
                     // Оцениваем разбиение
+                    //base.SplitQualityAlgorithm.CalcSplitQuality(
+                    //    new List<List<int>>() { firstSplit, secondSplit },
+                    //    b.Values.Count);
+
                     // Сравниваем разбиение с предыдущим
                     // Сохраняем наилучшее
                 }

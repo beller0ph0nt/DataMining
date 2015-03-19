@@ -9,14 +9,14 @@ namespace DataMining.DecisionTree.LearningAlgorithm
     public class CARTLearning : ILearningAlgorithm
     {
         private ITree _tree;
-        private ISplitQualityAlgorithm _splitQuality;
-        private Dictionary<int, ISplitQualityAlgorithm> _bestSplitQualityes;
+        //private ISplitQualityAlgorithm _splitQuality;
+        //private Dictionary<int, ISplitQualityAlgorithm> _bestSplitQualityes;
 
         public CARTLearning(ITree tree)
         {
             _tree = tree;
-            _splitQuality = new GiniSplit();
-            _bestSplitQualityes = new Dictionary<int, ISplitQualityAlgorithm>();
+            //_splitQuality = new GiniSplit();
+            //_bestSplitQualityes = new Dictionary<int, ISplitQualityAlgorithm>();
         }
 
         public void Training(List<List<double>> inputs, List<double> answers)
@@ -33,16 +33,16 @@ namespace DataMining.DecisionTree.LearningAlgorithm
                     var firstSplit = attribut.Where(e => e <= threshold).ToList();
                     var secondSplit = attribut.Where(e => e > threshold).ToList();
 
-                    _splitQuality.CalcSplitQuality(new List<List<double>>() { firstSplit, secondSplit },
-                        attribut.Count);
+                    //_splitQuality.CalcSplitQuality(new List<List<double>>() { firstSplit, secondSplit },
+                    //    attribut.Count);
 
-                    if (j == 0)
-                        _bestSplitQualityes[i] = _splitQuality;
-                    else
-                    {
+                    //if (j == 0)
+                        //_bestSplitQualityes[i] = _splitQuality;
+                    //else
+                    //{
                         //if (_splitQuality.CompareTo(_bestSplitQualityes[i]) < 0)
                         //    _bestSplitQualityes[i] = _splitQuality;
-                    }
+                    //}
                 }
             }
 
