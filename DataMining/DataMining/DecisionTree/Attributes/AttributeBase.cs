@@ -14,9 +14,9 @@ namespace DataMining.DecisionTree.Attributes
 
     public abstract class AttributeBase<T>
     {
-        public int Id { get; set; }
-        public AttributType Type { get; set; }
-        public List<T> Values { get; set; }
+        public int Id { get; private set; }
+        public AttributType Type { get; private set; }
+        public List<T> Values { get; private set; }
 
         public abstract SplitBase<T> GetBestSplit();
     }

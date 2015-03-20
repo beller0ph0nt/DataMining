@@ -9,11 +9,30 @@ namespace DataMining.DecisionTree.Splits
 {
     public abstract class SplitBase<T>
     {
-        public double Quality { get; set; }                                     // Оценка качества расщепления
-        public double Threshold { get; set; }                                   // Порог
-        public ISplitQualityAlgorithm<T> SplitQualityAlgorithm { get; set; }    // Алгоритм определения оценки качества расщепления
-        public List<List<T>> Splits { get; set; }                               // Полученные разбиения
-        
+        #region Свойства
+
+        /// <summary>
+        /// Оценка качества расщепления
+        /// </summary>
+        public double Quality { get; protected set; }
+
+        /// <summary>
+        /// Порог
+        /// </summary>
+        public T Threshold { get; protected set; }
+
+        /// <summary>
+        /// Алгоритм оценки качества разбиения
+        /// </summary>
+        public ISplitQualityAlgorithm<T> SplitQualityAlgorithm { get; private set; }
+
+        /// <summary>
+        /// Разбиения
+        /// </summary>
+        public List<List<T>> Splits { get; private set; }
+
+        #endregion
+
         public SplitBase()
         {
             SplitQualityAlgorithm = new GiniSplit<T>();

@@ -8,7 +8,7 @@ namespace DataMining.DecisionTree.Attributes
 {
     public class CategoricalAttribute : AttributeBase<int>
     {
-        public int CategoriesCounter { get; set; }
+        public int CategoriesCounter { get; private set; }
 
         public override SplitBase<int> GetBestSplit()
         {
