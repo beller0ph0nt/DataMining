@@ -5,16 +5,16 @@ using System.Text;
 
 namespace DataMining.DecisionTree.SplitQualityAlgorithm
 {
-    public class GiniSplitOptimized : ISplitQualityAlgorithm
+    public class GiniSplitOptimized<T> : ISplitQualityAlgorithm<T>
     {
-        public double GiniIndex(List<double> split)
+        public double GiniIndex(List<T> split)
         {
             return split.
                 GroupBy(k => k, (k, e) => new { Count = e.Count() }).
                 Sum(a => a.Count * a.Count);
         }
 
-        public double CalcSplitQuality(List<List<double>> splits, int generalSplitCount)
+        public double CalcSplitQuality(List<List<T>> splits)
         {
             return splits.Sum(a => GiniIndex(a) / a.Count);
         }

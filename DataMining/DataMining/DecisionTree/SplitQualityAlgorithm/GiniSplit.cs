@@ -5,9 +5,9 @@ using System.Text;
 
 namespace DataMining.DecisionTree.SplitQualityAlgorithm
 {
-    public class GiniSplit : ISplitQualityAlgorithm
+    public class GiniSplit<T> : ISplitQualityAlgorithm<T>
     {
-        public double GiniIndex(List<double> split)
+        public double GiniIndex(List<T> split)
         {
             double count = split.Count;
 
@@ -16,18 +16,18 @@ namespace DataMining.DecisionTree.SplitQualityAlgorithm
                 Sum(a => Math.Pow(a.Count / count, 2));
         }
 
-        public double CalcSplitQuality(List<List<double>> splits, int parentDataSetCount)
+        public double CalcSplitQuality(List<List<T>> splits)
         {
-            double N = parentDataSetCount;
+            double totalCount = splits.Sum(l => l.Count);
             
-            return splits.Sum(a => a.Count * GiniIndex(a) / N);
+            return splits.Sum(a => a.Count * GiniIndex(a) / totalCount);
         }
 
-        public int Compare(double quality1, double quality2)
+        public int Compare(double firstQuality, double secondQuality)
         {
-            if (quality1 > quality2)
+            if (firstQuality > secondQuality)
                 return 1;
-            else if (quality1 < quality2)
+            else if (firstQuality < secondQuality)
                 return -1;
             else
                 return 0;

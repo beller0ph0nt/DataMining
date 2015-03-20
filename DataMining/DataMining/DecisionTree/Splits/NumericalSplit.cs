@@ -3,20 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using DataMining.DecisionTree.Attributes;
+using DataMining.DecisionTree.SplitQualityAlgorithm;
 
 namespace DataMining.DecisionTree.Splits
 {
-    public class NumericalSplit : SplitBase
+    public class NumericalSplit : SplitBase<double>
     {
-        public List<List<double>> Splits { get; set; }      // Полученные разбиения
-
-        public NumericalSplit()
-            : base()
-        {
-            Splits = new List<List<double>>();
-        }
-
-        public override void CalcBestSplit(AttributeBase a)
+        public override void CalcBestSplit(AttributeBase<double> a)
         {
             double tmpQuality;
             double tmpThreshold;
@@ -33,9 +26,7 @@ namespace DataMining.DecisionTree.Splits
                 var firstSplit = b.Values.Where(e => e <= tmpThreshold).ToList();
                 var secondSplit = b.Values.Where(e => e > tmpThreshold).ToList();
 
-                tmpQuality = SplitQualityAlgorithm.CalcSplitQuality(
-                    new List<List<double>>() { firstSplit, secondSplit },
-                    b.Values.Count);
+                tmpQuality = SplitQualityAlgorithm.CalcSplitQuality(new List<List<double>>() { firstSplit, secondSplit });
 
                 if (i == 0)
                 {

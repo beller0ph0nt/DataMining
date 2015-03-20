@@ -5,9 +5,9 @@ using System.Text;
 
 namespace DataMining.DecisionTree.SplitQualityAlgorithm
 {
-    public interface ISplitQualityAlgorithm
+    public interface ISplitQualityAlgorithm<T>
     {
-        double CalcSplitQuality(List<List<double>> splits, int generalSplitCount);
+        double CalcSplitQuality(List<List<T>> splits);
         int Compare(double firstQuality, double secondQuality);
     }
 }

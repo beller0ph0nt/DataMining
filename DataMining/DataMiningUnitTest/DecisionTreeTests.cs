@@ -12,7 +12,7 @@ namespace DataMiningUnitTest
         public void GiniSplit_GiniIndex_CommonTest()
         {
             // Arrange
-            var giniSplit = new GiniSplit();
+            var giniSplit = new GiniSplit<double>();
             var testSplit = new List<double>() { 1.1, 2.0, 1.3, 1.1, 0.0, -2.0, -1.0, 2.0, -1.0 };
 
             // Act
@@ -26,12 +26,12 @@ namespace DataMiningUnitTest
         public void GiniSplit_SplitQuality_CommonTest()
         {
             // Arrange
-            var giniSplit = new GiniSplit();
+            var giniSplit = new GiniSplit<double>();
             List<double> firstSplit = new List<double>() { 1.1, 2.0, 1.3, 1.1, 0.0, -2.0, -1.0, 2.0, -1.0 };
             List<double> secondSplit = new List<double>() { 1.1, 2.0, 1.3, 1.1, 0.0, -2.0, -1.0, 2.0, -1.0 };
 
             // Act
-            var actual = giniSplit.CalcSplitQuality(new List<List<double>>() { firstSplit, secondSplit }, firstSplit.Count + secondSplit.Count);
+            var actual = giniSplit.CalcSplitQuality(new List<List<double>>() { firstSplit, secondSplit });
 
             // Assert
             Assert.AreEqual(0.81481481481481481481481481481482, actual, 0.000000000000001);
@@ -107,7 +107,7 @@ namespace DataMiningUnitTest
         public void GiniSplitOptimized_GiniIndex_CommonTest()
         {
             // Arrange
-            var giniSplit = new GiniSplitOptimized();
+            var giniSplit = new GiniSplitOptimized<double>();
             var testSplit = new List<double>() { 1.1, 2.0, 1.3, 1.1, 0.0, -2.0, -1.0, 2.0, -1.0 };
 
             // Act
@@ -121,12 +121,12 @@ namespace DataMiningUnitTest
         public void GiniSplitOptimized_SplitQuality_CommonTest()
         {
             // Arrange
-            var giniSplit = new GiniSplitOptimized();
+            var giniSplit = new GiniSplitOptimized<double>();
             List<double> firstSplit = new List<double>() { 1.1, 2.0, 1.3, 1.1, 0.0, -2.0, -1.0, 2.0, -1.0 };
             List<double> secondSplit = new List<double>() { 1.1, 2.0, 1.3, 1.1, 0.0, -2.0, -1.0, 2.0, -1.0 };
 
             // Act
-            var actual = giniSplit.CalcSplitQuality(new List<List<double>>() { firstSplit, secondSplit }, firstSplit.Count + secondSplit.Count);
+            var actual = giniSplit.CalcSplitQuality(new List<List<double>>() { firstSplit, secondSplit });
 
             // Assert
             Assert.AreEqual(3.3333333333333333333333333333333, actual, 0.000000000000001);
