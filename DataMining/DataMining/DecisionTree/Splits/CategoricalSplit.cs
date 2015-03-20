@@ -11,29 +11,35 @@ namespace DataMining.DecisionTree.Splits
     {
         public override void CalcBestSplit(AttributeBase<int> a)
         {
-            //double tmpQuality;
-            //double tmpThreshold;
+            double tmpQuality;
             var b = a as CategoricalAttribute;
-
-            // Сортировка атрибута. Необходима для определения порога
-            b.Values.Sort();
 
             for (int set = 1; set < b.CategoriesCounter - 1; set++)
             {
                 for (int j = 0; j < b.Values.Count; j++)
                 {
-                    // Вычисляем порог. Порог уже есть - это set
-                    // Разбиваем множество
                     var firstSplit = b.Values.Where(i => (~set & i) == 0).ToList();
                     var secondSplit = b.Values.Where(i => (~set & i) != 0).ToList();
 
-                    // Оцениваем разбиение
-                    //base.SplitQualityAlgorithm.CalcSplitQuality(
-                    //    new List<List<int>>() { firstSplit, secondSplit },
-                    //    b.Values.Count);
+                    tmpQuality = SplitQualityAlgorithm.CalcSplitQuality(new List<List<int>>() { firstSplit, secondSplit });
 
-                    // Сравниваем разбиение с предыдущим
-                    // Сохраняем наилучшее
+                    if (j == 0)
+                    {
+                        Quality = tmpQuality;
+                        Threshold = set;
+                        Splits.Add(firstSplit);
+                        Splits.Add(secondSplit);
+                    }
+                    else 
+                    {
+                        if (SplitQualityAlgorithm.Compare(tmpQuality, Quality) < 0)
+                        {
+                            Quality = tmpQuality;
+                            Threshold = set;
+                            Splits[0] = firstSplit;
+                            Splits[1] = secondSplit;
+                        }
+                    }
                 }
             }
         }

@@ -15,12 +15,10 @@ namespace DataMining.DecisionTree.Splits
             double tmpThreshold;
             var b = a as NumericalAttribute;
 
-            // Сортировка атрибута. Необходима для определения порога
             b.Values.Sort();
 
             for (int i = 0; i < b.Values.Count - 1; i++)
             {
-                // Вычисляем порог
                 tmpThreshold = (b.Values[i] + b.Values[i + 1]) / 2;
 
                 var firstSplit = b.Values.Where(e => e <= tmpThreshold).ToList();

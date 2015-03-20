@@ -111,7 +111,7 @@ namespace DataMiningUnitTest
             var testSplit = new List<double>() { 1.1, 2.0, 1.3, 1.1, 0.0, -2.0, -1.0, 2.0, -1.0 };
 
             // Act
-            var actual = giniSplit.GiniIndex(testSplit);
+            var actual = giniSplit.GiniIndexOptimized(testSplit);
 
             // Assert
             Assert.AreEqual(15.0, actual, 0.0);

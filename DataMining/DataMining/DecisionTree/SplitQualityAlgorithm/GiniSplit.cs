@@ -7,6 +7,11 @@ namespace DataMining.DecisionTree.SplitQualityAlgorithm
 {
     public class GiniSplit<T> : ISplitQualityAlgorithm<T>
     {
+        /// <summary>
+        /// Метод вычисляет классический индекс Гини
+        /// </summary>
+        /// <param name="split">Оцениваемое множество</param>
+        /// <returns>Индекс</returns>
         public double GiniIndex(List<T> split)
         {
             double count = split.Count;
@@ -16,13 +21,28 @@ namespace DataMining.DecisionTree.SplitQualityAlgorithm
                 Sum(a => Math.Pow(a.Count / count, 2));
         }
 
+        /// <summary>
+        /// Метод вычисляет показатель качества разбиения, используя классический метод Гини
+        /// </summary>
+        /// <param name="splits">Список разбиений</param>
+        /// <returns>Показатель качества разбиения</returns>
         public double CalcSplitQuality(List<List<T>> splits)
         {
             double totalCount = splits.Sum(l => l.Count);
             
             return splits.Sum(a => a.Count * GiniIndex(a) / totalCount);
         }
-
+        
+        /// <summary>
+        /// Метод сравнивает показатели качества разбиения, полученные классическим методом Гини
+        /// </summary>
+        /// <param name="firstQuality">Первый показатель</param>
+        /// <param name="secondQuality">Второй показатель</param>
+        /// <returns>
+        /// -1 - первый показатель лучше второго
+        ///  0 - показатели равны
+        ///  1 - первый показатель хуже второго
+        /// </returns>
         public int Compare(double firstQuality, double secondQuality)
         {
             if (firstQuality > secondQuality)
