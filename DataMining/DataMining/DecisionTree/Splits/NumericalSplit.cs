@@ -7,9 +7,9 @@ using DataMining.DecisionTree.SplitQualityAlgorithm;
 
 namespace DataMining.DecisionTree.Splits
 {
-    public class NumericalSplit : SplitBase<double>
+    public class NumericalSplit : SplitBase
     {
-        public override void CalcBestSplit(AttributeBase<double> a)
+        public override void CalcBestSplit(AttributeBase a)
         {
             double tmpQuality;
             double tmpThreshold;
@@ -19,12 +19,12 @@ namespace DataMining.DecisionTree.Splits
 
             for (int i = 0; i < b.Values.Count - 1; i++)
             {
-                tmpThreshold = (b.Values[i] + b.Values[i + 1]) / 2;
+                tmpThreshold = ((double)b.Values[i] + (double)b.Values[i + 1]) / 2;
 
-                var firstSplit = b.Values.Where(e => e <= tmpThreshold).ToList();
-                var secondSplit = b.Values.Where(e => e > tmpThreshold).ToList();
+                var firstSplit = b.Values.Where(e => (double)e <= tmpThreshold).ToList();
+                var secondSplit = b.Values.Where(e => (double)e > tmpThreshold).ToList();
 
-                tmpQuality = SplitQualityAlgorithm.CalcSplitQuality(new List<List<double>>() { firstSplit, secondSplit });
+                tmpQuality = SplitQualityAlgorithm.CalcSplitQuality(new List<List<object>>() { firstSplit, secondSplit });
 
                 if (i == 0)
                 {

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using DataMining.DecisionTree.SplitQualityAlgorithm;
+using DataMining.DecisionTree.Attributes;
 
 namespace DataMining.DecisionTree.LearningAlgorithm
 {
@@ -17,6 +18,16 @@ namespace DataMining.DecisionTree.LearningAlgorithm
             _tree = tree;
             //_splitQuality = new GiniSplit();
             //_bestSplitQualityes = new Dictionary<int, ISplitQualityAlgorithm>();
+        }
+
+        public void Training(List<AttributeBase> inputs, List<double> answers)
+        {
+            inputs.Select(a => a.Split()).ToList().Sort();
+
+            for (int i = 0; i < inputs.Count; i++)
+            {
+                
+            }
         }
 
         public void Training(List<List<double>> inputs, List<double> answers)

@@ -6,15 +6,22 @@ using DataMining.DecisionTree.Splits;
 
 namespace DataMining.DecisionTree.Attributes
 {
-    public class NumericalAttribute : AttributeBase<double>
+    public class NumericalAttribute : AttributeBase
     {
-        public override SplitBase<double> GetBestSplit()
+        public NumericalAttribute(int id, List<object> values)
+            : base(id, AttributType.Numerical, values)
+        { 
+        }
+
+        public override List<AttributeBase> Split()
         {
-            SplitBase<double> split = new NumericalSplit();
+            SplitBase split = new NumericalSplit();
 
             split.CalcBestSplit(this);
 
-            return split;
+            //return split;
+
+            throw new NotImplementedException();
         }
     }
 }

@@ -5,14 +5,14 @@ using System.Text;
 
 namespace DataMining.DecisionTree.SplitQualityAlgorithm
 {
-    public interface ISplitQualityAlgorithm<T>
+    public interface ISplitQualityAlgorithm
     {
         /// <summary>
         /// Метод вычисляет показатель качества разбиения
         /// </summary>
         /// <param name="splits">Список разбиений</param>
         /// <returns>Показатель качества разбиения</returns>
-        double CalcSplitQuality(List<List<T>> splits);
+        double CalcSplitQuality(List<List<object>> splits);
 
         /// <summary>
         /// Метод сравнивает показатели качества разбиения

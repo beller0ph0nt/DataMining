@@ -7,38 +7,43 @@ using DataMining.DecisionTree.SplitQualityAlgorithm;
 
 namespace DataMining.DecisionTree.Splits
 {
-    public abstract class SplitBase<T>
+    public abstract class SplitBase : IComparable
     {
         #region Свойства
 
         /// <summary>
-        /// Оценка качества расщепления
+        /// Оценка качества разбиения
         /// </summary>
         public double Quality { get; protected set; }
 
         /// <summary>
         /// Порог
         /// </summary>
-        public T Threshold { get; protected set; }
+        public object Threshold { get; protected set; }
 
         /// <summary>
         /// Алгоритм оценки качества разбиения
         /// </summary>
-        public ISplitQualityAlgorithm<T> SplitQualityAlgorithm { get; private set; }
+        public ISplitQualityAlgorithm SplitQualityAlgorithm { get; private set; }
 
         /// <summary>
         /// Разбиения
         /// </summary>
-        public List<List<T>> Splits { get; private set; }
+        public List<List<object>> Splits { get; private set; }
 
         #endregion
 
         public SplitBase()
         {
-            SplitQualityAlgorithm = new GiniSplit<T>();
-            Splits = new List<List<T>>();
+            SplitQualityAlgorithm = new GiniSplit();
+            Splits = new List<List<object>>();
         }
 
-        public abstract void CalcBestSplit(AttributeBase<T> a);
+        public abstract void CalcBestSplit(AttributeBase a);
+
+        public int CompareTo(object obj)
+        {
+            return SplitQualityAlgorithm.Compare(Quality, ((SplitBase)obj).Quality);
+        }
     }
 }

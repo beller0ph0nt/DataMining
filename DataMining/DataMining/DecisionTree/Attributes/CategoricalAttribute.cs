@@ -6,17 +6,27 @@ using DataMining.DecisionTree.Splits;
 
 namespace DataMining.DecisionTree.Attributes
 {
-    public class CategoricalAttribute : AttributeBase<int>
+    public class CategoricalAttribute : AttributeBase
     {
         public int CategoriesCounter { get; private set; }
 
-        public override SplitBase<int> GetBestSplit()
+        public CategoricalAttribute(int id, List<object> values, int categoriesCounter)
+            : base(id, AttributType.Categorical, values)
         {
-            SplitBase<int> split = new CategoricalSplit();
+            CategoriesCounter = categoriesCounter;
+        }
+
+        public override List<AttributeBase> Split()
+        {
+            SplitBase split = new CategoricalSplit();
 
             split.CalcBestSplit(this);
 
-            return split;
+            split.Splits.ConvertAll(l => new CategoricalAttribute(Id, l, CategoriesCounter));
+
+            //return split;
+
+            throw new NotImplementedException();
         }
     }
 }
