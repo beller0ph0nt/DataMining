@@ -22,11 +22,7 @@ namespace DataMining.DecisionTree.Attributes
 
             split.CalcBestSplit(this);
 
-            split.Splits.ConvertAll(l => new CategoricalAttribute(Id, l, CategoriesCounter));
-
-            //return split;
-
-            throw new NotImplementedException();
+            return split.Splits.ConvertAll(l => (AttributeBase)new CategoricalAttribute(Id, l, CategoriesCounter));
         }
     }
 }

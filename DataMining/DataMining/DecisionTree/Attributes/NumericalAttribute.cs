@@ -19,9 +19,7 @@ namespace DataMining.DecisionTree.Attributes
 
             split.CalcBestSplit(this);
 
-            //return split;
-
-            throw new NotImplementedException();
+            return split.Splits.ConvertAll(l => (AttributeBase)new NumericalAttribute(Id, l));
         }
     }
 }
