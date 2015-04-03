@@ -20,7 +20,7 @@ namespace DataMining.DecisionTree.LearningAlgorithm
             //_bestSplitQualityes = new Dictionary<int, ISplitQualityAlgorithm>();
         }
 
-        public void Training(List<AttributeBase> inputs, List<double> answers)
+        public void Training(List<AttributeBase<object>> inputs, List<double> answers)
         {
             inputs.Select(a => a.Split()).ToList().Sort();
 

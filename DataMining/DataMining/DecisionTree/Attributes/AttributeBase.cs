@@ -18,7 +18,7 @@ namespace DataMining.DecisionTree.Attributes
     /// <summary>
     /// Базовый класс аттрибутов
     /// </summary>
-    public abstract class AttributeBase
+    public abstract class AttributeBase<T>
     {
         #region Свойства
 
@@ -35,11 +35,11 @@ namespace DataMining.DecisionTree.Attributes
         /// <summary>
         /// Список значений аттрибута
         /// </summary>
-        public List<object> Values { get; private set; }
+        public List<T> Values { get; private set; }
 
         #endregion
 
-        protected AttributeBase(int id, AttributType type, List<object> values)
+        protected AttributeBase(int id, AttributType type, List<T> values)
         {
             Id = id;
             Type = type;
@@ -52,7 +52,7 @@ namespace DataMining.DecisionTree.Attributes
         /// Метод, разделяющий аттрибут на подмножества
         /// </summary>
         /// <returns>Список разделений</returns>
-        public abstract List<AttributeBase> Split();
+        public abstract List<AttributeBase<T>> Split();
 
         #endregion
     }

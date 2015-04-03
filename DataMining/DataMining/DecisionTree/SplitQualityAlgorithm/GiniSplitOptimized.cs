@@ -5,14 +5,14 @@ using System.Text;
 
 namespace DataMining.DecisionTree.SplitQualityAlgorithm
 {
-    public class GiniSplitOptimized : ISplitQualityAlgorithm
+    public class GiniSplitOptimized<T> : ISplitQualityAlgorithm<T>
     {
         /// <summary>
         /// Метод вычисляет оптимизированный индекс Гини
         /// </summary>
         /// <param name="split">Оцениваемое множество</param>
         /// <returns>Индекс</returns>
-        public double GiniIndexOptimized(List<object> split)
+        public double GiniIndexOptimized(List<T> split)
         {
             return split.
                 GroupBy(k => k, (k, e) => new { Count = e.Count() }).
@@ -24,7 +24,7 @@ namespace DataMining.DecisionTree.SplitQualityAlgorithm
         /// </summary>
         /// <param name="splits">Список разбиений</param>
         /// <returns>Показатель качества разбиения</returns>
-        public double CalcSplitQuality(List<List<object>> splits)
+        public double CalcSplitQuality(List<List<T>> splits)
         {
             return splits.Sum(a => GiniIndexOptimized(a) / a.Count);
         }

@@ -7,9 +7,9 @@ using DataMining.DecisionTree.SplitQualityAlgorithm;
 
 namespace DataMining.DecisionTree.Splits
 {
-    public class NumericalSplit : SplitBase
+    public class NumericalSplit : SplitBase<double>
     {
-        public override void CalcBestSplit(AttributeBase a)
+        public override void CalcBestSplit(AttributeBase<double> a)
         {
             double tmpQuality;
             double tmpThreshold;
@@ -19,30 +19,21 @@ namespace DataMining.DecisionTree.Splits
 
             for (int i = 0; i < b.Values.Count - 1; i++)
             {
-                tmpThreshold = ((double)b.Values[i] + (double)b.Values[i + 1]) / 2;
+                tmpThreshold = (b.Values[i] + b.Values[i + 1]) / 2;
 
-                var firstSplit = b.Values.Where(e => (double)e <= tmpThreshold).ToList();
-                var secondSplit = b.Values.Where(e => (double)e > tmpThreshold).ToList();
+                // !!!Возможна оптимизация. Не 2 прохода по массиву, а 1.!!!
+                // !!!Пример b.Values.ForEach(e => ((e <= tmpThreshold) ? tmpSplits[0] : tmpSplits[1]).Add(e));!!!
+                var firstSplit = b.Values.Where(e => e <= tmpThreshold).ToList();
+                var secondSplit = b.Values.Where(e => e > tmpThreshold).ToList();
+                var tmpSplits = new List<List<double>>() { firstSplit, secondSplit };
 
-                tmpQuality = SplitQualityAlgorithm.CalcSplitQuality(new List<List<object>>() { firstSplit, secondSplit });
+                tmpQuality = SplitQualityAlgorithm.CalcSplitQuality(tmpSplits);
 
+                // !!!Необходима оптимизация. i == 0 вызывается только 1 раз!!!
                 if (i == 0)
-                {
-                    Quality = tmpQuality;
-                    Threshold = tmpThreshold;
-                    Splits.Add(firstSplit);
-                    Splits.Add(secondSplit);
-                }
-                else
-                {
-                    if (SplitQualityAlgorithm.Compare(tmpQuality, Quality) < 0)
-                    {
-                        Quality = tmpQuality;
-                        Threshold = tmpThreshold;
-                        Splits[0] = firstSplit;
-                        Splits[1] = secondSplit;
-                    }
-                }
+                    Fix(tmpQuality, tmpThreshold, tmpSplits);
+                else if (SplitQualityAlgorithm.Compare(tmpQuality, Quality) < 0)
+                    Fix(tmpQuality, tmpThreshold, tmpSplits);
             }
         }
     }
