@@ -4,10 +4,14 @@ using System.Collections.Generic;
 
 namespace DataMining.DecisionTree
 {
+    /// <summary>
+    /// Бинарное дерево CART
+    /// </summary>
+    /// <typeparam name="T">Тип даных, содержащийся в узле</typeparam>
     public class CARTTree<T> : ITree
     {
-        private INodeFactory<T> _nodeFactory;
-        private IDictionary<int, ICARTNode<T>> _nodes;
+        private INodeFactory<T> _nodeFactory;               // Фабрика узлов
+        private IDictionary<int, ICARTNode<T>> _nodes;      // Словарь всех узлов в дереве
 
         public CARTTree()
         {

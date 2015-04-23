@@ -5,6 +5,10 @@ using System.Text;
 
 namespace DataMining.DecisionTree
 {
+    /// <summary>
+    /// Интерфейс абстрактной фабрики узлов
+    /// </summary>
+    /// <typeparam name="T">Тип данных, хранимый в узле</typeparam>
     public interface INodeFactory<T>
     {
         INodeBase<T> GetRoot();
