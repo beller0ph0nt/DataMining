@@ -13,14 +13,28 @@ namespace DataMining.DecisionTree
         {
         }
 
-        public override void CreateLeftChild(IBinaryNode<T> child)
+        #region Методы
+
+        public override void CreateLeftNode()
         {
-            throw new MethodAccessException("Попытка создания левого потомка у бинарного листа");
+            throw new MethodAccessException("Попытка создания левого узла у бинарного листа");
         }
 
-        public override void CreateRightChild(IBinaryNode<T> child)
+        public override void CreateLeftLeaf()
         {
-            throw new MethodAccessException("Попытка создания правого потомка у бинарного листа");
+            throw new MethodAccessException("Попытка создания левого листа у бинарного листа");
         }
+
+        public override void CreateRightNode()
+        {
+            throw new MethodAccessException("Попытка создания правого узла у бинарного листа");
+        }
+
+        public override void CreateRightLeaf()
+        {
+            throw new MethodAccessException("Попытка создания правого листа у бинарного листа");
+        }
+
+        #endregion
     }
 }

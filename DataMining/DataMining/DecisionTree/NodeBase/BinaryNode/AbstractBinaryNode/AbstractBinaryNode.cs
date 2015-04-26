@@ -32,22 +32,24 @@ namespace DataMining.DecisionTree
 
         #region Методы
 
-        /// <summary>
-        /// Метод, создающий левого потомка
-        /// </summary>
-        /// <param name="child">левый потомок</param>
-        public virtual void CreateLeftChild(IBinaryNode<T> child)
+        public virtual void CreateLeftNode()
         {
-            _left = child;
+            _left = BinaryNodeFactory<T>.GetNode(this) as IBinaryNode<T>;
         }
 
-        /// <summary>
-        /// Метод, создающий правого потомка
-        /// </summary>
-        /// <param name="child">правый потомок</param>
-        public virtual void CreateRightChild(IBinaryNode<T> child)
+        public virtual void CreateLeftLeaf()
         {
-            _right = child;
+            _left = BinaryNodeFactory<T>.GetLeaf(this) as IBinaryNode<T>;
+        }
+
+        public virtual void CreateRightNode()
+        {
+            _right = BinaryNodeFactory<T>.GetNode(this) as IBinaryNode<T>;
+        }
+
+        public virtual void CreateRightLeaf()
+        {
+            _right = BinaryNodeFactory<T>.GetLeaf(this) as IBinaryNode<T>;
         }
 
         #endregion

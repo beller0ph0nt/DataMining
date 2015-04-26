@@ -17,27 +17,29 @@ namespace DataMining.DecisionTree
 
         public CARTLeaf(int id, INodeBase<T> parent)
             : base(id, NodeType.Leaf, parent)
-        {    
+        {
         }
 
         #region Методы
 
-        /// <summary>
-        /// Метод, создающий левого потомка. Но лист не может иметь потомков. Он бездетный
-        /// </summary>
-        /// <param name="child">Потомок, которог пытаются выдать за ребенка листа</param>
-        public override void CreateLeftChild(IBinaryNode<T> child)
+        public override void CreateLeftLeaf()
         {
-            throw new MethodAccessException("Попытка создания левого потомка у CART листа. Все листы - бездетные");
+            throw new MethodAccessException("Попытка создания левого узла у CART-листа");
         }
 
-        /// <summary>
-        /// Метод, создающий правого потомка. Но лист не может иметь потомков. Он бездетный
-        /// </summary>
-        /// <param name="child">Потомок, которог пытаются выдать за ребенка листа</param>
-        public override void CreateRightChild(IBinaryNode<T> child)
+        public override void CreateLeftNode()
         {
-            throw new MethodAccessException("Попытка создания правого потомка у CART листа. Все листы - бездетные");
+            throw new MethodAccessException("Попытка создания левого листа у CART-листа");
+        }
+
+        public override void CreateRightLeaf()
+        {
+            throw new MethodAccessException("Попытка создания правого листа у CART-листа");
+        }
+
+        public override void CreateRightNode()
+        {
+            throw new MethodAccessException("Попытка создания правого узла у CART-листа");
         }
 
         #endregion

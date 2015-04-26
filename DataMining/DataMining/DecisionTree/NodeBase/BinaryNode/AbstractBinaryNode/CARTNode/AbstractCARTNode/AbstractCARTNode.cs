@@ -39,5 +39,29 @@ namespace DataMining.DecisionTree
             _elementsCount = 0;
             _rule = null;
         }
+
+        #region Методы
+
+        public override void CreateLeftNode()
+        {
+            _left = CARTNodeFactory<T>.GetNode(this) as ICARTNode<T>;
+        }
+
+        public override void CreateLeftLeaf()
+        {
+            _left = CARTNodeFactory<T>.GetLeaf(this) as ICARTNode<T>;
+        }
+
+        public override void CreateRightNode()
+        {
+            _right = CARTNodeFactory<T>.GetNode(this) as ICARTNode<T>;
+        }
+
+        public override void CreateRightLeaf()
+        {
+            _right = CARTNodeFactory<T>.GetLeaf(this) as ICARTNode<T>;
+        }
+
+        #endregion
     }
 }

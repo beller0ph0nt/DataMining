@@ -10,13 +10,11 @@ namespace DataMining.DecisionTree
     /// <typeparam name="T">Тип даных, содержащийся в узле</typeparam>
     public class CARTTree<T> : ITree
     {
-        private INodeFactory<T> _nodeFactory;               // Фабрика узлов
         private IDictionary<int, ICARTNode<T>> _nodes;      // Словарь всех узлов в дереве
 
         public CARTTree()
         {
             _nodes = new Dictionary<int, ICARTNode<T>>();
-            _nodeFactory = new CARTNodeFactory<T>();
         }
 
         #region Методы
@@ -38,7 +36,7 @@ namespace DataMining.DecisionTree
 
         public int CreateRoot()
         {
-            var root = _nodeFactory.GetRoot() as ICARTNode<T>;
+            var root = CARTNodeFactory<T>.GetRoot() as ICARTNode<T>;
             _nodes[root.Id] = root;
 
             return root.Id;
@@ -49,7 +47,7 @@ namespace DataMining.DecisionTree
             if (_nodes.ContainsKey(parentId))
                 throw new ArgumentOutOfRangeException("Не найден родительский узел с Id = " + parentId);
 
-            var node = _nodeFactory.GetNode(_nodes[parentId]) as ICARTNode<T>;
+            var node = CARTNodeFactory<T>.GetNode(_nodes[parentId]) as ICARTNode<T>;
             _nodes[node.Id] = node;
 
             return node.Id;
@@ -60,7 +58,7 @@ namespace DataMining.DecisionTree
             if (_nodes.ContainsKey(parentId))
                 throw new ArgumentOutOfRangeException("Не найден родительский узел с Id = " + parentId);
 
-            var leaf = _nodeFactory.GetLeaf(_nodes[parentId]) as ICARTNode<T>;
+            var leaf = CARTNodeFactory<T>.GetLeaf(_nodes[parentId]) as ICARTNode<T>;
             _nodes[leaf.Id] = leaf;
 
             return leaf.Id;

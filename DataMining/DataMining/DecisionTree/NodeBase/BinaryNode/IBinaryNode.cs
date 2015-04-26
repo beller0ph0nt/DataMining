@@ -7,6 +7,8 @@ namespace DataMining.DecisionTree
     /// <typeparam name="T">Тип хранимой информации в узлах дерева</typeparam>
     public interface IBinaryNode<T> : INodeBase<T>
     {
+        #region Свойства
+
         /// <summary>
         /// Возвращает ссылку на бинарного родителя
         /// </summary>
@@ -22,16 +24,30 @@ namespace DataMining.DecisionTree
         /// </summary>
         IBinaryNode<T> Right { get; }
 
-        /// <summary>
-        /// Создает левого потомка
-        /// </summary>
-        /// <param name="child"></param>
-        void CreateLeftChild(IBinaryNode<T> child);
+        #endregion
+
+        #region Методы
 
         /// <summary>
-        /// Создает правого потомка
+        /// Создает левый узел
         /// </summary>
-        /// <param name="child"></param>
-        void CreateRightChild(IBinaryNode<T> child);
+        void CreateLeftNode();
+
+        /// <summary>
+        /// Создает левый лист
+        /// </summary>
+        void CreateLeftLeaf();
+
+        /// <summary>
+        /// Создает правый узел
+        /// </summary>
+        void CreateRightNode();
+
+        /// <summary>
+        /// Создает правый лист
+        /// </summary>
+        void CreateRightLeaf();
+
+        #endregion
     }
 }
