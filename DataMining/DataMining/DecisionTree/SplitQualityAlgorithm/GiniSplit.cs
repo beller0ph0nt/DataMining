@@ -8,7 +8,7 @@ namespace DataMining.DecisionTree.SplitQualityAlgorithm
     public class GiniSplit<T> : ISplitQualityAlgorithm<T>
     {
         /// <summary>
-        /// Метод вычисляет классический индекс Гини
+        /// Вычисляет классический индекс Гини
         /// </summary>
         /// <param name="split">Оцениваемое множество</param>
         /// <returns>Индекс</returns>
@@ -22,7 +22,7 @@ namespace DataMining.DecisionTree.SplitQualityAlgorithm
         }
 
         /// <summary>
-        /// Метод вычисляет показатель качества разбиения, используя классический метод Гини
+        /// Вычисляет показатель качества разбиения
         /// </summary>
         /// <param name="splits">Список разбиений</param>
         /// <returns>Показатель качества разбиения</returns>
@@ -34,7 +34,7 @@ namespace DataMining.DecisionTree.SplitQualityAlgorithm
         }
         
         /// <summary>
-        /// Метод сравнивает показатели качества разбиения, полученные классическим методом Гини
+        /// Сравнивает показатели качества разбиения
         /// </summary>
         /// <param name="firstQuality">Первый показатель</param>
         /// <param name="secondQuality">Второй показатель</param>

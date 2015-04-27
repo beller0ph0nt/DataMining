@@ -49,7 +49,7 @@ namespace DataMining.DecisionTree.Attributes
         #region Методы
 
         /// <summary>
-        /// Метод, разделяющий аттрибут на подмножества
+        /// Разделяет аттрибут на подмножества
         /// </summary>
         /// <returns>Список разделений</returns>
         public abstract List<AttributeBase<T>> Split();

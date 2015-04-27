@@ -10,11 +10,11 @@ namespace DataMining.DecisionTree
     /// <typeparam name="T">Тип даных, содержащийся в узле</typeparam>
     public class CARTTree<T> : ITree
     {
-        private IDictionary<int, ICARTNode<T>> _nodes;      // Словарь всех узлов в дереве
+        //private IDictionary<int, ICARTNode<T>> _nodes;      // Словарь всех узлов в дереве
 
         public CARTTree()
         {
-            _nodes = new Dictionary<int, ICARTNode<T>>();
+            //_nodes = new Dictionary<int, ICARTNode<T>>();
         }
 
         #region Методы
@@ -34,42 +34,47 @@ namespace DataMining.DecisionTree
             throw new System.NotImplementedException();
         }
 
-        public int CreateRoot()
+        public void Build(/*Необходимо передавать таблицу предикторных переменных*/)
         {
-            var root = CARTNodeFactory<T>.GetRoot() as ICARTNode<T>;
-            _nodes[root.Id] = root;
 
-            return root.Id;
         }
 
-        public int CreateNode(int parentId)
-        {
-            if (_nodes.ContainsKey(parentId))
-                throw new ArgumentOutOfRangeException("Не найден родительский узел с Id = " + parentId);
+        //public int CreateRoot()
+        //{
+        //    var root = CARTNodeFactory<T>.GetRoot() as ICARTNode<T>;
+        //    _nodes[root.Id] = root;
 
-            var node = CARTNodeFactory<T>.GetNode(_nodes[parentId]) as ICARTNode<T>;
-            _nodes[node.Id] = node;
+        //    return root.Id;
+        //}
 
-            return node.Id;
-        }
+        //public int CreateNode(int parentId)
+        //{
+        //    if (_nodes.ContainsKey(parentId))
+        //        throw new ArgumentOutOfRangeException("Не найден родительский узел с Id = " + parentId);
 
-        public int CreateLeaf(int parentId)
-        {
-            if (_nodes.ContainsKey(parentId))
-                throw new ArgumentOutOfRangeException("Не найден родительский узел с Id = " + parentId);
+        //    var node = CARTNodeFactory<T>.GetNode(_nodes[parentId]) as ICARTNode<T>;
+        //    _nodes[node.Id] = node;
 
-            var leaf = CARTNodeFactory<T>.GetLeaf(_nodes[parentId]) as ICARTNode<T>;
-            _nodes[leaf.Id] = leaf;
+        //    return node.Id;
+        //}
 
-            return leaf.Id;
-        }
+        //public int CreateLeaf(int parentId)
+        //{
+        //    if (_nodes.ContainsKey(parentId))
+        //        throw new ArgumentOutOfRangeException("Не найден родительский узел с Id = " + parentId);
 
-        public override string ToString()
-        {
-            var root = _nodes.Single(e => e.Value.Type == NodeType.Root).Value;
+        //    var leaf = CARTNodeFactory<T>.GetLeaf(_nodes[parentId]) as ICARTNode<T>;
+        //    _nodes[leaf.Id] = leaf;
 
-            return root.ToString();
-        }
+        //    return leaf.Id;
+        //}
+
+        //public override string ToString()
+        //{
+        //    var root = _nodes.Single(e => e.Value.Type == NodeType.Root).Value;
+
+        //    return root.ToString();
+        //}
 
         #endregion
     }
