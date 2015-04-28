@@ -34,22 +34,22 @@ namespace DataMining.DecisionTree
 
         public virtual void CreateLeftNode()
         {
-            _left = BinaryNodeFactory<T>.GetNode(this) as IBinaryNode<T>;
+            _left = BinaryNodeFactory<T>.GetNode(this);
         }
 
         public virtual void CreateLeftLeaf()
         {
-            _left = BinaryNodeFactory<T>.GetLeaf(this) as IBinaryNode<T>;
+            _left = BinaryNodeFactory<T>.GetLeaf(this);
         }
 
         public virtual void CreateRightNode()
         {
-            _right = BinaryNodeFactory<T>.GetNode(this) as IBinaryNode<T>;
+            _right = BinaryNodeFactory<T>.GetNode(this);
         }
 
         public virtual void CreateRightLeaf()
         {
-            _right = BinaryNodeFactory<T>.GetLeaf(this) as IBinaryNode<T>;
+            _right = BinaryNodeFactory<T>.GetLeaf(this);
         }
 
         #endregion

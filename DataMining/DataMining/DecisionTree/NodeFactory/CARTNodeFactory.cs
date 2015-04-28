@@ -15,17 +15,17 @@ namespace DataMining.DecisionTree
 
         private static int Id { get { return _id++; } }
 
-        public static INodeBase<T> GetRoot()
+        public static ICARTNode<T> GetRoot()
         {
             return new CARTRoot<T>(Id);
         }
 
-        public static INodeBase<T> GetNode(INodeBase<T> parent)
+        public static ICARTNode<T> GetNode(ICARTNode<T> parent)
         {
             return new CARTNode<T>(Id, parent);
         }
 
-        public static INodeBase<T> GetLeaf(INodeBase<T> parent)
+        public static ICARTNode<T> GetLeaf(ICARTNode<T> parent)
         {
             return new CARTLeaf<T>(Id, parent);
         }

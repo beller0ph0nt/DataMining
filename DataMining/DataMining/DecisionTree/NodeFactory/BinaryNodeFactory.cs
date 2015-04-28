@@ -15,17 +15,17 @@ namespace DataMining.DecisionTree
 
         private static int Id { get { return _id++; } }
 
-        public static INodeBase<T> GetRoot()
+        public static IBinaryNode<T> GetRoot()
         {
             return new BinaryRoot<T>(Id);
         }
 
-        public static INodeBase<T> GetNode(INodeBase<T> parent)
+        public static IBinaryNode<T> GetNode(IBinaryNode<T> parent)
         {
             return new BinaryNode<T>(Id, parent);
         }
 
-        public static INodeBase<T> GetLeaf(INodeBase<T> parent)
+        public static IBinaryNode<T> GetLeaf(IBinaryNode<T> parent)
         {
             return new BinaryLeaf<T>(Id, parent);
         }

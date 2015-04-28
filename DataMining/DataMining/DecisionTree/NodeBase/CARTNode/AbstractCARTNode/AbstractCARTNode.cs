@@ -44,22 +44,22 @@ namespace DataMining.DecisionTree
 
         public override void CreateLeftNode()
         {
-            _left = CARTNodeFactory<T>.GetNode(this) as ICARTNode<T>;
+            _left = CARTNodeFactory<T>.GetNode(this);
         }
 
         public override void CreateLeftLeaf()
         {
-            _left = CARTNodeFactory<T>.GetLeaf(this) as ICARTNode<T>;
+            _left = CARTNodeFactory<T>.GetLeaf(this);
         }
 
         public override void CreateRightNode()
         {
-            _right = CARTNodeFactory<T>.GetNode(this) as ICARTNode<T>;
+            _right = CARTNodeFactory<T>.GetNode(this);
         }
 
         public override void CreateRightLeaf()
         {
-            _right = CARTNodeFactory<T>.GetLeaf(this) as ICARTNode<T>;
+            _right = CARTNodeFactory<T>.GetLeaf(this);
         }
 
         #endregion
