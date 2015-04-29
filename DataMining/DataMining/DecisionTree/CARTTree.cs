@@ -10,10 +10,13 @@ namespace DataMining.DecisionTree
     /// <typeparam name="T">Тип даных, содержащийся в узле</typeparam>
     public class CARTTree<T> : ITree
     {
+        private ICARTNode<T> _root;
+
         //private IDictionary<int, ICARTNode<T>> _nodes;      // Словарь всех узлов в дереве
 
         public CARTTree()
         {
+            _root = CARTNodeFactory<T>.GetRoot();
             //_nodes = new Dictionary<int, ICARTNode<T>>();
         }
 
@@ -34,10 +37,15 @@ namespace DataMining.DecisionTree
             throw new System.NotImplementedException();
         }
 
-        public void Build(/*Необходимо передавать таблицу предикторных переменных*/)
+        public override string ToString()
         {
-
+            return "";
         }
+
+        //public void Build(/*Необходимо передавать таблицу предикторных переменных*/)
+        //{
+
+        //}
 
         //public int CreateRoot()
         //{

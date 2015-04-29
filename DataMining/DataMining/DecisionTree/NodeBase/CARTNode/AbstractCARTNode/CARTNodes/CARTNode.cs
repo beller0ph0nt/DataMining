@@ -7,5 +7,15 @@ namespace DataMining.DecisionTree
             : base(id, NodeType.Node, parent)
         {
         }
+
+        public override string ToString()
+        {
+            string s;
+            s = string.Format("node:{0}", Id) + "\n";
+            s += " |_" + _left.ToString() + "\n";
+            s += " |_" + _right.ToString() + "\n";
+
+            return s;
+        }
     }
 }

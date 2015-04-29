@@ -24,7 +24,7 @@
   <Class Name="DataMining.DecisionTree.CARTTree&lt;T&gt;" Collapsed="true" BaseTypeListCollapsed="true">
     <Position X="25.25" Y="1.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAgpAAAAAACAAEAAEAAAAAAAAAAAAAAAgAIAAAAAA=</HashCode>
+      <HashCode>AAAAgoAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAA=</HashCode>
       <FileName>DecisionTree\CARTTree.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
@@ -40,7 +40,7 @@
   <Class Name="DataMining.DecisionTree.AbstractBinaryNode&lt;T&gt;" Collapsed="true">
     <Position X="13.75" Y="1.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAQAgAAAAAAQgAGACAAAAAAAA=</HashCode>
+      <HashCode>ADAAAAAAAAAAAAAAQAAAQAAAAAAAAQgAGACAAAAAAAA=</HashCode>
       <FileName>DecisionTree\NodeBase\BinaryNode\AbstractBinaryNode\AbstractBinaryNode.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
@@ -48,57 +48,57 @@
   <Class Name="DataMining.DecisionTree.BinaryLeaf&lt;T&gt;" Collapsed="true">
     <Position X="8" Y="3.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAEAAAAAAAAAAAgAAAAAAAAAEAQAAAAAAAA=</HashCode>
-      <FileName>DecisionTree\NodeBase\BinaryNode\AbstractBinaryNode\BinaryLeaf.cs</FileName>
+      <HashCode>ADAAAAAAAAEAAAAAQAAAAAAAAAAAAAAAEAQAAAAAAAA=</HashCode>
+      <FileName>DecisionTree\NodeBase\BinaryNode\AbstractBinaryNode\BinaryNodes\BinaryLeaf.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="DataMining.DecisionTree.BinaryNode&lt;T&gt;" Collapsed="true">
     <Position X="10.25" Y="3.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>DecisionTree\NodeBase\BinaryNode\AbstractBinaryNode\BinaryNode.cs</FileName>
+      <FileName>DecisionTree\NodeBase\BinaryNode\AbstractBinaryNode\BinaryNodes\BinaryNode.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="DataMining.DecisionTree.BinaryRoot&lt;T&gt;" Collapsed="true">
     <Position X="12.5" Y="3.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>DecisionTree\NodeBase\BinaryNode\AbstractBinaryNode\BinaryRoot.cs</FileName>
+      <FileName>DecisionTree\NodeBase\BinaryNode\AbstractBinaryNode\BinaryNodes\BinaryRoot.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="DataMining.DecisionTree.AbstractCARTNode&lt;T&gt;" Collapsed="true">
     <Position X="17" Y="3.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAEEAAAAAAQAAAQAAAAAQAAAAAAAABAAAAAAA=</HashCode>
-      <FileName>DecisionTree\NodeBase\BinaryNode\AbstractBinaryNode\CARTNode\AbstractCARTNode\AbstractCARTNode.cs</FileName>
+      <HashCode>ADAAAAAAEEAAAAAAQAAAQAAAAAQAAAAAEAABAAAAAAA=</HashCode>
+      <FileName>DecisionTree\NodeBase\CARTNode\AbstractCARTNode\AbstractCARTNode.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="DataMining.DecisionTree.CARTLeaf&lt;T&gt;" Collapsed="true">
     <Position X="14.75" Y="4.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAEAAAAAAAAAAAgAAAAAAAAAEAQAAAAAAAA=</HashCode>
-      <FileName>DecisionTree\NodeBase\BinaryNode\AbstractBinaryNode\CARTNode\AbstractCARTNode\CARTLeaf.cs</FileName>
+      <HashCode>ADAAAAAAAAEAAAAAQAAAAAAAAAAAAAAAEAQAAAAAAAA=</HashCode>
+      <FileName>DecisionTree\NodeBase\CARTNode\AbstractCARTNode\CARTNodes\CARTLeaf.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="DataMining.DecisionTree.CARTNode&lt;T&gt;" Collapsed="true">
     <Position X="17" Y="4.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>DecisionTree\NodeBase\BinaryNode\AbstractBinaryNode\CARTNode\AbstractCARTNode\CARTNode.cs</FileName>
+      <FileName>DecisionTree\NodeBase\CARTNode\AbstractCARTNode\CARTNodes\CARTNode.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="DataMining.DecisionTree.CARTRoot&lt;T&gt;" Collapsed="true">
     <Position X="19.25" Y="4.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>DecisionTree\NodeBase\BinaryNode\AbstractBinaryNode\CARTNode\AbstractCARTNode\CARTRoot.cs</FileName>
+      <FileName>DecisionTree\NodeBase\CARTNode\AbstractCARTNode\CARTNodes\CARTRoot.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="DataMining.DecisionTree.AbstractGeneralNode&lt;T&gt;" Collapsed="true">
     <Position X="3.5" Y="1.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAQAAAAAAAAIAAAAAAEQAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAQAAAAAAAAAAAAAAEEQAAAAAAAAAAAAAgAAAAAAAA=</HashCode>
       <FileName>DecisionTree\NodeBase\GeneralNode\AbstractGeneralNode\AbstractGeneralNode.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
@@ -106,22 +106,22 @@
   <Class Name="DataMining.DecisionTree.GeneralLeaf&lt;T&gt;" Collapsed="true">
     <Position X="1.25" Y="3.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAEAIAAAAAAAAAAAAAAAAAAAAAQAAAAAAAA=</HashCode>
-      <FileName>DecisionTree\NodeBase\GeneralNode\AbstractGeneralNode\GeneralLeaf.cs</FileName>
+      <HashCode>AAAAAAAAAAEAAAAAAAEAAAAAAAAAAAAAAAwAAAAAAAA=</HashCode>
+      <FileName>DecisionTree\NodeBase\GeneralNode\AbstractGeneralNode\GeneralNodes\GeneralLeaf.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="DataMining.DecisionTree.GeneralNode&lt;T&gt;" Collapsed="true">
     <Position X="3.5" Y="3.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>DecisionTree\NodeBase\GeneralNode\AbstractGeneralNode\GeneralNode.cs</FileName>
+      <FileName>DecisionTree\NodeBase\GeneralNode\AbstractGeneralNode\GeneralNodes\GeneralNode.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="DataMining.DecisionTree.GeneralRoot&lt;T&gt;" Collapsed="true">
     <Position X="5.75" Y="3.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>DecisionTree\NodeBase\GeneralNode\AbstractGeneralNode\GeneralRoot.cs</FileName>
+      <FileName>DecisionTree\NodeBase\GeneralNode\AbstractGeneralNode\GeneralNodes\GeneralRoot.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="DataMining.DecisionTree.AbstractNodeFactory&lt;T&gt;" Collapsed="true">
@@ -135,21 +135,21 @@
   <Class Name="DataMining.DecisionTree.BinaryNodeFactory&lt;T&gt;" Collapsed="true">
     <Position X="5.25" Y="8.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AIAAAAAAAAAAAAAAAgAAAAAAEAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AIACAAAAAAAAAAAAAgBAAAAAEAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>DecisionTree\NodeFactory\BinaryNodeFactory.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="DataMining.DecisionTree.CARTNodeFactory&lt;T&gt;" Collapsed="true">
     <Position X="0.75" Y="8.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AIAAAAAAAAAAAAAAAgAAAAAAEAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AIACAAAAAAAAAAAAAgBAAAAAEAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>DecisionTree\NodeFactory\CARTNodeFactory.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="DataMining.DecisionTree.GeneralNodeFactory&lt;T&gt;" Collapsed="true">
     <Position X="3" Y="8.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AIAAAAAAAAAAAAAAAgAAAAAAEAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AIACAAAAAAAAAAAAAgBAAAAAEAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>DecisionTree\NodeFactory\GeneralNodeFactory.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -354,7 +354,7 @@
   <Interface Name="DataMining.DecisionTree.ITree" Collapsed="true">
     <Position X="28.75" Y="6.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAgoAAAAAAAAAAAAEAAAAAAAAAAAAAAAgAIAAAAAA=</HashCode>
+      <HashCode>AAAAgoAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAA=</HashCode>
       <FileName>DecisionTree\ITree.cs</FileName>
     </TypeIdentifier>
   </Interface>
@@ -362,20 +362,20 @@
     <Position X="10.75" Y="10.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAEEAAAAAAQAAAQAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>DecisionTree\NodeBase\BinaryNode\AbstractBinaryNode\CARTNode\ICARTNode.cs</FileName>
+      <FileName>DecisionTree\NodeBase\CARTNode\ICARTNode.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="DataMining.DecisionTree.IBinaryNode&lt;T&gt;" Collapsed="true">
     <Position X="10.75" Y="8.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAQAgAAAAAAAAAGACAAAAAAAA=</HashCode>
+      <HashCode>ADAAAAAAAAAAAAAAQAAAQAAAAAAAAAAAGACAAAAAAAA=</HashCode>
       <FileName>DecisionTree\NodeBase\BinaryNode\IBinaryNode.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="DataMining.DecisionTree.IGeneralNode&lt;T&gt;" Collapsed="true">
     <Position X="8.5" Y="8.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAIAAAAAAEQAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAEEQAAAAAAAAAAAAAgAAAAAAAA=</HashCode>
       <FileName>DecisionTree\NodeBase\GeneralNode\IGeneralNode.cs</FileName>
     </TypeIdentifier>
   </Interface>

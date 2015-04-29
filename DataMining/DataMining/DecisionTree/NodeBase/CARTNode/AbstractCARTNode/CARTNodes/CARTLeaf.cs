@@ -42,6 +42,11 @@ namespace DataMining.DecisionTree
             throw new MethodAccessException("Попытка создания правого узла у CART-листа");
         }
 
+        public override string ToString()
+        {
+            return string.Format("leaf:{0}:{1}", Id, _variable);
+        }
+
         #endregion
     }
 }
