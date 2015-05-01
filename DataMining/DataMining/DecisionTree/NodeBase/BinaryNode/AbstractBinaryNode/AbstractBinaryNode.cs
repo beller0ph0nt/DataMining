@@ -1,4 +1,5 @@
-﻿
+﻿using System;
+
 namespace DataMining.DecisionTree
 {
     public abstract class AbstractBinaryNode<T> : AbstractNodeBase<T>, IBinaryNode<T>
@@ -32,24 +33,52 @@ namespace DataMining.DecisionTree
 
         #region Методы
 
-        public virtual void CreateLeftNode()
+        public virtual IBinaryNode<T> CreateLeftNode()
         {
-            _left = BinaryNodeFactory<T>.GetNode(this);
+            if (_left == null)
+            {
+                _left = BinaryNodeFactory<T>.GetNode(this);
+
+                return _left;
+            }
+            else
+                throw new InvalidOperationException("Левый узел уже создан");
         }
 
-        public virtual void CreateLeftLeaf()
+        public virtual IBinaryNode<T> CreateLeftLeaf()
         {
-            _left = BinaryNodeFactory<T>.GetLeaf(this);
+            if (_left == null)
+            {
+                _left = BinaryNodeFactory<T>.GetLeaf(this);
+
+                return _left;
+            }
+            else
+                throw new InvalidOperationException("Левый лист уже создан");
         }
 
-        public virtual void CreateRightNode()
+        public virtual IBinaryNode<T> CreateRightNode()
         {
-            _right = BinaryNodeFactory<T>.GetNode(this);
+            if (_right == null)
+            {
+                _right = BinaryNodeFactory<T>.GetNode(this);
+
+                return _right;
+            }
+            else
+                throw new InvalidOperationException("Правый узел уже создан");
         }
 
-        public virtual void CreateRightLeaf()
+        public virtual IBinaryNode<T> CreateRightLeaf()
         {
-            _right = BinaryNodeFactory<T>.GetLeaf(this);
+            if (_right == null)
+            {
+                _right = BinaryNodeFactory<T>.GetLeaf(this);
+
+                return _right;
+            }
+            else
+                throw new InvalidOperationException("Правый лист уже создан");
         }
 
         #endregion

@@ -31,22 +31,22 @@ namespace DataMining.DecisionTree
         /// <summary>
         /// Создает левый узел
         /// </summary>
-        void CreateLeftNode();
+        IBinaryNode<T> CreateLeftNode();
 
         /// <summary>
         /// Создает левый лист
         /// </summary>
-        void CreateLeftLeaf();
+        IBinaryNode<T> CreateLeftLeaf();
 
         /// <summary>
         /// Создает правый узел
         /// </summary>
-        void CreateRightNode();
+        IBinaryNode<T> CreateRightNode();
 
         /// <summary>
         /// Создает правый лист
         /// </summary>
-        void CreateRightLeaf();
+        IBinaryNode<T> CreateRightLeaf();
 
         #endregion
     }

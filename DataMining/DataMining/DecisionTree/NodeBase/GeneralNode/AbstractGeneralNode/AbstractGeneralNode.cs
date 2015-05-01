@@ -15,16 +15,20 @@ namespace DataMining.DecisionTree
             _children = new List<IGeneralNode<T>>();
         }
 
-        public virtual void CreateNode()
+        public virtual IGeneralNode<T> CreateNode()
         {
             var node = GeneralNodeFactory<T>.GetNode(this) as IGeneralNode<T>;
             _children.Add(node);
+
+            return node;
         }
 
-        public virtual void CreateLeaf()
+        public virtual IGeneralNode<T> CreateLeaf()
         {
             var leaf = GeneralNodeFactory<T>.GetLeaf(this) as IGeneralNode<T>;
             _children.Add(leaf);
+
+            return leaf;
         }
     }
 }

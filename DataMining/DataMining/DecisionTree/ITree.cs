@@ -27,7 +27,6 @@ namespace DataMining.DecisionTree
         //int CreateRoot();
         //int CreateNode(int parentId);
         //int CreateLeaf(int parentId);
-        //void Build();
 
         #endregion
     }

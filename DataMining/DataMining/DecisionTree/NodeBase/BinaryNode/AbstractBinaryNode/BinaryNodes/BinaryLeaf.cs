@@ -15,22 +15,22 @@ namespace DataMining.DecisionTree
 
         #region Методы
 
-        public override void CreateLeftNode()
+        public override IBinaryNode<T> CreateLeftNode()
         {
             throw new MethodAccessException("Попытка создания левого узла у бинарного листа");
         }
 
-        public override void CreateLeftLeaf()
+        public override IBinaryNode<T> CreateLeftLeaf()
         {
             throw new MethodAccessException("Попытка создания левого листа у бинарного листа");
         }
 
-        public override void CreateRightNode()
+        public override IBinaryNode<T> CreateRightNode()
         {
             throw new MethodAccessException("Попытка создания правого узла у бинарного листа");
         }
 
-        public override void CreateRightLeaf()
+        public override IBinaryNode<T> CreateRightLeaf()
         {
             throw new MethodAccessException("Попытка создания правого листа у бинарного листа");
         }

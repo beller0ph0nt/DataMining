@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace DataMining.DecisionTree
 {
@@ -42,24 +43,52 @@ namespace DataMining.DecisionTree
 
         #region Методы
 
-        public override void CreateLeftNode()
+        public override IBinaryNode<T> CreateLeftNode()
         {
-            _left = CARTNodeFactory<T>.GetNode(this);
+            if (_left == null)
+            {
+                _left = CARTNodeFactory<T>.GetNode(this);
+
+                return _left;
+            }
+            else
+                throw new InvalidOperationException("Левый CART-узел уже создан");
         }
 
-        public override void CreateLeftLeaf()
+        public override IBinaryNode<T> CreateLeftLeaf()
         {
-            _left = CARTNodeFactory<T>.GetLeaf(this);
+            if (_left == null)
+            {
+                _left = CARTNodeFactory<T>.GetLeaf(this);
+
+                return _left;
+            }
+            else
+                throw new InvalidOperationException("Левый CART-лист уже создан");
         }
 
-        public override void CreateRightNode()
+        public override IBinaryNode<T> CreateRightNode()
         {
-            _right = CARTNodeFactory<T>.GetNode(this);
+            if (_right == null)
+            {
+                _right = CARTNodeFactory<T>.GetNode(this);
+
+                return _right;
+            }
+            else
+                throw new InvalidOperationException("Правый CART-узел уже создан");
         }
 
-        public override void CreateRightLeaf()
+        public override IBinaryNode<T> CreateRightLeaf()
         {
-            _right = CARTNodeFactory<T>.GetLeaf(this);
+            if (_right == null)
+            {
+                _right = CARTNodeFactory<T>.GetLeaf(this);
+
+                return _right;
+            }
+            else
+                throw new InvalidOperationException("Правый CART-лист уже создан");
         }
 
         #endregion

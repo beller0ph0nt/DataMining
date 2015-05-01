@@ -13,12 +13,12 @@ namespace DataMining.DecisionTree
         {
         }
 
-        public override void CreateLeaf()
+        public override IGeneralNode<T> CreateLeaf()
         {
             throw new MethodAccessException("Попытка создания дочернего листа у листа");
         }
 
-        public override void CreateNode()
+        public override IGeneralNode<T> CreateNode()
         {
             throw new MethodAccessException("Попытка создания дочернего узла у листа");
         }

@@ -6,9 +6,7 @@ namespace DataMining.DecisionTree
         new IGeneralNode<T> Parent { get; }
         IGeneralNode<T>[] Children { get; }
 
-        //void CreateChild(IGeneralNode<T> child);
-
-        void CreateNode();
-        void CreateLeaf();
+        IGeneralNode<T> CreateNode();
+        IGeneralNode<T> CreateLeaf();
     }
 }
