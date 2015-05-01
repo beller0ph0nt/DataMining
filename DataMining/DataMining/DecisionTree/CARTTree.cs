@@ -45,6 +45,20 @@ namespace DataMining.DecisionTree
             // Вывести информацию о текущем узле
             s += string.Format("{0}:{1}",currentNode.Type.ToString() , currentNode.Id) + "\n";
 
+            if (currentNode.Left != null)
+            {
+                if (currentNode.Left.Type != NodeType.Leaf)
+                {
+                    currentNode = currentNode.Left as ICARTNode<T>;
+                    s += string.Format("{0}:{1}", currentNode.Type.ToString(), currentNode.Id) + "\n";
+                }
+                else
+                {
+                    s += string.Format("{0}:{1}", currentNode.Left.Type.ToString(), currentNode.Left.Id) + "\n";
+                    currentNode = currentNode.Parent.Right as ICARTNode<T>;
+                }
+            }
+
             while (currentNode.Type != NodeType.Leaf)
             {
                 currentNode = currentNode.Left as ICARTNode<T>;
