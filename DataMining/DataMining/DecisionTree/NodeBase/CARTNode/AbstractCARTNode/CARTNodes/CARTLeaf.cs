@@ -44,7 +44,7 @@ namespace DataMining.DecisionTree
 
         public override string ToString()
         {
-            return string.Format("leaf:{0}:{1}", Id, _variable);
+            return string.Format("{0}:{1}:{2}", Type.ToString(), Id, _variable);
         }
 
         #endregion

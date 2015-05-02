@@ -16,6 +16,8 @@ namespace TestField
             tree.CreateRoot();
             tree.CreateLeftNode(1);
             tree.CreateRightNode(1);
+            tree.CreateLeftLeaf(2);
+            tree.CreateRightLeaf(2);
             //tree.Root.CreateLeftLeaf();
             //tree.Root.CreateRightNode();
 

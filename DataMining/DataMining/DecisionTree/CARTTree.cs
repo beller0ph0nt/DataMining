@@ -38,45 +38,47 @@ namespace DataMining.DecisionTree
 
         public override string ToString()
         {
+            Stack<IBinaryNode<T>> returnNodeStack = new Stack<IBinaryNode<T>>();
+            Stack<int> returnLevelStack = new Stack<int>();
+            int currentLevel = 0;
             string s = "";
-            // Сделать текущим узлом - корень
-            ICARTNode<T> currentNode = _nodes.Single(e => e.Value.Type == NodeType.Root).Value;
 
-            // Вывести информацию о текущем узле
+            // Делаем текущим узлом корень
+            ICARTNode<T> currentNode = _nodes.Single(e => e.Value.Type == NodeType.Root).Value;
             s += string.Format("{0}:{1}",currentNode.Type.ToString() , currentNode.Id) + "\n";
 
-            if (currentNode.Left != null)
+
+            while (currentNode != null)
             {
-                if (currentNode.Left.Type != NodeType.Leaf)
+                while (currentNode.Left != null)
                 {
+                    // Сохраняем узел возврата и его уровень
+                    if (currentNode.Right != null)
+                    {
+                        returnNodeStack.Push(currentNode.Right);
+                        returnLevelStack.Push(currentLevel + 1);
+                    }
+
+                    // Корректируем текущий узел и его уровень
                     currentNode = currentNode.Left as ICARTNode<T>;
-                    s += string.Format("{0}:{1}", currentNode.Type.ToString(), currentNode.Id) + "\n";
+                    currentLevel++;
+
+                    // Выводим текущий узел
+                    s += string.Format("").PadLeft(currentLevel) + string.Format("|_{0}\n", currentNode.ToString());
+                }
+
+                // Если остались узлы возврата
+                if (returnNodeStack.Count > 0)
+                {
+                    currentNode = returnNodeStack.Pop() as ICARTNode<T>;
+                    currentLevel = returnLevelStack.Pop();
+                    s += string.Format("").PadLeft(currentLevel) + string.Format("|_{0}\n", currentNode.ToString());
                 }
                 else
-                {
-                    s += string.Format("{0}:{1}", currentNode.Left.Type.ToString(), currentNode.Left.Id) + "\n";
-                    currentNode = currentNode.Parent.Right as ICARTNode<T>;
-                }
+                    currentNode = null;
             }
-
-            while (currentNode.Type != NodeType.Leaf)
-            {
-                currentNode = currentNode.Left as ICARTNode<T>;
-                s += string.Format("{0}:{1}", currentNode.Type.ToString(), currentNode.Id) + "\n";
-            }
-
-            currentNode = currentNode.Parent.Right as ICARTNode<T>;
-
-            //s += " |_" + ((_left != null) ? _left.ToString() : "null") + "\n";
-            //s += " |_" + ((_right != null) ? _right.ToString() : "null") + "\n";
-
-            // Вывести информацию о левом элементе текущего узла
-
-            // Сделать текущим элементом левый элемент
-
-            // Вывести правый элемент
-
-            return _nodes.Single(e => e.Value.Type == NodeType.Root).Value.ToString();
+            
+            return s;
         }
 
         /// <summary>
@@ -85,11 +87,16 @@ namespace DataMining.DecisionTree
         /// <returns>Идентификатор созданного корня</returns>
         public int CreateRoot()
         {
-            var root = CARTNodeFactory<T>.GetRoot();
+            if (_nodes.Count(e => e.Value.Type == NodeType.Root) == 0)
+            {
+                var root = CARTNodeFactory<T>.GetRoot();
 
-            _nodes[root.Id] = root;
+                _nodes[root.Id] = root;
 
-            return root.Id;
+                return root.Id;
+            }
+            else
+                throw new InvalidOperationException("Корень уже создан");
         }
 
         /// <summary>
