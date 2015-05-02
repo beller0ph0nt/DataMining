@@ -41,12 +41,10 @@ namespace DataMining.DecisionTree
             Stack<IBinaryNode<T>> returnNodeStack = new Stack<IBinaryNode<T>>();
             Stack<int> returnLevelStack = new Stack<int>();
             int currentLevel = 0;
-            string s = "";
 
             // Делаем текущим узлом корень
             ICARTNode<T> currentNode = _nodes.Single(e => e.Value.Type == NodeType.Root).Value;
-            s += string.Format("{0}:{1}",currentNode.Type.ToString() , currentNode.Id) + "\n";
-
+            string s = string.Format("{0}\n", currentNode.ToString());
 
             while (currentNode != null)
             {
