@@ -42,6 +42,11 @@ namespace DataMining.DecisionTree
             Stack<int> returnLevelStack = new Stack<int>();
             int currentLevel = 0;
 
+            // Функция вывода дочернего узла
+            Func<int, ICARTNode<T>, string> outputFormat = (l, n) => 
+                string.Format("").PadLeft(l << 1) +     // Умножаем кол-во лидирующий пробелов на 2
+                string.Format("|_{0}\n", n.ToString());
+
             // Делаем текущим узлом корень
             ICARTNode<T> currentNode = _nodes.Single(e => e.Value.Type == NodeType.Root).Value;
             string s = string.Format("{0}\n", currentNode.ToString());
@@ -62,7 +67,7 @@ namespace DataMining.DecisionTree
                     currentLevel++;
 
                     // Выводим текущий узел
-                    s += string.Format("").PadLeft(currentLevel) + string.Format("|_{0}\n", currentNode.ToString());
+                    s += outputFormat(currentLevel, currentNode);
                 }
 
                 // Если остались узлы возврата
@@ -70,7 +75,7 @@ namespace DataMining.DecisionTree
                 {
                     currentNode = returnNodeStack.Pop() as ICARTNode<T>;
                     currentLevel = returnLevelStack.Pop();
-                    s += string.Format("").PadLeft(currentLevel) + string.Format("|_{0}\n", currentNode.ToString());
+                    s += outputFormat(currentLevel, currentNode);
                 }
                 else
                     currentNode = null;
