@@ -9,23 +9,22 @@ namespace DataMining.DecisionTree.Splits
 {
     public class NumericalSplit : SplitBase<double>
     {
-        public override void CalcBestSplit(AttributeBase<double> a)
+        public override void CalcBestSplit(List<double> a)
         {
             double tmpQuality;
             double tmpThreshold;
-            var b = a as NumericalAttribute;
 
-            b.Values.Sort();
+            a.Sort();
 
-            for (int i = 0; i < b.Values.Count - 1; i++)
+            for (int i = 0; i < a.Count - 1; i++)
             {
-                tmpThreshold = (b.Values[i] + b.Values[i + 1]) / 2;
+                tmpThreshold = (a[i] + a[i + 1]) / 2;
 
-                // !!!Возможна оптимизация. Не 2 прохода по массиву, а 1.!!!
-                // !!!Пример b.Values.ForEach(e => ((e <= tmpThreshold) ? tmpSplits[0] : tmpSplits[1]).Add(e));!!!
-                var firstSplit = b.Values.Where(e => e <= tmpThreshold).ToList();
-                var secondSplit = b.Values.Where(e => e > tmpThreshold).ToList();
-                var tmpSplits = new List<List<double>>() { firstSplit, secondSplit };
+                List<List<double>> tmpSplits = new List<List<double>>();
+                tmpSplits.Add(new List<double>());   // Первое разбиение
+                tmpSplits.Add(new List<double>());   // Второе разбиение
+
+                a.ForEach(e => ((e <= tmpThreshold) ? tmpSplits[0] : tmpSplits[1]).Add(e));
 
                 tmpQuality = SplitQualityAlgorithm.CalcSplitQuality(tmpSplits);
 

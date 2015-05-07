@@ -19,7 +19,12 @@ namespace DataMining.DecisionTree.Splits
         /// <summary>
         /// Порог
         /// </summary>
-        public object Threshold { get; protected set; }
+        public double Threshold { get; protected set; }
+
+        /// <summary>
+        /// Кол-во категорий
+        /// </summary>
+        public int Categories { get; set; }
 
         /// <summary>
         /// Алгоритм оценки качества разбиения
@@ -47,7 +52,7 @@ namespace DataMining.DecisionTree.Splits
             splits.ForEach(s => Splits.Add(s));
         }
 
-        public abstract void CalcBestSplit(AttributeBase<T> a);
+        public abstract void CalcBestSplit(List<T> a);
 
         public int CompareTo(object obj)
         {

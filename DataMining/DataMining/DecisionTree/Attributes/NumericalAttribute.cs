@@ -17,7 +17,7 @@ namespace DataMining.DecisionTree.Attributes
         {
             SplitBase<double> split = new NumericalSplit();
 
-            split.CalcBestSplit(this);
+            split.CalcBestSplit(this.Values);
 
             return split.Splits.ConvertAll(l => (AttributeBase<double>)new NumericalAttribute(Id, l));
         }
