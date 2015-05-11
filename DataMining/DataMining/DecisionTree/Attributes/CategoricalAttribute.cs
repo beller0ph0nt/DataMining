@@ -6,6 +6,9 @@ using DataMining.DecisionTree.Splits;
 
 namespace DataMining.DecisionTree.Attributes
 {
+    /// <summary>
+    /// Категориальный аттрибут
+    /// </summary>
     public class CategoricalAttribute : AttributeBase<int>
     {
         public int CategoriesCounter { get; private set; }
@@ -19,17 +22,19 @@ namespace DataMining.DecisionTree.Attributes
         public CategoricalAttribute(int id, List<int> values, int categoriesCounter)
             : base(id, AttributType.Categorical, values)
         {
-            CategoriesCounter = categoriesCounter;
+            SplitVar = new CategoricalSplit();
+            SplitVar.Categories = categoriesCounter;
         }
 
+        /// <summary>
+        /// Разделяет аттрибут на подмножества
+        /// </summary>
+        /// <returns>Список разделений</returns>
         public override List<AttributeBase<int>> Split()
         {
-            SplitBase<int> split = new CategoricalSplit();
+            SplitVar.CalcBestSplit(this.Values);
 
-            split.Categories = this.CategoriesCounter;
-            split.CalcBestSplit(this.Values);
-
-            return split.Splits.ConvertAll(l => (AttributeBase<int>)new CategoricalAttribute(Id, l, CategoriesCounter));
+            return SplitVar.Splits.ConvertAll(l => (AttributeBase<int>)new CategoricalAttribute(Id, l, CategoriesCounter));
         }
     }
 }

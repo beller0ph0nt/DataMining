@@ -33,9 +33,14 @@ namespace DataMining.DecisionTree.Attributes
         public AttributType Type { get; private set; }
 
         /// <summary>
-        /// Список значений аттрибута
+        /// Список предикторных переменных
         /// </summary>
         public List<T> Values { get; private set; }
+
+        /// <summary>
+        /// Переменная разбиения
+        /// </summary>
+        public SplitBase<T> SplitVar { get; protected set; }
 
         #endregion
 

@@ -20,14 +20,35 @@ namespace DataMining.DecisionTree.LearningAlgorithm
             //_bestSplitQualityes = new Dictionary<int, ISplitQualityAlgorithm>();
         }
 
-        public void Training(List<AttributeBase<object>> inputs, List<double> answers)
+        private List<AttributeBase<object>> GetBestSplit(List<AttributeBase<object>> inputs)
         {
-            inputs.Select(a => a.Split()).ToList().Sort();
+            int index = 0;
+            List<List<AttributeBase<object>>> splits = new List<List<AttributeBase<object>>>();
 
             for (int i = 0; i < inputs.Count; i++)
             {
-                
+                splits.Add(inputs[i].Split());
+                if (i == 0)
+                    index = i;
+                else
+                {
+                    // Если i-ый элемент оказался лучше
+                    if (inputs[i].SplitVar.CompareTo(inputs[index].SplitVar) == -1)
+                        index = i;
+                }
             }
+
+            return splits[index];
+        }
+
+        public void Training(List<AttributeBase<object>> inputs, AttributeBase<object> answers)
+        {
+            // Создать корень у дерева
+            // Получить лучшее разбиение
+            // Создать у текущего узла два листа
+            // В левый лист поместить [0] разбиение
+            // В правый лист поместить [1] разбиение
+
         }
 
         public void Training(List<List<double>> inputs, List<double> answers)
