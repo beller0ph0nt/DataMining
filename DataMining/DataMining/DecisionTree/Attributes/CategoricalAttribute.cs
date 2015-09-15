@@ -19,8 +19,8 @@ namespace DataMining.DecisionTree.Attributes
         /// <param name="id">Идентификатор аттрибута</param>
         /// <param name="values">Список предикторных переменных</param>
         /// <param name="categoriesCounter">Счетчик категорий</param>
-        public CategoricalAttribute(int id, List<int> values, int categoriesCounter)
-            : base(id, AttributType.Categorical, values)
+        public CategoricalAttribute(List<int> values, int categoriesCounter)
+            : base(AttributType.Categorical, values)
         {
             SplitVar = new CategoricalSplit();
             SplitVar.Categories = categoriesCounter;
@@ -34,7 +34,7 @@ namespace DataMining.DecisionTree.Attributes
         {
             SplitVar.CalcBestSplit(this.Values);
 
-            return SplitVar.Splits.ConvertAll(l => (AttributeBase<int>)new CategoricalAttribute(Id, l, CategoriesCounter));
+            return SplitVar.Splits.ConvertAll(l => (AttributeBase<int>)new CategoricalAttribute(l, CategoriesCounter));
         }
     }
 }

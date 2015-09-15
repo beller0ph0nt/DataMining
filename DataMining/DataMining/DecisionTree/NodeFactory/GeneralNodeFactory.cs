@@ -13,21 +13,21 @@ namespace DataMining.DecisionTree
     {
         private static int _id = 1;
 
-        private static int Id { get { return _id++; } }
+        private static int NewId { get { return _id++; } }
 
         public static INodeBase<T> GetRoot()
         {
-            return new GeneralRoot<T>(Id);
+            return new GeneralRoot<T>(NewId);
         }
 
         public static INodeBase<T> GetNode(INodeBase<T> parent)
         {
-            return new GeneralNode<T>(Id, parent);
+            return new GeneralNode<T>(NewId, parent);
         }
 
         public static INodeBase<T> GetLeaf(INodeBase<T> parent)
         {
-            return new GeneralLeaf<T>(Id, parent);
+            return new GeneralLeaf<T>(NewId, parent);
         }
     }
 }

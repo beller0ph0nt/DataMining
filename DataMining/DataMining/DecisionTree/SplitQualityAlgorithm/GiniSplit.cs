@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using DataMining.DecisionTree.Elements;
 
 namespace DataMining.DecisionTree.SplitQualityAlgorithm
 {
@@ -26,11 +27,13 @@ namespace DataMining.DecisionTree.SplitQualityAlgorithm
         /// </summary>
         /// <param name="splits">Список разбиений</param>
         /// <returns>Показатель качества разбиения</returns>
-        public double CalcSplitQuality(List<List<T>> splits)
+        
+        //public double CalcSplitQuality(List<List<T>> splits)
+        public double CalcSplitQuality(List<List<Cell>> splits)
         {
-            double totalCount = splits.Sum(l => l.Count);
+            //double totalCount = splits.Sum(l => l.Count);
             
-            return splits.Sum(a => a.Count * GiniIndex(a) / totalCount);
+            //return splits.Sum(a => a.Count * GiniIndex(a) / totalCount);
         }
         
         /// <summary>

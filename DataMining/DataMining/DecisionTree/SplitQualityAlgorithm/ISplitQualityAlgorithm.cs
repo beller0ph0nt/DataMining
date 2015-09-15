@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using DataMining.DecisionTree.Elements;
 
 namespace DataMining.DecisionTree.SplitQualityAlgorithm
 {
@@ -12,7 +13,8 @@ namespace DataMining.DecisionTree.SplitQualityAlgorithm
         /// </summary>
         /// <param name="splits">Список разбиений</param>
         /// <returns>Показатель качества разбиения</returns>
-        double CalcSplitQuality(List<List<T>> splits);
+        //double CalcSplitQuality(List<List<T>> splits);
+        double CalcSplitQuality(List<List<Cell>> splits);
 
         /// <summary>
         /// Сравнивает показатели качества разбиения

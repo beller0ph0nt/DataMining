@@ -13,21 +13,21 @@ namespace DataMining.DecisionTree
     {
         private static int _id = 1;
 
-        private static int Id { get { return _id++; } }
+        private static int NewId { get { return _id++; } }
 
         public static ICARTNode<T> GetRoot()
         {
-            return new CARTRoot<T>(Id);
+            return new CARTRoot<T>(NewId);
         }
 
         public static ICARTNode<T> GetNode(ICARTNode<T> parent)
         {
-            return new CARTNode<T>(Id, parent);
+            return new CARTNode<T>(NewId, parent);
         }
 
         public static ICARTNode<T> GetLeaf(ICARTNode<T> parent)
         {
-            return new CARTLeaf<T>(Id, parent);
+            return new CARTLeaf<T>(NewId, parent);
         }
     }
 }

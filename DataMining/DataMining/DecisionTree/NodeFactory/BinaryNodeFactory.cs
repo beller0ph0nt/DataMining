@@ -13,21 +13,21 @@ namespace DataMining.DecisionTree
     {
         private static int _id = 1;     // Идентификатор узлов
 
-        private static int Id { get { return _id++; } }
+        private static int NewId { get { return _id++; } }
 
         public static IBinaryNode<T> GetRoot()
         {
-            return new BinaryRoot<T>(Id);
+            return new BinaryRoot<T>(NewId);
         }
 
         public static IBinaryNode<T> GetNode(IBinaryNode<T> parent)
         {
-            return new BinaryNode<T>(Id, parent);
+            return new BinaryNode<T>(NewId, parent);
         }
 
         public static IBinaryNode<T> GetLeaf(IBinaryNode<T> parent)
         {
-            return new BinaryLeaf<T>(Id, parent);
+            return new BinaryLeaf<T>(NewId, parent);
         }
     }
 }

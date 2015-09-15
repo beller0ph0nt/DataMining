@@ -20,28 +20,7 @@ namespace DataMining.DecisionTree.LearningAlgorithm
             //_bestSplitQualityes = new Dictionary<int, ISplitQualityAlgorithm>();
         }
 
-        private List<AttributeBase<object>> GetBestSplit(List<AttributeBase<object>> inputs)
-        {
-            int index = 0;
-            List<List<AttributeBase<object>>> splits = new List<List<AttributeBase<object>>>();
-
-            for (int i = 0; i < inputs.Count; i++)
-            {
-                splits.Add(inputs[i].Split());
-                if (i == 0)
-                    index = i;
-                else
-                {
-                    // Если i-ый элемент оказался лучше
-                    if (inputs[i].SplitVar.CompareTo(inputs[index].SplitVar) == -1)
-                        index = i;
-                }
-            }
-
-            return splits[index];
-        }
-
-        public void Training(List<AttributeBase<object>> inputs, AttributeBase<object> answers)
+        public void Training(List<AttributeBase<object>> inputs)
         {
             // Создать корень у дерева
             // Получить лучшее разбиение
@@ -61,6 +40,7 @@ namespace DataMining.DecisionTree.LearningAlgorithm
             // Если в разбиении 2 подмножества, то родительский лист надо заменить на узел и к нему привязать 2-а листа и заполнить их разбиениями.
         }
 
+        /*
         public void Training(List<List<double>> inputs, List<double> answers)
         {
             for (int i = 0; i < inputs.Count; i++)
@@ -91,5 +71,6 @@ namespace DataMining.DecisionTree.LearningAlgorithm
             // Необходимо сохранять и порог для лучшего разбиения
             //_bestSplitQualityes.OrderBy(p => p.Value.Quality).First();
         }
+        */
     }
 }

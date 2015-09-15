@@ -16,8 +16,8 @@ namespace DataMining.DecisionTree.Attributes
         /// </summary>
         /// <param name="id">Идентификатор аттрибута</param>
         /// <param name="values">Список предикторных переменных</param>
-        public NumericalAttribute(int id, List<double> values)
-            : base(id, AttributType.Numerical, values)
+        public NumericalAttribute(List<double> values)
+            : base(AttributType.Numerical, values)
         {
             SplitVar = new NumericalSplit();
         }
@@ -30,7 +30,7 @@ namespace DataMining.DecisionTree.Attributes
         {
             SplitVar.CalcBestSplit(this.Values);
 
-            return SplitVar.Splits.ConvertAll(l => (AttributeBase<double>)new NumericalAttribute(Id, l));
+            return SplitVar.Splits.ConvertAll(l => (AttributeBase<double>)new NumericalAttribute(l));
         }
     }
 }

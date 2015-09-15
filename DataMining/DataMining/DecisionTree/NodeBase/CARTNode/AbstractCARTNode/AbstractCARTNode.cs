@@ -6,7 +6,6 @@ namespace DataMining.DecisionTree
     public abstract class AbstractCARTNode<T> : AbstractBinaryNode<T>, ICARTNode<T>
     {
         protected long _elementsCount;
-        protected IRule _rule;
         protected IDictionary<string, long> _classElementsCount;
 
         #region Свойства
@@ -22,11 +21,6 @@ namespace DataMining.DecisionTree
         public long ElementsCount { get { return _elementsCount; } }
 
         /// <summary>
-        /// Правило узла
-        /// </summary>
-        public IRule Rule { get { return _rule; } set { _rule = value; } }
-
-        /// <summary>
         /// Количество элементов каждого класса, прошедщих через узел
         /// </summary>
         public IDictionary<string, long> ClassElementsCount { get { return _classElementsCount; } }
@@ -38,7 +32,6 @@ namespace DataMining.DecisionTree
         {
             _classElementsCount = new Dictionary<string, long>();
             _elementsCount = 0;
-            _rule = null;
         }
 
         #region Методы

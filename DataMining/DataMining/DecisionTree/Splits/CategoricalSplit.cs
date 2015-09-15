@@ -13,7 +13,7 @@ namespace DataMining.DecisionTree.Splits
         {
             double tmpQuality;
 
-            for (int set = 1; set < Categories - 1; set++)
+            for (int set = 1; set < Categories - 1; set++)  // перебираем все катигории
             {
                 for (int j = 0; j < a.Count; j++)
                 {

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using DataMining.DecisionTree.Splits;
+using DataMining.DecisionTree.Elements;
 
 namespace DataMining.DecisionTree.Attributes
 {
@@ -11,6 +12,7 @@ namespace DataMining.DecisionTree.Attributes
     /// </summary>
     public enum AttributType
     {
+        Answer,         // Ответный
         Numerical,      // Числовой
         Categorical     // Категориальный
     }
@@ -23,11 +25,6 @@ namespace DataMining.DecisionTree.Attributes
         #region Свойства
 
         /// <summary>
-        /// Идентификатор аттрибута
-        /// </summary>
-        public int Id { get; private set; }
-
-        /// <summary>
         /// Тип аттрибута
         /// </summary>
         public AttributType Type { get; private set; }
@@ -35,7 +32,8 @@ namespace DataMining.DecisionTree.Attributes
         /// <summary>
         /// Список предикторных переменных
         /// </summary>
-        public List<T> Values { get; private set; }
+        //public List<T> Values { get; private set; }
+        public List<Cell> Values { get; set; }
 
         /// <summary>
         /// Переменная разбиения
@@ -44,11 +42,10 @@ namespace DataMining.DecisionTree.Attributes
 
         #endregion
 
-        protected AttributeBase(int id, AttributType type, List<T> values)
+        protected AttributeBase(AttributType type, List<T> values)
         {
-            Id = id;
             Type = type;
-            Values = values;
+            //Values = values;
         }
 
         #region Методы

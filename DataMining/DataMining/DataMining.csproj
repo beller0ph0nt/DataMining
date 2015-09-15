@@ -46,6 +46,10 @@
     <Compile Include="DecisionTree\Attributes\AttributeBase.cs" />
     <Compile Include="DecisionTree\Attributes\CategoricalAttribute.cs" />
     <Compile Include="DecisionTree\Attributes\NumericalAttribute.cs" />
+    <Compile Include="DecisionTree\Elements\Cell.cs" />
+    <Compile Include="DecisionTree\Elements\Column.cs" />
+    <Compile Include="DecisionTree\Elements\Row.cs" />
+    <Compile Include="DecisionTree\Elements\Table.cs" />
     <Compile Include="DecisionTree\LearningAlgorithms\CARTLearning.cs" />
     <Compile Include="DecisionTree\LearningAlgorithms\ILearningAlgorithm.cs" />
     <Compile Include="DecisionTree\NodeBase\BinaryNode\AbstractBinaryNode\AbstractBinaryNode.cs" />
@@ -64,7 +68,6 @@
     <Compile Include="DecisionTree\NodeBase\CARTNode\ICARTNode.cs" />
     <Compile Include="DecisionTree\NodeBase\GeneralNode\IGeneralNode.cs" />
     <Compile Include="DecisionTree\NodeBase\INodeBase.cs" />
-    <Compile Include="DecisionTree\IRule.cs" />
     <Compile Include="DecisionTree\ITree.cs" />
     <Compile Include="DecisionTree\NodeBase\CARTNode\AbstractCARTNode\CARTNodes\CARTNode.cs" />
     <Compile Include="DecisionTree\CARTTree.cs" />
@@ -109,9 +112,6 @@
     <Compile Include="NeuronNetwork\Synapse\ISynapse.cs" />
     <Compile Include="NeuronNetwork\Synapse\Synapse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="ClassDiagram1.cd" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
