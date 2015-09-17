@@ -5,21 +5,29 @@ using System.Text;
 
 namespace DataMining.DecisionTree
 {
-    public class BinaryNodeFactory<T> : AbstractNodeFactory<T>
+    /// <summary>
+    /// Фабрика узлов бинарного дерева
+    /// </summary>
+    /// <typeparam name="T">Тип хранимой информации в узлах дерева</typeparam>
+    public static class BinaryNodeFactory<T>
     {
-        public override INodeBase<T> GetRoot()
+        private static int _id = 1;     // Идентификатор узлов
+
+        private static int NewId { get { return _id++; } }
+
+        public static IBinaryNode<T> GetRoot()
         {
-            return new BinaryRoot<T>(Id);
+            return new BinaryRoot<T>(NewId);
         }
 
-        public override INodeBase<T> GetNode(INodeBase<T> parent)
+        public static IBinaryNode<T> GetNode(IBinaryNode<T> parent)
         {
-            return new BinaryNode<T>(Id, parent);
+            return new BinaryNode<T>(NewId, parent);
         }
 
-        public override INodeBase<T> GetLeaf(INodeBase<T> parent)
+        public static IBinaryNode<T> GetLeaf(IBinaryNode<T> parent)
         {
-            return new BinaryLeaf<T>(Id, parent);
+            return new BinaryLeaf<T>(NewId, parent);
         }
     }
 }

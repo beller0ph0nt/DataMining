@@ -24,9 +24,9 @@ namespace DataMining.DecisionTree
         /// <param name="input">Входной вектор</param>
         void Calc(List<double> input);              // !!! По иде в функцию должен передоваться список АТРИБУТОВ а не даблов, а возвращаться выходное значение
 
-        int CreateRoot();
-        int CreateNode(int parentId);
-        int CreateLeaf(int parentId);
+        //int CreateRoot();
+        //int CreateNode(int parentId);
+        //int CreateLeaf(int parentId);
 
         #endregion
     }

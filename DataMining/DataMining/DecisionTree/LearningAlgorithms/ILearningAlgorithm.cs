@@ -8,7 +8,6 @@ namespace DataMining.DecisionTree.LearningAlgorithm
 {
     public interface ILearningAlgorithm
     {
-        void Training(List<List<double>> inputs, List<double> answers);
-        void Training(List<AttributeBase<object>> inputs, List<double> answers);
+        void Training(List<AttributeBase<object>> inputs);
     }
 }

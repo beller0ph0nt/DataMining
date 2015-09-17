@@ -19,7 +19,7 @@ namespace DataMining.DecisionTree
         /// <summary>
         /// Правило узла
         /// </summary>
-        IRule Rule { get; set; }
+        //IRule Rule { get; set; }
 
         /// <summary>
         /// Количество элементов каждого класса, прошедщих через узел

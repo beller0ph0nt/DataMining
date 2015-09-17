@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using DataMining.DecisionTree.Attributes;
 using DataMining.DecisionTree.SplitQualityAlgorithm;
+using DataMining.DecisionTree.Elements;
 
 namespace DataMining.DecisionTree.Splits
 {
@@ -12,34 +13,39 @@ namespace DataMining.DecisionTree.Splits
         #region Свойства
 
         /// <summary>
-        /// Оценка качества разбиения
+        /// оценка качества разбиения
         /// </summary>
         public double Quality { get; protected set; }
 
         /// <summary>
-        /// Порог
+        /// порог, необходим для разбиения числовых переменныъ
         /// </summary>
-        public object Threshold { get; protected set; }
+        public double Threshold { get; protected set; }
 
         /// <summary>
-        /// Алгоритм оценки качества разбиения
+        /// кол-во категорий, необходим для разбиения категориальных переменных
+        /// </summary>
+        public int Categories { get; set; }
+
+        /// <summary>
+        /// алгоритм оценки качества разбиения
         /// </summary>
         public ISplitQualityAlgorithm<T> SplitQualityAlgorithm { get; private set; }
 
         /// <summary>
-        /// Разбиения
+        /// разбиения полученные в результате
         /// </summary>
-        public List<List<T>> Splits { get; private set; }
+        public List<List<Cell>> Splits { get; private set; }
 
         #endregion
 
         public SplitBase()
         {
             SplitQualityAlgorithm = new GiniSplit<T>();
-            Splits = new List<List<T>>();
+            Splits = new List<List<Cell>>();
         }
 
-        protected void Fix(double quality, double threshold, List<List<T>> splits)
+        protected void Fix(double quality, double threshold, List<List<Cell>> splits)
         {
             Quality = quality;
             Threshold = threshold;
@@ -47,7 +53,8 @@ namespace DataMining.DecisionTree.Splits
             splits.ForEach(s => Splits.Add(s));
         }
 
-        public abstract void CalcBestSplit(AttributeBase<T> a);
+        //public abstract void CalcBestSplit(List<T> a);
+        public abstract void CalcBestSplit(List<Cell> a);
 
         public int CompareTo(object obj)
         {

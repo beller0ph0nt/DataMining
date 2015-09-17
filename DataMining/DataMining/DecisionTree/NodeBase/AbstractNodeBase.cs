@@ -29,7 +29,7 @@ namespace DataMining.DecisionTree
 
         public override string ToString()
         {
-            return string.Format("Id: {0} Type: {1}", Id, Type);
+            return string.Format("{0}:{1}", Type.ToString(), Id);
         }
     }
 }

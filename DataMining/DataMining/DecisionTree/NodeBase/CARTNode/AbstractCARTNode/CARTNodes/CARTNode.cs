@@ -1,5 +1,4 @@
-﻿
-namespace DataMining.DecisionTree
+﻿namespace DataMining.DecisionTree
 {
     public class CARTNode<T> : AbstractCARTNode<T>
     {

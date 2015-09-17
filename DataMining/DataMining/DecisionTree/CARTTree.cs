@@ -10,13 +10,13 @@ namespace DataMining.DecisionTree
     /// <typeparam name="T">Тип даных, содержащийся в узле</typeparam>
     public class CARTTree<T> : ITree
     {
-        private INodeFactory<T> _nodeFactory;               // Фабрика узлов
-        private IDictionary<int, ICARTNode<T>> _nodes;      // Словарь всех узлов в дереве
+        private IDictionary<int, ICARTNode<T>> _nodes;  // Словарь всех узлов
+        private IDictionary<int, ICARTNode<T>> _leafs;  // Словарь всех листов
 
         public CARTTree()
         {
             _nodes = new Dictionary<int, ICARTNode<T>>();
-            _nodeFactory = new CARTNodeFactory<T>();
+            _leafs = new Dictionary<int, ICARTNode<T>>();
         }
 
         #region Методы
@@ -36,41 +36,142 @@ namespace DataMining.DecisionTree
             throw new System.NotImplementedException();
         }
 
-        public int CreateRoot()
-        {
-            var root = _nodeFactory.GetRoot() as ICARTNode<T>;
-            _nodes[root.Id] = root;
-
-            return root.Id;
-        }
-
-        public int CreateNode(int parentId)
-        {
-            if (_nodes.ContainsKey(parentId))
-                throw new ArgumentOutOfRangeException("Не найден родительский узел с Id = " + parentId);
-
-            var node = _nodeFactory.GetNode(_nodes[parentId]) as ICARTNode<T>;
-            _nodes[node.Id] = node;
-
-            return node.Id;
-        }
-
-        public int CreateLeaf(int parentId)
-        {
-            if (_nodes.ContainsKey(parentId))
-                throw new ArgumentOutOfRangeException("Не найден родительский узел с Id = " + parentId);
-
-            var leaf = _nodeFactory.GetLeaf(_nodes[parentId]) as ICARTNode<T>;
-            _nodes[leaf.Id] = leaf;
-
-            return leaf.Id;
-        }
-
         public override string ToString()
         {
-            var root = _nodes.Single(e => e.Value.Type == NodeType.Root).Value;
+            Stack<IBinaryNode<T>> returnNodeStack = new Stack<IBinaryNode<T>>();
+            Stack<int> returnLevelStack = new Stack<int>();
+            int currentLevel = 0;
 
-            return root.ToString();
+            // Функция вывода дочернего узла
+            Func<int, ICARTNode<T>, string> outputFormat = (l, n) => 
+                string.Format("").PadLeft(l << 1) +     // Умножаем кол-во лидирующий пробелов на 2
+                string.Format("|_{0}\n", n.ToString());
+
+            // Делаем текущим узлом корень
+            ICARTNode<T> currentNode = _nodes.Single(e => e.Value.Type == NodeType.Root).Value;
+            string s = string.Format("{0}\n", currentNode.ToString());
+
+            while (currentNode != null)
+            {
+                while (currentNode.Left != null)
+                {
+                    // Сохраняем узел возврата и его уровень
+                    if (currentNode.Right != null)
+                    {
+                        returnNodeStack.Push(currentNode.Right);
+                        returnLevelStack.Push(currentLevel + 1);
+                    }
+
+                    // Корректируем текущий узел и его уровень
+                    currentNode = currentNode.Left as ICARTNode<T>;
+                    currentLevel++;
+
+                    // Выводим текущий узел
+                    s += outputFormat(currentLevel, currentNode);
+                }
+
+                // Если остались узлы возврата
+                if (returnNodeStack.Count > 0)
+                {
+                    currentNode = returnNodeStack.Pop() as ICARTNode<T>;
+                    currentLevel = returnLevelStack.Pop();
+                    s += outputFormat(currentLevel, currentNode);
+                }
+                else
+                    currentNode = null;
+            }
+            
+            return s;
+        }
+
+        /// <summary>
+        /// Создает корень
+        /// </summary>
+        /// <returns>Идентификатор созданного корня</returns>
+        public int CreateRoot()
+        {
+            if (_nodes.Count(e => e.Value.Type == NodeType.Root) == 0)
+            {
+                var root = CARTNodeFactory<T>.GetRoot();
+
+                _nodes[root.Id] = root;
+
+                return root.Id;
+            }
+            else
+                throw new InvalidOperationException("Корень уже создан");
+        }
+
+        /// <summary>
+        /// Создает левый узел
+        /// </summary>
+        /// <param name="parentId">Идентификатор родителя</param>
+        /// <returns>Идентификатор созданного узла</returns>
+        public int CreateLeftNode(int parentId)
+        {
+            if (_nodes.ContainsKey(parentId))   // Если есть родитель
+            {
+                var node = _nodes[parentId].CreateLeftNode() as ICARTNode<T>;
+                _nodes[node.Id] = node;
+
+                return node.Id;
+            }
+            else
+                throw new ArgumentOutOfRangeException("Не найден родительский узел с Id = " + parentId);
+        }
+
+        /// <summary>
+        /// Создает правый узел
+        /// </summary>
+        /// <param name="parentId">Идентификатор родителя</param>
+        /// <returns>Идентификатор созданного узла</returns>
+        public int CreateRightNode(int parentId)
+        {
+            if (_nodes.ContainsKey(parentId))   // Если есть родитель
+            {
+                var node = _nodes[parentId].CreateRightNode() as ICARTNode<T>;
+                _nodes[node.Id] = node;
+
+                return node.Id;
+            }
+            else
+                throw new ArgumentOutOfRangeException("Не найден родительский узел с Id = " + parentId);
+        }
+
+        /// <summary>
+        /// Создает левый лист
+        /// </summary>
+        /// <param name="parentId">Идентификатор родителя</param>
+        /// <returns>Идентификатор созданного листа</returns>
+        public int CreateLeftLeaf(int parentId)
+        {
+            if (_nodes.ContainsKey(parentId))   // Если есть родитель
+            {
+                var leaf = _nodes[parentId].CreateLeftLeaf() as ICARTNode<T>;
+                _leafs[leaf.Id] = leaf;
+
+                return leaf.Id;
+            }
+            else
+                throw new ArgumentOutOfRangeException("Не найден родительский узел с Id = " + parentId);
+        }
+
+        /// <summary>
+        /// Создает правый лист
+        /// </summary>
+        /// <param name="parentId">Идентификатор родителя</param>
+        /// <returns>Идентификатор созданного листа</returns>
+        public int CreateRightLeaf(int parentId)
+        {
+            if (_nodes.ContainsKey(parentId))   // Если есть родитель
+            {
+                var leaf = _nodes[parentId].CreateRightLeaf() as ICARTNode<T>;
+                _leafs[leaf.Id] = leaf;
+
+                return leaf.Id;
+            }
+            else
+                throw new ArgumentOutOfRangeException("Не найден родительский узел с Id = " + parentId);
         }
 
         #endregion

@@ -20,16 +20,27 @@ namespace DataMining.DecisionTree.LearningAlgorithm
             //_bestSplitQualityes = new Dictionary<int, ISplitQualityAlgorithm>();
         }
 
-        public void Training(List<AttributeBase<object>> inputs, List<double> answers)
+        public void Training(List<AttributeBase<object>> inputs)
         {
-            inputs.Select(a => a.Split()).ToList().Sort();
+            // Создать корень у дерева
+            // Получить лучшее разбиение
+            // Создать у текущего узла два листа
+            // В левый лист поместить [0] разбиение
+            // В правый лист поместить [1] разбиение
+            
+            // Цикл по всем листам
+            // Проверяем родителя листа. Выходим из цикла, когда у всех родителей
 
-            for (int i = 0; i < inputs.Count; i++)
-            {
-                
-            }
+
+            //-----------------------------------------
+            // Вначале должна быть инициаллизация дерева. Должен появиться корень и 2 листа
+            // Далее начинается цикл по всем листам в дереве.
+            // Вычисляем лучшее разбиение для текущего листа.
+            // Если в разбиении получилось только одно множество, то такое разбиение пропускаем.
+            // Если в разбиении 2 подмножества, то родительский лист надо заменить на узел и к нему привязать 2-а листа и заполнить их разбиениями.
         }
 
+        /*
         public void Training(List<List<double>> inputs, List<double> answers)
         {
             for (int i = 0; i < inputs.Count; i++)
@@ -60,5 +71,6 @@ namespace DataMining.DecisionTree.LearningAlgorithm
             // Необходимо сохранять и порог для лучшего разбиения
             //_bestSplitQualityes.OrderBy(p => p.Value.Quality).First();
         }
+        */
     }
 }

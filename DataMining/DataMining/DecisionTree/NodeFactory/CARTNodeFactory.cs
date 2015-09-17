@@ -5,21 +5,29 @@ using System.Text;
 
 namespace DataMining.DecisionTree
 {
-    public class CARTNodeFactory<T> : AbstractNodeFactory<T>
+    /// <summary>
+    /// Фабрика узлов CART-дерева
+    /// </summary>
+    /// <typeparam name="T">Тип хранимой информации в узлах дерева</typeparam>
+    public static class CARTNodeFactory<T>
     {
-        public override INodeBase<T> GetRoot()
+        private static int _id = 1;
+
+        private static int NewId { get { return _id++; } }
+
+        public static ICARTNode<T> GetRoot()
         {
-            return new CARTRoot<T>(Id);
+            return new CARTRoot<T>(NewId);
         }
 
-        public override INodeBase<T> GetNode(INodeBase<T> parent)
+        public static ICARTNode<T> GetNode(ICARTNode<T> parent)
         {
-            return new CARTNode<T>(Id, parent);
+            return new CARTNode<T>(NewId, parent);
         }
 
-        public override INodeBase<T> GetLeaf(INodeBase<T> parent)
+        public static ICARTNode<T> GetLeaf(ICARTNode<T> parent)
         {
-            return new CARTLeaf<T>(Id, parent);
+            return new CARTLeaf<T>(NewId, parent);
         }
     }
 }

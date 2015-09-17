@@ -4,29 +4,32 @@ using System.Linq;
 using System.Text;
 using DataMining.DecisionTree.Attributes;
 using DataMining.DecisionTree.SplitQualityAlgorithm;
+using DataMining.DecisionTree.Elements;
 
 namespace DataMining.DecisionTree.Splits
 {
     public class NumericalSplit : SplitBase<double>
     {
-        public override void CalcBestSplit(AttributeBase<double> a)
+        //public override void CalcBestSplit(List<double> a)
+        public override void CalcBestSplit(List<Cell> a)
         {
             double tmpQuality;
             double tmpThreshold;
-            var b = a as NumericalAttribute;
 
-            b.Values.Sort();
+            a.Sort();
 
-            for (int i = 0; i < b.Values.Count - 1; i++)
+            for (int i = 0; i < a.Count - 1; i++)
             {
-                tmpThreshold = (b.Values[i] + b.Values[i + 1]) / 2;
+                tmpThreshold = (a[i] + a[i + 1]) / 2;   // вычисляем порог, как среднее
 
-                // !!!Возможна оптимизация. Не 2 прохода по массиву, а 1.!!!
-                // !!!Пример b.Values.ForEach(e => ((e <= tmpThreshold) ? tmpSplits[0] : tmpSplits[1]).Add(e));!!!
-                var firstSplit = b.Values.Where(e => e <= tmpThreshold).ToList();
-                var secondSplit = b.Values.Where(e => e > tmpThreshold).ToList();
-                var tmpSplits = new List<List<double>>() { firstSplit, secondSplit };
+                List<List<double>> tmpSplits = new List<List<double>>();    // выделяем память под временное разбиение
+                tmpSplits.Add(new List<double>());                          // первое разбиение
+                tmpSplits.Add(new List<double>());                          // второе разбиение
 
+                // заполняем временное разбиение в соответствии с порогом
+                a.ForEach(e => ((e <= tmpThreshold) ? tmpSplits[0] : tmpSplits[1]).Add(e));
+
+                // вычисляем качество полученного разбиения
                 tmpQuality = SplitQualityAlgorithm.CalcSplitQuality(tmpSplits);
 
                 // !!!Необходима оптимизация. i == 0 вызывается только 1 раз!!!

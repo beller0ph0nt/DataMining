@@ -9,7 +9,7 @@ namespace DataMining.DecisionTree
     {
         private static int _id = 1;
 
-        protected int Id { get { return _id++; } }
+        protected int NewId { get { return _id++; } }
         
         public abstract INodeBase<T> GetRoot();
         public abstract INodeBase<T> GetNode(INodeBase<T> parent);

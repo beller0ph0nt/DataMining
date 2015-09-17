@@ -9,21 +9,20 @@ namespace DataMining.DecisionTree.Splits
 {
     public class CategoricalSplit : SplitBase<int>
     {
-        public override void CalcBestSplit(AttributeBase<int> a)
+        public override void CalcBestSplit(List<int> a)
         {
             double tmpQuality;
-            var b = a as CategoricalAttribute;
 
-            for (int set = 1; set < b.CategoriesCounter - 1; set++)
+            for (int set = 1; set < Categories - 1; set++)  // перебираем все катигории
             {
-                for (int j = 0; j < b.Values.Count; j++)
+                for (int j = 0; j < a.Count; j++)
                 {
-                    // !!!Возможна оптимизация. Не 2 прохода по массиву, а 1.!!!
-                    // !!!Пример b.Values.ForEach(i => (((~set & i) == 0)) ? tmpSplits[0] : tmpSplits[1]).Add(i));!!!
-                    var firstSplit = b.Values.Where(i => (~set & i) == 0).ToList();
-                    var secondSplit = b.Values.Where(i => (~set & i) != 0).ToList();
-                    var tmpSplits = new List<List<int>>() { firstSplit, secondSplit };
+                    List<List<int>> tmpSplits = new List<List<int>>();
+                    tmpSplits.Add(new List<int>());   // Первое разбиение
+                    tmpSplits.Add(new List<int>());   // Второе разбиение
 
+                    a.ForEach(i => (((~set & i) == 0) ? tmpSplits[0] : tmpSplits[1]).Add(i));
+                    
                     tmpQuality = SplitQualityAlgorithm.CalcSplitQuality(tmpSplits);
 
                     // !!!Необходима оптимизация. i == 0 вызывается только 1 раз!!!

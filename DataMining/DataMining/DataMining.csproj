@@ -10,8 +10,9 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>DataMining</RootNamespace>
     <AssemblyName>DataMining</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -38,7 +39,6 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
   </ItemGroup>
@@ -46,27 +46,30 @@
     <Compile Include="DecisionTree\Attributes\AttributeBase.cs" />
     <Compile Include="DecisionTree\Attributes\CategoricalAttribute.cs" />
     <Compile Include="DecisionTree\Attributes\NumericalAttribute.cs" />
+    <Compile Include="DecisionTree\Elements\Cell.cs" />
+    <Compile Include="DecisionTree\Elements\Column.cs" />
+    <Compile Include="DecisionTree\Elements\Row.cs" />
+    <Compile Include="DecisionTree\Elements\Table.cs" />
     <Compile Include="DecisionTree\LearningAlgorithms\CARTLearning.cs" />
     <Compile Include="DecisionTree\LearningAlgorithms\ILearningAlgorithm.cs" />
     <Compile Include="DecisionTree\NodeBase\BinaryNode\AbstractBinaryNode\AbstractBinaryNode.cs" />
-    <Compile Include="DecisionTree\NodeBase\BinaryNode\AbstractBinaryNode\CARTNode\AbstractCARTNode\AbstractCARTNode.cs" />
+    <Compile Include="DecisionTree\NodeBase\CARTNode\AbstractCARTNode\AbstractCARTNode.cs" />
     <Compile Include="DecisionTree\NodeBase\GeneralNode\AbstractGeneralNode\AbstractGeneralNode.cs" />
     <Compile Include="DecisionTree\NodeBase\AbstractNodeBase.cs" />
-    <Compile Include="DecisionTree\NodeBase\BinaryNode\AbstractBinaryNode\BinaryLeaf.cs" />
-    <Compile Include="DecisionTree\NodeBase\BinaryNode\AbstractBinaryNode\BinaryNode.cs" />
-    <Compile Include="DecisionTree\NodeBase\BinaryNode\AbstractBinaryNode\BinaryRoot.cs" />
-    <Compile Include="DecisionTree\NodeBase\BinaryNode\AbstractBinaryNode\CARTNode\AbstractCARTNode\CARTLeaf.cs" />
-    <Compile Include="DecisionTree\NodeBase\BinaryNode\AbstractBinaryNode\CARTNode\AbstractCARTNode\CARTRoot.cs" />
-    <Compile Include="DecisionTree\NodeBase\GeneralNode\AbstractGeneralNode\GeneralLeaf.cs" />
-    <Compile Include="DecisionTree\NodeBase\GeneralNode\AbstractGeneralNode\GeneralNode.cs" />
-    <Compile Include="DecisionTree\NodeBase\GeneralNode\AbstractGeneralNode\GeneralRoot.cs" />
+    <Compile Include="DecisionTree\NodeBase\BinaryNode\AbstractBinaryNode\BinaryNodes\BinaryLeaf.cs" />
+    <Compile Include="DecisionTree\NodeBase\BinaryNode\AbstractBinaryNode\BinaryNodes\BinaryNode.cs" />
+    <Compile Include="DecisionTree\NodeBase\BinaryNode\AbstractBinaryNode\BinaryNodes\BinaryRoot.cs" />
+    <Compile Include="DecisionTree\NodeBase\CARTNode\AbstractCARTNode\CARTNodes\CARTLeaf.cs" />
+    <Compile Include="DecisionTree\NodeBase\CARTNode\AbstractCARTNode\CARTNodes\CARTRoot.cs" />
+    <Compile Include="DecisionTree\NodeBase\GeneralNode\AbstractGeneralNode\GeneralNodes\GeneralLeaf.cs" />
+    <Compile Include="DecisionTree\NodeBase\GeneralNode\AbstractGeneralNode\GeneralNodes\GeneralNode.cs" />
+    <Compile Include="DecisionTree\NodeBase\GeneralNode\AbstractGeneralNode\GeneralNodes\GeneralRoot.cs" />
     <Compile Include="DecisionTree\NodeBase\BinaryNode\IBinaryNode.cs" />
-    <Compile Include="DecisionTree\NodeBase\BinaryNode\AbstractBinaryNode\CARTNode\ICARTNode.cs" />
+    <Compile Include="DecisionTree\NodeBase\CARTNode\ICARTNode.cs" />
     <Compile Include="DecisionTree\NodeBase\GeneralNode\IGeneralNode.cs" />
     <Compile Include="DecisionTree\NodeBase\INodeBase.cs" />
-    <Compile Include="DecisionTree\IRule.cs" />
     <Compile Include="DecisionTree\ITree.cs" />
-    <Compile Include="DecisionTree\NodeBase\BinaryNode\AbstractBinaryNode\CARTNode\AbstractCARTNode\CARTNode.cs" />
+    <Compile Include="DecisionTree\NodeBase\CARTNode\AbstractCARTNode\CARTNodes\CARTNode.cs" />
     <Compile Include="DecisionTree\CARTTree.cs" />
     <Compile Include="DecisionTree\NodeFactory\AbstractNodeFactory.cs" />
     <Compile Include="DecisionTree\NodeFactory\BinaryNodeFactory.cs" />
@@ -109,9 +112,6 @@
     <Compile Include="NeuronNetwork\Synapse\ISynapse.cs" />
     <Compile Include="NeuronNetwork\Synapse\Synapse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="ClassDiagram1.cd" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

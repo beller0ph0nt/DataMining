@@ -5,21 +5,29 @@ using System.Text;
 
 namespace DataMining.DecisionTree
 {
-    public class GeneralNodeFactory<T> : AbstractNodeFactory<T>
+    /// <summary>
+    /// Фабрика узлов стандартного дерева
+    /// </summary>
+    /// <typeparam name="T">Тип хранимой информации в узлах дерева</typeparam>
+    public static class GeneralNodeFactory<T>
     {
-        public override INodeBase<T> GetRoot()
+        private static int _id = 1;
+
+        private static int NewId { get { return _id++; } }
+
+        public static INodeBase<T> GetRoot()
         {
-            return new GeneralRoot<T>(Id);
+            return new GeneralRoot<T>(NewId);
         }
 
-        public override INodeBase<T> GetNode(INodeBase<T> parent)
+        public static INodeBase<T> GetNode(INodeBase<T> parent)
         {
-            return new GeneralNode<T>(Id, parent);
+            return new GeneralNode<T>(NewId, parent);
         }
 
-        public override INodeBase<T> GetLeaf(INodeBase<T> parent)
+        public static INodeBase<T> GetLeaf(INodeBase<T> parent)
         {
-            return new GeneralLeaf<T>(Id, parent);
+            return new GeneralLeaf<T>(NewId, parent);
         }
     }
 }
