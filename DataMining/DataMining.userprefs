@@ -1,6 +1,12 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench />
+  <MonoDevelop.Ide.Workbench ActiveDocument="DataMining/DecisionTree/Splits/CategoricalSplit.cs">
+    <Files>
+      <File FileName="DataMiningUnitTest/DecisionTreeTests.cs" Line="1" Column="1" />
+      <File FileName="DataMining/DecisionTree/Elements/Column.cs" Line="5" Column="5" />
+      <File FileName="DataMining/DecisionTree/Splits/CategoricalSplit.cs" Line="19" Column="19" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
