@@ -12,29 +12,15 @@ namespace DataMining.DecisionTree.Splits
     {
         #region Свойства
 
-        /// <summary>
-        /// оценка качества разбиения
-        /// </summary>
+        // оценка качества разбиения
         public double Quality { get; protected set; }
-
-        /// <summary>
-        /// порог, необходим для разбиения числовых переменныъ
-        /// </summary>
+        // порог, необходим для разбиения числовых переменныъ
         public double Threshold { get; protected set; }
-
-        /// <summary>
-        /// кол-во категорий, необходим для разбиения категориальных переменных
-        /// </summary>
+        // кол-во категорий, необходим для разбиения категориальных переменных
         public int Categories { get; set; }
-
-        /// <summary>
-        /// алгоритм оценки качества разбиения
-        /// </summary>
+        // алгоритм оценки качества разбиения
         public ISplitQualityAlgorithm<T> SplitQualityAlgorithm { get; private set; }
-
-        /// <summary>
-        /// разбиения полученные в результате
-        /// </summary>
+        // разбиения полученные в результате
         public List<List<Cell>> Splits { get; private set; }
 
         #endregion
