@@ -7,31 +7,23 @@ using DataMining.DecisionTree.Elements;
 
 namespace DataMining.DecisionTree.Attributes
 {
-    /// <summary>
-    /// Типы аттрибутов
-    /// </summary>
+    // типы аттрибутов
     public enum AttributType
     {
-        Answer,         // Ответный
-        Numerical,      // Числовой
-        Categorical     // Категориальный
+        Answer,         // ответный
+        Numerical,      // числовой
+        Categorical     // категориальный
     }
-
-    /// <summary>
-    /// Базовый класс аттрибутов
-    /// </summary>
+		
+    // базовый класс аттрибутов
     public abstract class AttributeBase<T>
     {
         #region Свойства
 
-        /// <summary>
-        /// Тип аттрибута
-        /// </summary>
+        // тип аттрибута
         public AttributType Type { get; private set; }
 
-        /// <summary>
-        /// Список предикторных переменных
-        /// </summary>
+        // список предикторных переменных
         //public List<T> Values { get; private set; }
         public List<Cell> Values { get; set; }
 
