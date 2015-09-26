@@ -4,14 +4,11 @@ using System.Collections.Generic;
 
 namespace DataMining.DecisionTree
 {
-    /// <summary>
-    /// Бинарное дерево CART
-    /// </summary>
-    /// <typeparam name="T">Тип даных, содержащийся в узле</typeparam>
+    // бинарное дерево CART
     public class CARTTree<T> : ITree
     {
-        private IDictionary<int, ICARTNode<T>> _nodes;  // Словарь всех узлов
-        private IDictionary<int, ICARTNode<T>> _leafs;  // Словарь всех листов
+        private IDictionary<int, ICARTNode<T>> _nodes;  // словарь всех узлов
+        private IDictionary<int, ICARTNode<T>> _leafs;  // словарь всех листов
 
         public CARTTree()
         {
@@ -42,12 +39,12 @@ namespace DataMining.DecisionTree
             Stack<int> returnLevelStack = new Stack<int>();
             int currentLevel = 0;
 
-            // Функция вывода дочернего узла
+            // функция вывода дочернего узла
             Func<int, ICARTNode<T>, string> outputFormat = (l, n) => 
                 string.Format("").PadLeft(l << 1) +     // Умножаем кол-во лидирующий пробелов на 2
                 string.Format("|_{0}\n", n.ToString());
 
-            // Делаем текущим узлом корень
+            // делаем текущим узлом корень
             ICARTNode<T> currentNode = _nodes.Single(e => e.Value.Type == NodeType.Root).Value;
             string s = string.Format("{0}\n", currentNode.ToString());
 
@@ -55,22 +52,22 @@ namespace DataMining.DecisionTree
             {
                 while (currentNode.Left != null)
                 {
-                    // Сохраняем узел возврата и его уровень
+                    // сохраняем узел возврата и его уровень
                     if (currentNode.Right != null)
                     {
                         returnNodeStack.Push(currentNode.Right);
                         returnLevelStack.Push(currentLevel + 1);
                     }
 
-                    // Корректируем текущий узел и его уровень
+                    // корректируем текущий узел и его уровень
                     currentNode = currentNode.Left as ICARTNode<T>;
                     currentLevel++;
 
-                    // Выводим текущий узел
+                    // выводим текущий узел
                     s += outputFormat(currentLevel, currentNode);
                 }
 
-                // Если остались узлы возврата
+                // если остались узлы возврата
                 if (returnNodeStack.Count > 0)
                 {
                     currentNode = returnNodeStack.Pop() as ICARTNode<T>;
@@ -83,11 +80,8 @@ namespace DataMining.DecisionTree
             
             return s;
         }
-
-        /// <summary>
-        /// Создает корень
-        /// </summary>
-        /// <returns>Идентификатор созданного корня</returns>
+			
+        // создает корень
         public int CreateRoot()
         {
             if (_nodes.Count(e => e.Value.Type == NodeType.Root) == 0)
@@ -101,15 +95,11 @@ namespace DataMining.DecisionTree
             else
                 throw new InvalidOperationException("Корень уже создан");
         }
-
-        /// <summary>
-        /// Создает левый узел
-        /// </summary>
-        /// <param name="parentId">Идентификатор родителя</param>
-        /// <returns>Идентификатор созданного узла</returns>
-        public int CreateLeftNode(int parentId)
+			
+        // cоздает левый узел
+		public int CreateLeftNode(int parentId)	// идентификатор родителя
         {
-            if (_nodes.ContainsKey(parentId))   // Если есть родитель
+            if (_nodes.ContainsKey(parentId))   // если есть родитель
             {
                 var node = _nodes[parentId].CreateLeftNode() as ICARTNode<T>;
                 _nodes[node.Id] = node;
@@ -120,14 +110,10 @@ namespace DataMining.DecisionTree
                 throw new ArgumentOutOfRangeException("Не найден родительский узел с Id = " + parentId);
         }
 
-        /// <summary>
-        /// Создает правый узел
-        /// </summary>
-        /// <param name="parentId">Идентификатор родителя</param>
-        /// <returns>Идентификатор созданного узла</returns>
-        public int CreateRightNode(int parentId)
+        // создает правый узел
+		public int CreateRightNode(int parentId)	// идентификатор родителя
         {
-            if (_nodes.ContainsKey(parentId))   // Если есть родитель
+            if (_nodes.ContainsKey(parentId))   // если есть родитель
             {
                 var node = _nodes[parentId].CreateRightNode() as ICARTNode<T>;
                 _nodes[node.Id] = node;
@@ -137,15 +123,11 @@ namespace DataMining.DecisionTree
             else
                 throw new ArgumentOutOfRangeException("Не найден родительский узел с Id = " + parentId);
         }
-
-        /// <summary>
-        /// Создает левый лист
-        /// </summary>
-        /// <param name="parentId">Идентификатор родителя</param>
-        /// <returns>Идентификатор созданного листа</returns>
-        public int CreateLeftLeaf(int parentId)
+			
+        // создает левый лист
+		public int CreateLeftLeaf(int parentId)	// идентификатор родителя
         {
-            if (_nodes.ContainsKey(parentId))   // Если есть родитель
+            if (_nodes.ContainsKey(parentId))   // если есть родитель
             {
                 var leaf = _nodes[parentId].CreateLeftLeaf() as ICARTNode<T>;
                 _leafs[leaf.Id] = leaf;
@@ -155,15 +137,11 @@ namespace DataMining.DecisionTree
             else
                 throw new ArgumentOutOfRangeException("Не найден родительский узел с Id = " + parentId);
         }
-
-        /// <summary>
-        /// Создает правый лист
-        /// </summary>
-        /// <param name="parentId">Идентификатор родителя</param>
-        /// <returns>Идентификатор созданного листа</returns>
-        public int CreateRightLeaf(int parentId)
+			
+        // создает правый лист
+		public int CreateRightLeaf(int parentId)	// идентификатор родителя
         {
-            if (_nodes.ContainsKey(parentId))   // Если есть родитель
+            if (_nodes.ContainsKey(parentId))   // если есть родитель
             {
                 var leaf = _nodes[parentId].CreateRightLeaf() as ICARTNode<T>;
                 _leafs[leaf.Id] = leaf;

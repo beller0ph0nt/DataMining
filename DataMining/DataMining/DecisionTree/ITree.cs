@@ -6,23 +6,17 @@ namespace DataMining.DecisionTree
     {
         #region Методы
 
-        /// <summary>
-        /// Метод, загружающий дерево
-        /// </summary>
-        /// <param name="file">Имя файла</param>
+        // загружает дерево
+        // file - Имя файла
         void Load(string file);
 
-        /// <summary>
-        /// Метод, сохраняющий дерево
-        /// </summary>
-        /// <param name="file">Имя файла</param>
+        // сохраняет дерево
+        // file - имя файла
         void Save(string file);
 
-        /// <summary>
-        /// Метод, вычисляющий выходное значение
-        /// </summary>
-        /// <param name="input">Входной вектор</param>
-        void Calc(List<double> input);              // !!! По иде в функцию должен передоваться список АТРИБУТОВ а не даблов, а возвращаться выходное значение
+        // вычисляет выходное значение
+        // input - входной вектор
+        void Calc(List<double> input);	// !!! По иде в функцию должен передоваться список АТРИБУТОВ а не даблов, а возвращаться выходное значение
 
         //int CreateRoot();
         //int CreateNode(int parentId);
