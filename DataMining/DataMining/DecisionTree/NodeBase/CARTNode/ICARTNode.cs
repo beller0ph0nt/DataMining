@@ -4,28 +4,16 @@ namespace DataMining.DecisionTree
 {
     public interface ICARTNode<T> : IBinaryNode<T>
     {
-        #region Свойства
-
-        /// <summary>
-        /// Ссылка на родителя, преобразованая к интерфейсу ICARTNode
-        /// </summary>
+        // ссылка на родителя, преобразованая к интерфейсу ICARTNode
         new ICARTNode<T> Parent { get; }
 
-        /// <summary>
-        /// Количество элементов, прошедших через узел
-        /// </summary>
+        // кол-во элементов, прошедших через узел
         long ElementsCount { get; }
 
-        /// <summary>
-        /// Правило узла
-        /// </summary>
+        // Правило узла
         //IRule Rule { get; set; }
 
-        /// <summary>
-        /// Количество элементов каждого класса, прошедщих через узел
-        /// </summary>
+        // кол-во элементов каждого класса, прошедщих через узел
         IDictionary<string, long> ClassElementsCount { get; }
-
-        #endregion
     }
 }

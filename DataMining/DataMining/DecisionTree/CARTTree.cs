@@ -19,21 +19,21 @@ namespace DataMining.DecisionTree
         #region Методы
 
         public void Load(string file)
-        {
-            throw new System.NotImplementedException();
-        }
+		{
+			throw new System.NotImplementedException();
+		}
 
         public void Save(string file)
-        {
-            throw new System.NotImplementedException();
-        }
+		{
+			throw new System.NotImplementedException();
+		}
 
         public void Calc(List<double> input)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public override string ToString()
+		{
+			throw new System.NotImplementedException();
+		}
+        
+		public override string ToString()
         {
             Stack<IBinaryNode<T>> returnNodeStack = new Stack<IBinaryNode<T>>();
             Stack<int> returnLevelStack = new Stack<int>();

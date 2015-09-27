@@ -1,40 +1,23 @@
-﻿
-namespace DataMining.DecisionTree
+﻿namespace DataMining.DecisionTree
 {
-    /// <summary>
-    /// Тип узла
-    /// </summary>
+    // тип узла
     public enum NodeType
     {
-        Node,   // Узел
-        Root,   // Корень
-        Leaf    // Лист
+        Node,   // узел
+        Root,   // корень
+        Leaf    // лист
     }
-
-    /// <summary>
-    /// Интерфейс базового класса для всех узлов
-    /// </summary>
-    /// <typeparam name="T">Тип хранимой информации в узлах дерева</typeparam>
+		
+    // интерфейс базового класса для всех узлов
     public interface INodeBase<T>
     {
-        /// <summary>
-        /// Идентификатор узла
-        /// </summary>
+        // идентификатор узла
         int Id { get; }
-
-        /// <summary>
-        /// Тип узла
-        /// </summary>
+        // тип узла
         NodeType Type { get; }
-
-        /// <summary>
-        /// Ссылка на родителя
-        /// </summary>
+        // ссылка на родителя
         INodeBase<T> Parent { get; }
-
-        /// <summary>
-        /// Значение, хранимое в узле
-        /// </summary>
+        // значение, хранимое в узле
         T Variable { get; }
     }
 }

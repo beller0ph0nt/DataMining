@@ -4,23 +4,14 @@ namespace DataMining.DecisionTree
 {
     public class CARTLeaf<T> : AbstractCARTNode<T>
     {
-        protected T _variable;
+		protected T _variable;	// хранимое значение в листе
 
-        #region Свойства
-
-        /// <summary>
-        /// Хранимое значение в листе
-        /// </summary>
         public override T Variable { get { return _variable; } }
-
-        #endregion
 
         public CARTLeaf(int id, INodeBase<T> parent)
             : base(id, NodeType.Leaf, parent)
         {
         }
-
-        #region Методы
 
         public override IBinaryNode<T> CreateLeftLeaf()
         {
@@ -46,7 +37,5 @@ namespace DataMining.DecisionTree
         {
             return string.Format("{0}:{1}:{2}", Type.ToString(), Id, _variable);
         }
-
-        #endregion
     }
 }

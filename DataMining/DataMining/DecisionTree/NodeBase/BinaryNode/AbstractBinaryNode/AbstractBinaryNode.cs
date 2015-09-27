@@ -7,31 +7,17 @@ namespace DataMining.DecisionTree
         protected IBinaryNode<T> _left;
         protected IBinaryNode<T> _right;
 
-        #region Свойства
-
-        /// <summary>
-        /// Ссылка на родителя, преобразованая к интерфейсу IBinaryNode
-        /// </summary>
+        // ссылка на родителя, преобразованая к интерфейсу IBinaryNode
         public new IBinaryNode<T> Parent { get { return base.Parent as IBinaryNode<T>; } }
-
-        /// <summary>
-        /// Ссылка на левого потомка
-        /// </summary>
+        // ссылка на левого потомка
         public IBinaryNode<T> Left { get { return _left; } }
-
-        /// <summary>
-        /// Ссылка на правого потомка
-        /// </summary>
+        // ссылка на правого потомка
         public IBinaryNode<T> Right { get { return _right; } }
-
-        #endregion
 
         public AbstractBinaryNode(int id, NodeType type, INodeBase<T> parent)
             : base(id, type, parent)
         {
         }
-
-        #region Методы
 
         public virtual IBinaryNode<T> CreateLeftNode()
         {
@@ -80,7 +66,5 @@ namespace DataMining.DecisionTree
             else
                 throw new InvalidOperationException("Правый лист уже создан");
         }
-
-        #endregion
     }
 }

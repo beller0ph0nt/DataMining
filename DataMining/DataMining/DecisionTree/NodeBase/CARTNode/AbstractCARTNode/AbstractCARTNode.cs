@@ -8,24 +8,12 @@ namespace DataMining.DecisionTree
         protected long _elementsCount;
         protected IDictionary<string, long> _classElementsCount;
 
-        #region Свойства
-
-        /// <summary>
-        /// Ссылка на родителя, преобразованая к интерфейсу ICARTNode
-        /// </summary>
+        // ссылка на родителя, преобразованая к интерфейсу ICARTNode
         public new ICARTNode<T> Parent { get { return base.Parent as ICARTNode<T>; } }
-
-        /// <summary>
-        /// Количество элементов, прошедших через узел
-        /// </summary>
+        // кол-во элементов, прошедших через узел
         public long ElementsCount { get { return _elementsCount; } }
-
-        /// <summary>
-        /// Количество элементов каждого класса, прошедщих через узел
-        /// </summary>
+        // кол-во элементов каждого класса, прошедщих через узел
         public IDictionary<string, long> ClassElementsCount { get { return _classElementsCount; } }
-
-        #endregion
 
         public AbstractCARTNode(int id, NodeType type, INodeBase<T> parent)
             : base(id, type, parent)
@@ -33,8 +21,6 @@ namespace DataMining.DecisionTree
             _classElementsCount = new Dictionary<string, long>();
             _elementsCount = 0;
         }
-
-        #region Методы
 
         public override IBinaryNode<T> CreateLeftNode()
         {
@@ -83,7 +69,5 @@ namespace DataMining.DecisionTree
             else
                 throw new InvalidOperationException("Правый CART-лист уже создан");
         }
-
-        #endregion
     }
 }
