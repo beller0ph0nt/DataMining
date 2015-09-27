@@ -8,12 +8,8 @@ namespace DataMining.DecisionTree.SplitQualityAlgorithm
 {
     public class GiniSplit<T> : ISplitQualityAlgorithm<T>
     {
-        /// <summary>
-        /// Вычисляет классический индекс Гини
-        /// </summary>
-        /// <param name="split">Оцениваемое множество</param>
-        /// <returns>Индекс</returns>
-        public double GiniIndex(List<T> split)
+        // вычисляет классический индекс Гини
+		public double GiniIndex(List<T> split)	// оцениваемое множество
         {
             double count = split.Count;
 
@@ -21,32 +17,24 @@ namespace DataMining.DecisionTree.SplitQualityAlgorithm
                 GroupBy(k => k, (k, e) => new { Count = e.Count() }).
                 Sum(a => Math.Pow(a.Count / count, 2));
         }
-
-        /// <summary>
-        /// Вычисляет показатель качества разбиения
-        /// </summary>
-        /// <param name="splits">Список разбиений</param>
-        /// <returns>Показатель качества разбиения</returns>
-        
-        //public double CalcSplitQuality(List<List<T>> splits)
-        public double CalcSplitQuality(List<List<Cell>> splits)
+			
+        // вычисляет показатель качества разбиения
+		public double CalcSplitQuality(List<List<T>> splits)	// список разбиений
         {
             //double totalCount = splits.Sum(l => l.Count);
             
             //return splits.Sum(a => a.Count * GiniIndex(a) / totalCount);
+
+			throw new NotImplementedException();
         }
         
-        /// <summary>
-        /// Сравнивает показатели качества разбиения
-        /// </summary>
-        /// <param name="firstQuality">Первый показатель</param>
-        /// <param name="secondQuality">Второй показатель</param>
-        /// <returns>
-        /// -1 - первый показатель лучше второго
-        ///  0 - показатели равны
-        ///  1 - первый показатель хуже второго
-        /// </returns>
-        public int Compare(double firstQuality, double secondQuality)
+        // сравнивает показатели качества разбиения
+        // выход:
+        //  -1 - первый показатель лучше второго
+        // 	 0 - показатели равны
+        //   1 - первый показатель хуже второго
+		public int Compare(double firstQuality,		// первый показатель
+						   double secondQuality)	// второй показатель
         {
             if (firstQuality > secondQuality)
                 return 1;

@@ -8,24 +8,15 @@ namespace DataMining.DecisionTree.SplitQualityAlgorithm
 {
     public interface ISplitQualityAlgorithm<T>
     {
-        /// <summary>
-        /// Вычисляет показатель качества разбиения
-        /// </summary>
-        /// <param name="splits">Список разбиений</param>
-        /// <returns>Показатель качества разбиения</returns>
-        //double CalcSplitQuality(List<List<T>> splits);
-        double CalcSplitQuality(List<List<Cell>> splits);
+        // вычисляет показатель качества разбиения
+		double CalcSplitQuality(List<List<T>> splits);	// список разбиений
 
-        /// <summary>
-        /// Сравнивает показатели качества разбиения
-        /// </summary>
-        /// <param name="firstQuality">Первый показатель</param>
-        /// <param name="secondQuality">Второй показатель</param>
-        /// <returns>
-        /// -1 - первый показатель лучше второго
-        ///  0 - показатели равны
-        ///  1 - первый показатель хуже второго
-        /// </returns>
-        int Compare(double firstQuality, double secondQuality);
+        // сравнивает показатели качества разбиения
+        // выход:
+        //  -1 - первый показатель лучше второго
+        //   0 - показатели равны
+        //   1 - первый показатель хуже второго
+		int Compare(double firstQuality,	// первый показатель
+					double secondQuality);	// второй показатель
     }
 }

@@ -21,17 +21,17 @@ namespace DataMining.DecisionTree.Splits
         // алгоритм оценки качества разбиения
         public ISplitQualityAlgorithm<T> SplitQualityAlgorithm { get; private set; }
         // разбиения полученные в результате
-        public List<List<Cell>> Splits { get; private set; }
+        public List<List<T>> Splits { get; private set; }
 
         #endregion
 
         public SplitBase()
         {
             SplitQualityAlgorithm = new GiniSplit<T>();
-            Splits = new List<List<Cell>>();
+            Splits = new List<List<T>>();
         }
 
-        protected void Fix(double quality, double threshold, List<List<Cell>> splits)
+		protected void Fix(double quality, double threshold, List<List<T>> splits)
         {
             Quality = quality;
             Threshold = threshold;
@@ -39,8 +39,8 @@ namespace DataMining.DecisionTree.Splits
             splits.ForEach(s => Splits.Add(s));
         }
 
-        //public abstract void CalcBestSplit(List<T> a);
-        public abstract void CalcBestSplit(List<Cell> a);
+        public abstract void CalcBestSplit(List<T> a);
+        //public abstract void CalcBestSplit(List<Cell> a);
 
         public int CompareTo(object obj)
         {

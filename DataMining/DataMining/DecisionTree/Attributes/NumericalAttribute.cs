@@ -28,9 +28,11 @@ namespace DataMining.DecisionTree.Attributes
         /// <returns>Список разделений</returns>
         public override List<AttributeBase<double>> Split()
         {
-            SplitVar.CalcBestSplit(this.Values);
+            //SplitVar.CalcBestSplit(this.Values);
 
-            return SplitVar.Splits.ConvertAll(l => (AttributeBase<double>)new NumericalAttribute(l));
+            //return SplitVar.Splits.ConvertAll(l => (AttributeBase<double>)new NumericalAttribute(l));
+
+			return null;
         }
     }
 }

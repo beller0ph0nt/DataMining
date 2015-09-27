@@ -10,8 +10,8 @@ namespace DataMining.DecisionTree.Splits
 {
     public class NumericalSplit : SplitBase<double>
     {
-        //public override void CalcBestSplit(List<double> a)
-        public override void CalcBestSplit(List<Cell> a)
+        public override void CalcBestSplit(List<double> a)
+        //public override void CalcBestSplit(List<Cell> a)
         {
             double tmpQuality;
             double tmpThreshold;

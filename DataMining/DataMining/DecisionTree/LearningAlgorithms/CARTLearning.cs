@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,7 +10,7 @@ namespace DataMining.DecisionTree.LearningAlgorithm
 {
     public class CARTLearning : ILearningAlgorithm
     {
-        private ITree _tree;
+        private ITree _tree;	// обучаемое дерево
         //private ISplitQualityAlgorithm _splitQuality;
         //private Dictionary<int, ISplitQualityAlgorithm> _bestSplitQualityes;
 
@@ -19,6 +20,10 @@ namespace DataMining.DecisionTree.LearningAlgorithm
             //_splitQuality = new GiniSplit();
             //_bestSplitQualityes = new Dictionary<int, ISplitQualityAlgorithm>();
         }
+
+		public void Training(DataTable table)
+		{
+		}
 
         public void Training(List<AttributeBase<object>> inputs)
         {
