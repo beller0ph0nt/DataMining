@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,11 +12,14 @@ namespace DataMining.DecisionTree.SplitQualityAlgorithm
         // вычисляет показатель качества разбиения
 		double CalcSplitQuality(List<List<T>> splits);	// список разбиений
 
+		// вычисляет показатель качества разбиения
+		double CalcSplitQuality(DataTable set);	// набор
+
         // сравнивает показатели качества разбиения
         // выход:
         //  -1 - первый показатель лучше второго
         //   0 - показатели равны
-        //   1 - первый показатель хуже второго
+        //   1 - второй показатель лучше первого
 		int Compare(double firstQuality,	// первый показатель
 					double secondQuality);	// второй показатель
     }

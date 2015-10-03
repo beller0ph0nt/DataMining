@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -27,6 +28,12 @@ namespace DataMining.DecisionTree.SplitQualityAlgorithm
 
 			throw new NotImplementedException();
         }
+
+		// вычисляет показатель качества разбиения
+		public double CalcSplitQuality(DataTable set)	// набор
+		{
+			throw new NotImplementedException();
+		}
         
         // сравнивает показатели качества разбиения
         // выход:
