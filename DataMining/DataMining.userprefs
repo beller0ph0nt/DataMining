@@ -2,32 +2,10 @@
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.Workbench ActiveDocument="DataMining/DecisionTree/SplitQualityAlgorithm/GiniSplit.cs">
     <Files>
-      <File FileName="DataMining/DecisionTree/Splits/CategoricalSplit.cs" Line="1" Column="1" />
-      <File FileName="DataMining/DecisionTree/Splits/SplitBase.cs" Line="1" Column="1" />
-      <File FileName="DataMining/DecisionTree/Attributes/AttributeBase.cs" Line="1" Column="1" />
-      <File FileName="DataMining/DecisionTree/CARTTree.cs" Line="1" Column="1" />
-      <File FileName="DataMining/DecisionTree/ITree.cs" Line="1" Column="1" />
-      <File FileName="DataMining/DecisionTree/NodeBase/INodeBase.cs" Line="1" Column="1" />
-      <File FileName="DataMining/DecisionTree/NodeBase/AbstractNodeBase.cs" Line="1" Column="1" />
-      <File FileName="DataMining/DecisionTree/NodeBase/GeneralNode/IGeneralNode.cs" Line="1" Column="1" />
-      <File FileName="DataMining/DecisionTree/NodeBase/GeneralNode/AbstractGeneralNode/AbstractGeneralNode.cs" Line="1" Column="1" />
-      <File FileName="DataMining/DecisionTree/NodeBase/BinaryNode/IBinaryNode.cs" Line="1" Column="1" />
-      <File FileName="DataMining/DecisionTree/NodeBase/CARTNode/ICARTNode.cs" Line="1" Column="1" />
-      <File FileName="DataMining/DecisionTree/NodeBase/CARTNode/AbstractCARTNode/AbstractCARTNode.cs" Line="1" Column="1" />
-      <File FileName="DataMining/DecisionTree/NodeBase/CARTNode/AbstractCARTNode/CARTNodes/CARTLeaf.cs" Line="1" Column="1" />
-      <File FileName="DataMining/DecisionTree/NodeBase/CARTNode/AbstractCARTNode/CARTNodes/CARTNode.cs" Line="1" Column="1" />
-      <File FileName="DataMining/DecisionTree/NodeBase/CARTNode/AbstractCARTNode/CARTNodes/CARTRoot.cs" Line="1" Column="1" />
-      <File FileName="DataMining/DecisionTree/NodeBase/BinaryNode/AbstractBinaryNode/AbstractBinaryNode.cs" Line="1" Column="1" />
-      <File FileName="DataMining/DecisionTree/NodeBase/BinaryNode/AbstractBinaryNode/BinaryNodes/BinaryLeaf.cs" Line="1" Column="1" />
-      <File FileName="DataMining/DecisionTree/NodeBase/BinaryNode/AbstractBinaryNode/BinaryNodes/BinaryNode.cs" Line="1" Column="1" />
-      <File FileName="DataMining/DecisionTree/LearningAlgorithms/ILearningAlgorithm.cs" Line="1" Column="1" />
-      <File FileName="DataMining/DecisionTree/LearningAlgorithms/CARTLearning.cs" Line="17" Column="17" />
-      <File FileName="DataMining/DecisionTree/Splits/NumericalSplit.cs" Line="1" Column="1" />
-      <File FileName="DataMining/DecisionTree/Attributes/CategoricalAttribute.cs" Line="1" Column="1" />
-      <File FileName="DataMining/DecisionTree/Attributes/NumericalAttribute.cs" Line="1" Column="1" />
-      <File FileName="DataMining/DecisionTree/SplitQualityAlgorithm/GiniSplit.cs" Line="29" Column="29" />
-      <File FileName="DataMining/DecisionTree/SplitQualityAlgorithm/ISplitQualityAlgorithm.cs" Line="51" Column="51" />
-      <File FileName="DataMining/DecisionTree/SplitQualityAlgorithm/GiniSplitOptimized.cs" Line="3" Column="3" />
+      <File FileName="DataMining/DecisionTree/SplitQualityAlgorithm/ISplitQualityAlgorithm.cs" Line="8" Column="8" />
+      <File FileName="DataMining/DecisionTree/SplitQualityAlgorithm/GiniSplitOptimized.cs" Line="52" Column="52" />
+      <File FileName="DataMining/DecisionTree/SplitQualityAlgorithm/GiniSplit.cs" Line="42" Column="42" />
+      <File FileName="DataMining/DecisionTree/Attributes/AttributeBase.cs" Line="6" Column="6" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
