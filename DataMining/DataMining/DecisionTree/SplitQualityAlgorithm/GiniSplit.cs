@@ -34,6 +34,9 @@ namespace DataMining.DecisionTree.SplitQualityAlgorithm
 			DataColumn column,							// атрибут по которому производится вычисление индекса
 			int threshold)								// порог, относительно которого было получено разбиение
 		{
+			// считаем количество различных классов в таблице по указанному столбцу
+			// 
+
 			throw new NotImplementedException();
 		}
 

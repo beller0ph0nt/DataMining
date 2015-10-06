@@ -2,10 +2,12 @@
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.Workbench ActiveDocument="DataMining/DecisionTree/SplitQualityAlgorithm/GiniSplit.cs">
     <Files>
-      <File FileName="DataMining/DecisionTree/SplitQualityAlgorithm/ISplitQualityAlgorithm.cs" Line="8" Column="8" />
-      <File FileName="DataMining/DecisionTree/SplitQualityAlgorithm/GiniSplitOptimized.cs" Line="52" Column="52" />
-      <File FileName="DataMining/DecisionTree/SplitQualityAlgorithm/GiniSplit.cs" Line="42" Column="42" />
-      <File FileName="DataMining/DecisionTree/Attributes/AttributeBase.cs" Line="6" Column="6" />
+      <File FileName="DataMining/DecisionTree/SplitQualityAlgorithm/ISplitQualityAlgorithm.cs" Line="3" Column="3" />
+      <File FileName="DataMining/DecisionTree/SplitQualityAlgorithm/GiniSplitOptimized.cs" Line="19" Column="19" />
+      <File FileName="DataMining/DecisionTree/SplitQualityAlgorithm/GiniSplit.cs" Line="7" Column="7" />
+      <File FileName="DataMining/DecisionTree/Attributes/AttributeBase.cs" Line="1" Column="1" />
+      <File FileName="DataMining/DecisionTree/Splits/CategoricalSplit.cs" Line="32" Column="32" />
+      <File FileName="DataMining/DecisionTree/Splits/SplitBase.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
