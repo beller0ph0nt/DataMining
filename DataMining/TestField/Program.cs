@@ -12,7 +12,7 @@ namespace TestField
     {
         static void Main(string[] args)
         {
-			Random rnd = new Random();
+			//Random rnd = new Random();
 
 			DataTable table = new DataTable("TEST");
 
@@ -33,11 +33,14 @@ namespace TestField
 			column.Unique = false;
 			table.Columns.Add(column);
 
+			int count = 10;
+
 			Console.WriteLine("gen table...");
-			for (int i = 0; i<= 2; i++)
+			for (int i = 0; i <= count; i++)
 			{
 				row = table.NewRow();
-				row["cat"] = rnd.Next();
+				//row["cat"] = rnd.Next();
+				row["cat"] = i % 3;
 				row["num"] = i;
 
 				Console.WriteLine(row["cat"].ToString() + ", " + row["num"].ToString());
@@ -45,14 +48,23 @@ namespace TestField
 				table.Rows.Add(row);
 			}
 
-			Console.WriteLine ();
+			Console.WriteLine();
 
-			for (int i = 0; i<= 2; i++)
+			for (int i = 0; i <= count; i++)
 			{
 				Console.WriteLine(table.Rows[i]["cat"].ToString() + "\t|" + table.Rows[i][1].ToString());
 			}
 
-			//table.AsEnumerable().
+			var result = table.AsEnumerable().GroupBy(r => r ["cat"], d => new { key = d ["cat"] });
+			var cnt = table.AsEnumerable().GroupBy(r => r ["cat"], d => new { key = d ["cat"] }).Count();
+
+			Console.WriteLine();
+
+			foreach (var t in result)
+				Console.WriteLine(t.Key);
+
+			Console.WriteLine("-------");
+			Console.WriteLine("cnt = " + cnt);
 
 			// примеры группировок
 
