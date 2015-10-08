@@ -13,14 +13,14 @@ namespace DataMining.DecisionTree.SplitQualityAlgorithm
 		double CalcSplitQuality(List<List<T>> splits);	// список разбиений
 
 		// вычисляет показатель качества разбиения для числового аттрибута
-		double CalcSplitQuality(DataTable table,		// набор
-								DataColumn column,		// атрибут по которому производится вычисление индекса
-								double threshold);		// порог, относительно которого было получено разбиение
+		double CalcSplitQuality(List<DataTable> tables,	// набор
+			DataColumn column,							// атрибут по которому производится вычисление индекса
+			double threshold);							// порог, относительно которого было получено разбиение
 
 		// вычисляет показатель качества разбиения для категориального аттрибута
-		double CalcSplitQuality(DataTable table,		// набор
-								DataColumn column,		// атрибут по которому производится вычисление индекса
-								int threshold);			// порог, относительно которого было получено разбиение
+		double CalcSplitQuality(List<DataTable> tables,	// набор
+			DataColumn column,							// атрибут по которому производится вычисление индекса
+			int threshold);								// порог, относительно которого было получено разбиение
 
         // сравнивает показатели качества разбиения
         // выход:
