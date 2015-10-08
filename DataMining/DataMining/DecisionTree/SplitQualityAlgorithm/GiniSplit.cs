@@ -12,40 +12,41 @@ namespace DataMining.DecisionTree.SplitQualityAlgorithm
         // вычисляет классический индекс Гини
 		public double GiniIndex(List<T> split)	// оцениваемое множество
         {
-            double count = split.Count;
+			// !!! СТАРЫЙ ВАРИАНТ УДАЛИТЬ !!!
 
-            return 1 - split.
-                GroupBy(k => k, (k, e) => new { Count = e.Count() }).
-                Sum(a => Math.Pow(a.Count / count, 2));
+            //double count = split.Count;
+
+            //return 1 - split.
+            //    GroupBy(k => k, (k, e) => new { Count = e.Count() }).
+            //    Sum(a => Math.Pow(a.Count / count, 2));
+
+			throw new NotImplementedException();
         }
+
+		public double GiniIndex(DataTable table, DataColumn column)
+		{
+			double count = table.Rows.Count;
+
+			return 1 - table.AsEnumerable ().
+				GroupBy (k => k [column.ColumnName], (k, e) => new { cnt = e.Count() }).
+				Sum (a => Math.Pow (a.cnt / count, 2));
+		}
 			
         // вычисляет показатель качества разбиения
 		public double CalcSplitQuality(List<List<T>> splits)	// список разбиений
         {
-            //double totalCount = splits.Sum(l => l.Count);
-            
-            //return splits.Sum(a => a.Count * GiniIndex(a) / totalCount);
+			// !!! СТАРЫЙ ВАРИАНТ УДАЛИТЬ !!!
 
 			throw new NotImplementedException();
         }
 
 		// вычисляет показатель качества разбиения для категориального аттрибута
 		public double CalcSplitQuality(List<DataTable> tables,	// набор
-			DataColumn column,									// атрибут по которому производится вычисление индекса
-			int threshold)										// порог, относительно которого было получено разбиение
+			DataColumn column)									// атрибут по которому производится вычисление индекса
 		{
-			// считаем количество различных классов в таблице по указанному столбцу
-			// 
+			double totalCount = tables.Sum(tbl => tbl.Rows.Count);
 
-			throw new NotImplementedException();
-		}
-
-		// вычисляет показатель качества разбиения для числового аттрибута
-		public double CalcSplitQuality(List<DataTable> tables,	// набор
-			DataColumn column,									// атрибут по которому производится вычисление индекса
-			double threshold)									// порог, относительно которого было получено разбиение
-		{
-			throw new NotImplementedException();
+			return tables.Sum(tbl => tbl.Rows.Count * GiniIndex(tbl, column) / totalCount);
 		}
         
         // сравнивает показатели качества разбиения
