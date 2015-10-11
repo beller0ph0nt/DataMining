@@ -7,12 +7,8 @@ using DataMining.DecisionTree.Elements;
 
 namespace DataMining.DecisionTree.SplitQualityAlgorithm
 {
-    public interface ISplitQualityAlgorithm<T>
+    public interface ISplitQualityAlgorithm
     {
-		// !!! СТАРЫЙ ВАРИАНТ УДАЛИТЬ !!!
-        // вычисляет показатель качества разбиения
-		double CalcSplitQuality(List<List<T>> splits);	// список разбиений
-
 		// вычисляет показатель качества разбиения для числового аттрибута
 		double CalcSplitQuality (List<DataTable> tables,	// набор
 			DataColumn column);								// атрибут по которому производится вычисление индекса

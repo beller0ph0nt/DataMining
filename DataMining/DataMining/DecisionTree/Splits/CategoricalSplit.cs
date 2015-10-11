@@ -9,6 +9,12 @@ namespace DataMining.DecisionTree.Splits
 {
     public class CategoricalSplit : SplitBase<int>
     {
+		public override void CalcBestSplit(List<int> a)
+		{
+			throw new NotImplementedException ();
+		}
+
+		/*
         public override void CalcBestSplit(List<int> a)
         {
             double tmpQuality;
@@ -33,5 +39,6 @@ namespace DataMining.DecisionTree.Splits
                 }
             }
         }
+        */
     }
 }

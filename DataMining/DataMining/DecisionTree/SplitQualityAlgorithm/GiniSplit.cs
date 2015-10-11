@@ -7,22 +7,8 @@ using DataMining.DecisionTree.Elements;
 
 namespace DataMining.DecisionTree.SplitQualityAlgorithm
 {
-    public class GiniSplit<T> : ISplitQualityAlgorithm<T>
+    public class GiniSplit : ISplitQualityAlgorithm
     {
-        // вычисляет классический индекс Гини
-		public double GiniIndex(List<T> split)	// оцениваемое множество
-        {
-			// !!! СТАРЫЙ ВАРИАНТ УДАЛИТЬ !!!
-
-            //double count = split.Count;
-
-            //return 1 - split.
-            //    GroupBy(k => k, (k, e) => new { Count = e.Count() }).
-            //    Sum(a => Math.Pow(a.Count / count, 2));
-
-			throw new NotImplementedException();
-        }
-
 		public double GiniIndex(DataTable table, DataColumn column)
 		{
 			double count = table.Rows.Count;
@@ -31,14 +17,6 @@ namespace DataMining.DecisionTree.SplitQualityAlgorithm
 				GroupBy (k => k [column.ColumnName], (k, e) => new { cnt = e.Count() }).
 				Sum (a => Math.Pow (a.cnt / count, 2));
 		}
-			
-        // вычисляет показатель качества разбиения
-		public double CalcSplitQuality(List<List<T>> splits)	// список разбиений
-        {
-			// !!! СТАРЫЙ ВАРИАНТ УДАЛИТЬ !!!
-
-			throw new NotImplementedException();
-        }
 
 		// вычисляет показатель качества разбиения для категориального аттрибута
 		public double CalcSplitQuality(List<DataTable> tables,	// набор

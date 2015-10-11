@@ -10,6 +10,12 @@ namespace DataMining.DecisionTree.Splits
 {
     public class NumericalSplit : SplitBase<double>
     {
+		public override void CalcBestSplit(List<double> a)
+		{
+			throw new NotImplementedException ();
+		}
+
+		/*
         public override void CalcBestSplit(List<double> a)
         //public override void CalcBestSplit(List<Cell> a)
         {
@@ -39,5 +45,6 @@ namespace DataMining.DecisionTree.Splits
                     Fix(tmpQuality, tmpThreshold, tmpSplits);
             }
         }
+        */
     }
 }

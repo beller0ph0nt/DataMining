@@ -19,7 +19,7 @@ namespace DataMining.DecisionTree.Splits
         // кол-во категорий, необходим для разбиения категориальных переменных
         public int Categories { get; set; }
         // алгоритм оценки качества разбиения
-        public ISplitQualityAlgorithm<T> SplitQualityAlgorithm { get; private set; }
+        public ISplitQualityAlgorithm SplitQualityAlgorithm { get; private set; }
         // разбиения полученные в результате
         public List<List<T>> Splits { get; private set; }
 
@@ -27,10 +27,11 @@ namespace DataMining.DecisionTree.Splits
 
         public SplitBase()
         {
-            SplitQualityAlgorithm = new GiniSplit<T>();
+            SplitQualityAlgorithm = new GiniSplit();
             Splits = new List<List<T>>();
         }
 
+		// фиксирует параметры лучшего разбиения
 		protected void Fix(double quality, double threshold, List<List<T>> splits)
         {
             Quality = quality;
