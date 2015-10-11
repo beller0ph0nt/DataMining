@@ -1,15 +1,16 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="DataMining/DecisionTree/SplitQualityAlgorithm/ISplitQualityAlgorithm.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="DataMining/DecisionTree/Splits/NumericalSplit.cs">
     <Files>
-      <File FileName="DataMining/DecisionTree/SplitQualityAlgorithm/ISplitQualityAlgorithm.cs" Line="25" Column="25" />
-      <File FileName="DataMining/DecisionTree/SplitQualityAlgorithm/GiniSplitOptimized.cs" Line="1" Column="1" />
+      <File FileName="DataMining/DecisionTree/SplitQualityAlgorithm/ISplitQualityAlgorithm.cs" Line="34" Column="34" />
+      <File FileName="DataMining/DecisionTree/SplitQualityAlgorithm/GiniSplitOptimized.cs" Line="2" Column="2" />
       <File FileName="DataMining/DecisionTree/SplitQualityAlgorithm/GiniSplit.cs" Line="1" Column="1" />
       <File FileName="DataMining/DecisionTree/Attributes/AttributeBase.cs" Line="1" Column="1" />
-      <File FileName="DataMining/DecisionTree/Splits/CategoricalSplit.cs" Line="1" Column="1" />
-      <File FileName="DataMining/DecisionTree/Splits/SplitBase.cs" Line="1" Column="1" />
+      <File FileName="DataMining/DecisionTree/Splits/CategoricalSplit.cs" Line="4" Column="4" />
+      <File FileName="DataMining/DecisionTree/Splits/SplitBase.cs" Line="42" Column="42" />
       <File FileName="TestField/Program.cs" Line="1" Column="1" />
       <File FileName="DataMining/DecisionTree/LearningAlgorithms/CARTLearning.cs" Line="1" Column="1" />
+      <File FileName="DataMining/DecisionTree/Splits/NumericalSplit.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
