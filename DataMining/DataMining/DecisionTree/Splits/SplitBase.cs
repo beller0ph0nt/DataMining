@@ -14,7 +14,7 @@ namespace DataMining.DecisionTree.Splits
 
         // оценка качества разбиения
         public double Quality { get; protected set; }
-        // порог, необходим для разбиения числовых переменныъ
+        // порог, необходим для разбиения числовых переменных
         public double Threshold { get; protected set; }
         // кол-во категорий, необходим для разбиения категориальных переменных
         public int Categories { get; set; }
