@@ -23,6 +23,12 @@ namespace DataMining
 			foreach (DataColumn col in Table.Columns)
 			{
 				// осуществляем разбиение по колонке
+
+				if (Table.Rows[0][col] is long)
+					CalcBestCatSplit(col);
+				else
+					CalcBestNumSplit(col);
+
 				// считаем качество разбиения
 				// сохраняем разбиение
 			}
@@ -34,6 +40,16 @@ namespace DataMining
 		{
 			Table = table;
 			return CalcBestSplit();
+		}
+
+		public List<DataTable> CalcBestNumSplit(DataColumn col)
+		{
+			throw new NotImplementedException ();
+		}
+
+		public List<DataTable> CalcBestCatSplit(DataColumn col)
+		{
+			throw new NotImplementedException ();
 		}
 	}
 }
