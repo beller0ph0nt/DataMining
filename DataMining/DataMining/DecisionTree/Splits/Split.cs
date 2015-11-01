@@ -63,7 +63,7 @@ namespace DataMining
 			for (int i = 0; i < Table.Rows.Count - 1; i++)
 			{
 				// вычисляем порог, как среднее
-				tmpThreshold = (Table.Rows[i].Field<int>(col) + Table.Rows[i + 1].Field<int>(col)) / 2;
+				tmpThreshold = (Table.Rows[i].Field<double>(col) + Table.Rows[i + 1].Field<double>(col)) / 2;
 
 				List<DataTable> tmpSplits = new List<DataTable>();	// выделяем память под временное разбиение
 				tmpSplits.Add(new DataTable());                  // первое разбиение
@@ -71,7 +71,7 @@ namespace DataMining
 
 				for (int j = 0; j < Table.Rows.Count; j++)
 				{
-					if (Table.Rows[j].Field<int>(col) <= tmpThreshold)
+					if (Table.Rows[j].Field<double>(col) <= tmpThreshold)
 						tmpSplits[0].Rows.Add(Table.Rows[j]);
 					else
 						tmpSplits[1].Rows.Add(Table.Rows[j]);
