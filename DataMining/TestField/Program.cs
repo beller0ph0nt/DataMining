@@ -50,6 +50,9 @@ namespace TestField
 
 			Console.WriteLine();
 
+			table.DefaultView.Sort = "num desc";
+			table = table.DefaultView.ToTable();
+
 			for (int i = 0; i <= count; i++)
 			{
 				Console.WriteLine(table.Rows[i]["cat"].ToString() + "\t|" + table.Rows[i][1].ToString());
