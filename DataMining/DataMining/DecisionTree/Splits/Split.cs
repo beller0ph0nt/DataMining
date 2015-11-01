@@ -11,6 +11,7 @@ namespace DataMining
 		public DataTable Table { get; set; }
 		public List<DataTable> Splits { get; private set; }
 		public double Threshold { get; private set;}
+		public int Set { get; private set;}
 		public double Quality { get; private set;}
 		public ISplitQualityAlgorithm SplitQualityAlgorithm { get; private set; }
 
@@ -31,9 +32,6 @@ namespace DataMining
 					CalcBestCatSplit(col);
 				else
 					CalcBestNumSplit(col);
-
-				// считаем качество разбиения
-				// сохраняем разбиение
 			}
 
 			return Splits;
@@ -88,6 +86,8 @@ namespace DataMining
 
 		public void CalcBestCatSplit(DataColumn col)
 		{
+			double tmpQuality;
+
 			throw new NotImplementedException ();
 		}
 	}
