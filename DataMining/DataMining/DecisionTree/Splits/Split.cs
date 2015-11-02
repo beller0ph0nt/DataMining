@@ -10,9 +10,9 @@ namespace DataMining
 	{
 		public DataTable Table { get; set; }
 		public List<DataTable> Splits { get; private set; }
-		public double Threshold { get; private set;}
-		public int Set { get; private set;}
+		public object Threshold { get; private set;}
 		public double Quality { get; private set;}
+		public DataColumn Column { get; private set; }
 		public ISplitQualityAlgorithm SplitQualityAlgorithm { get; private set; }
 
 		public Split(DataTable table):this(table, new GiniSplit())	{ }
@@ -43,11 +43,13 @@ namespace DataMining
 			return CalcBestSplit();
 		}
 
-		private void Fix(double quality, double threshold, List<DataTable> splits)
+		//private void Fix(double quality, double threshold, List<DataTable> splits)
+		private void Fix(double quality, object threshold, List<DataTable> splits, DataColumn col)
 		{
 			Quality = quality;
 			Threshold = threshold;
 			Splits = splits;
+			Column = col;
 		}
 
 		private void CalcBestNumSplit(DataColumn col)
@@ -78,15 +80,23 @@ namespace DataMining
 				tmpQuality = SplitQualityAlgorithm.CalcSplitQuality (tmpSplits, col);
 
 				if (i == 0)
-					Fix(tmpQuality, tmpThreshold, tmpSplits);
+					Fix(tmpQuality, tmpThreshold, tmpSplits, col);
 				else if(SplitQualityAlgorithm.Compare(tmpQuality, Quality) < 0)
-					Fix(tmpQuality, tmpThreshold, tmpSplits);
+					Fix(tmpQuality, tmpThreshold, tmpSplits, col);
 			}
 		}
 
 		public void CalcBestCatSplit(DataColumn col)
 		{
 			double tmpQuality;
+			int Categories = 0;
+
+			// определяем кол-во категорий как максимальное значение категориального аттрибута
+			// ...
+
+			for (int set = 1; set < Categories - 1; set++)  // перебираем все катигории
+			{
+			}
 
 			throw new NotImplementedException ();
 		}
