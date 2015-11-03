@@ -6,7 +6,7 @@ using DataMining.DecisionTree.SplitQualityAlgorithm;
 
 namespace DataMining
 {
-	public class Split
+	public class Split : IComparable
 	{
 		public DataTable Table { get; set; }
 		public List<DataTable> Splits { get; private set; }
@@ -109,6 +109,11 @@ namespace DataMining
 				else if(SplitQualityAlgorithm.Compare(tmpQuality, Quality) < 0)
 					Fix(tmpQuality, set, tmpSplits, col);
 			}
+		}
+
+		public int CompareTo(object obj)
+		{
+			return SplitQualityAlgorithm.Compare(Quality, ((Split)obj).Quality);
 		}
 	}
 }
