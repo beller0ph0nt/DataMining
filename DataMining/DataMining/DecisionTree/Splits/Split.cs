@@ -43,7 +43,6 @@ namespace DataMining
 			return CalcBestSplit();
 		}
 
-		//private void Fix(double quality, double threshold, List<DataTable> splits)
 		private void Fix(double quality, object threshold, List<DataTable> splits, DataColumn col)
 		{
 			Quality = quality;
@@ -66,8 +65,8 @@ namespace DataMining
 				tmpThreshold = (Table.Rows[i].Field<double>(col) + Table.Rows[i + 1].Field<double>(col)) / 2;
 
 				List<DataTable> tmpSplits = new List<DataTable>();	// выделяем память под временное разбиение
-				tmpSplits.Add(new DataTable());                  // первое разбиение
-				tmpSplits.Add(new DataTable());                  // второе разбиение
+				tmpSplits.Add(new DataTable());                  	// первое разбиение
+				tmpSplits.Add(new DataTable());                  	// второе разбиение
 
 				for (int j = 0; j < Table.Rows.Count; j++)
 				{
@@ -89,16 +88,27 @@ namespace DataMining
 		public void CalcBestCatSplit(DataColumn col)
 		{
 			double tmpQuality;
-			int Categories = 0;
+			int Categories = Table.AsEnumerable().Max(d => (int) d[col]);	// определяем кол-во категорий как максимальное значение категориального аттрибута
 
-			// определяем кол-во категорий как максимальное значение категориального аттрибута
-			// ...
-
-			for (int set = 1; set < Categories - 1; set++)  // перебираем все катигории
+			for (long set = 1; set < Categories - 1; set++)  // перебираем все катигории
 			{
-			}
+				List<DataTable> tmpSplits = new List<DataTable>();	// выделяем память под временное разбиение
+				tmpSplits.Add(new DataTable());                  	// первое разбиение
+				tmpSplits.Add(new DataTable());                  	// второе разбиение
 
-			throw new NotImplementedException ();
+				for (int i = 0; i < Table.Rows.Count; i++)
+					if ((~set & Table.Rows[i].Field<int>(col)) == 0)
+						tmpSplits[0].Rows.Add(Table.Rows[i]);
+					else
+						tmpSplits[1].Rows.Add(Table.Rows[i]);
+
+				tmpQuality = SplitQualityAlgorithm.CalcSplitQuality(tmpSplits, col);
+
+				if (set == 1)
+					Fix(tmpQuality, set, tmpSplits, col);
+				else if(SplitQualityAlgorithm.Compare(tmpQuality, Quality) < 0)
+					Fix(tmpQuality, set, tmpSplits, col);
+			}
 		}
 	}
 }
