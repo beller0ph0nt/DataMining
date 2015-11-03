@@ -9,13 +9,15 @@ namespace DataMining.DecisionTree.LearningAlgorithm
 {
     public class CARTLearning : ILearningAlgorithm
     {
-        private ITree _tree;	// обучаемое дерево
+        //private ITree _tree;	// обучаемое дерево
+
         //private ISplitQualityAlgorithm _splitQuality;
         //private Dictionary<int, ISplitQualityAlgorithm> _bestSplitQualityes;
 
         public CARTLearning(ITree tree)
         {
-            _tree = tree;
+            //_tree = tree;
+
             //_splitQuality = new GiniSplit();
             //_bestSplitQualityes = new Dictionary<int, ISplitQualityAlgorithm>();
         }
