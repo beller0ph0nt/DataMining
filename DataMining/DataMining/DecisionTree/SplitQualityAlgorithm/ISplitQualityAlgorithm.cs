@@ -12,6 +12,7 @@ namespace DataMining.DecisionTree.SplitQualityAlgorithm
 		// вычисляет показатель качества разбиения для числового аттрибута
 		double CalcSplitQuality (List<DataTable> tables,	// набор
 			DataColumn column);								// атрибут по которому производится вычисление индекса
+			//string colname);								// атрибут по которому производится вычисление индекса
 
         // сравнивает показатели качества разбиения
         // выход:

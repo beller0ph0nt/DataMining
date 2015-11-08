@@ -10,9 +10,6 @@ namespace DataMining.DecisionTree
         // кол-во элементов, прошедших через узел
         long ElementsCount { get; }
 
-        // Правило узла
-        //IRule Rule { get; set; }
-
         // кол-во элементов каждого класса, прошедщих через узел
         IDictionary<string, long> ClassElementsCount { get; }
     }

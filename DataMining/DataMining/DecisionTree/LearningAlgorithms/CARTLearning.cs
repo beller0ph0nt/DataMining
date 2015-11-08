@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using DataMining.DecisionTree.SplitQualityAlgorithm;
-//using DataMining.DecisionTree;
 
 namespace DataMining.DecisionTree.LearningAlgorithm
 {
@@ -26,10 +25,9 @@ namespace DataMining.DecisionTree.LearningAlgorithm
 
 		public void Training(DataTable table)
 		{
-			// Создать корень у дерева
-			int id = _tree.CreateRoot();
-			// Получить лучшее разбиение
-			Split s = new Split(table);
+			int id = _tree.CreateRoot();	// Создать корень у дерева
+			Split s = new Split(table);		// Получить лучшее разбиение
+
 			// Создать у текущего узла два листа
 			// В левый лист поместить [0] разбиение
 			// В правый лист поместить [1] разбиение

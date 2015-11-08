@@ -8,18 +8,23 @@ namespace DataMining.DecisionTree.SplitQualityAlgorithm
 {
     public class GiniSplitOptimized : ISplitQualityAlgorithm
     {
-		public double GiniIndexOptimized(DataTable table, DataColumn column)
+		public double GiniIndexOptimized(DataTable table, DataColumn col)
+		//public double GiniIndexOptimized(DataTable table, string colname)
 		{
 			return table.AsEnumerable ().
-				GroupBy(k => k[column.ColumnName], (k, e) => new { cnt = e.Count() }).
+				GroupBy(k => k[col], (k, e) => new { cnt = e.Count() }).
+				//GroupBy(k => k[colname], (k, e) => new { cnt = e.Count() }).
+				//GroupBy(row => row.Field<object>(col), (k, e) => new { cnt = e.Count() }).
 				Sum (a => a.cnt * a.cnt);
 		}
 
 		// вычисляет показатель качества разбиения для категориального аттрибута
 		public double CalcSplitQuality(List<DataTable> tables,	// набор
 			DataColumn column)									// атрибут по которому производится вычисление индекса
+			//string colname)								// атрибут по которому производится вычисление индекса
 		{
 			return tables.Sum (a => GiniIndexOptimized(a, column) / a.Rows.Count);
+			//return tables.Sum (a => GiniIndexOptimized(a, colname) / a.Rows.Count);
 		}
 			
         // Сравнивает показатели качества разбиения

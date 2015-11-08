@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DataMining.DecisionTree;
+using DataMining;
 
 namespace TestField
 {
@@ -48,7 +49,22 @@ namespace TestField
 				table.Rows.Add(row);
 			}
 
-			Console.WriteLine();
+			Split s = new Split (table);
+			List<DataTable> spl = s.CalcBestSplit ();
+
+			Console.WriteLine("split 0");
+			for (int i = 0; i <= spl[0].Rows.Count; i++)
+			{
+				Console.WriteLine(spl[0].Rows[i]["cat"].ToString() + "\t|" + spl[0].Rows[i][1].ToString());
+			}
+
+			Console.WriteLine("split 1");
+			for (int i = 0; i <= spl[1].Rows.Count; i++)
+			{
+				Console.WriteLine(spl[1].Rows[i]["cat"].ToString() + "\t|" + spl[1].Rows[i][1].ToString());
+			}
+
+			Console.WriteLine("*************************************************");
 
 			table.DefaultView.Sort = "num desc";
 			table = table.DefaultView.ToTable();
