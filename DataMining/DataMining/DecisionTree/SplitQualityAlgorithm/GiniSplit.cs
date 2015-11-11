@@ -15,7 +15,7 @@ namespace DataMining.DecisionTree.SplitQualityAlgorithm
 			double count = table.Rows.Count;
 
 			return 1 - table.AsEnumerable ().
-				GroupBy (k => k [col], (k, e) => new { cnt = e.Count() }).
+				GroupBy (k => k [col.Ordinal], (k, e) => new { cnt = e.Count() }).
 				//GroupBy (k => k [colname], (k, e) => new { cnt = e.Count() }).
 				//GroupBy (row => row.Field<object>(col), (k, e) => new { cnt = e.Count() }).
 				Sum (a => Math.Pow (a.cnt / count, 2));

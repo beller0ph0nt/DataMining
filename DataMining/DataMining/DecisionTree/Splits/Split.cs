@@ -69,28 +69,28 @@ namespace DataMining
 
 			Console.WriteLine ("col name == " + col.ColumnName);
 			Console.WriteLine ("row cnt == " + Table.Rows.Count);
-			for (int i = 0; i < (Table.Rows.Count - 1); i++)
+			for (int i = 0; i < Table.Rows.Count - 1; i++)
 			{
 				Console.WriteLine ("i == " + i);
-				Console.WriteLine ("Table.Rows[i].Field<double>(col) == " + Table.Rows[1].Field<Double>(col));
+				Console.WriteLine (Table.Rows[i+1].Field<double>(col.Ordinal));
 				// вычисляем порог, как среднее
-				tmpThreshold = ((Table.Rows[i].Field<double>(col)) + (Table.Rows[(i + 1)].Field<double>(col))) / 2.0;
+				tmpThreshold = (Table.Rows[i].Field<double>(col.Ordinal) + Table.Rows[i+1].Field<double>(col.Ordinal)) / 2.0;
 
 				List<DataTable> tmpSplits = new List<DataTable>();	// выделяем память под временное разбиение
-				//tmpSplits.Add(new DataTable());                  	// первое разбиение
 				tmpSplits.Add(Table.Clone());                  	// первое разбиение
-				//tmpSplits.Add(new DataTable());                  	// второе разбиение
 				tmpSplits.Add(Table.Clone());                  	// второе разбиение
 
 				for (int j = 0; j < Table.Rows.Count; j++)
 				{
 					if (Table.Rows[j].Field<double>(col) <= tmpThreshold)
-						tmpSplits[0].Rows.Add(Table.Rows[j]);
+						tmpSplits[0].ImportRow(Table.Rows[j]);	//tmpSplits[0].Rows.Add(Table.Rows[j]);
 					else
-						tmpSplits[1].Rows.Add(Table.Rows[j]);
+						tmpSplits[1].ImportRow(Table.Rows[j]);	//tmpSplits[1].Rows.Add(Table.Rows[j]);
 				}
 
+				Console.WriteLine("AA");
 				tmpQuality = SplitQualityAlgorithm.CalcSplitQuality (tmpSplits, col);
+				Console.WriteLine("BB");
 
 				if (i == 0)
 					Fix(tmpQuality, tmpThreshold, tmpSplits, col);
@@ -114,9 +114,7 @@ namespace DataMining
 				Console.WriteLine ("222");
 
 				List<DataTable> tmpSplits = new List<DataTable>();	// выделяем память под временное разбиение
-				//tmpSplits.Add(new DataTable());                  	// первое разбиение
 				tmpSplits.Add(Table.Clone());                  	// первое разбиение
-				//tmpSplits.Add(new DataTable());                  	// второе разбиение
 				tmpSplits.Add(Table.Clone());                  	// второе разбиение
 
 				for (int i = 0; i < Table.Rows.Count; i++) {
@@ -130,7 +128,7 @@ namespace DataMining
 				Console.WriteLine("1st split count: " + tmpSplits[0].Rows.Count);
 				Console.WriteLine("1st split col count: " + tmpSplits[0].Columns.Count);
 
-				for (int i = 0; i <= tmpSplits[0].Rows.Count; i++)
+				for (int i = 0; i < tmpSplits[0].Rows.Count; i++)
 				{
 					//Console.WriteLine (tmpSplits [0].Rows.ToString());
 					Console.WriteLine(tmpSplits[0].Rows[i][0].ToString() +
@@ -139,13 +137,16 @@ namespace DataMining
 
 				Console.WriteLine("2nd split count: " + tmpSplits[1].Rows.Count);
 
-				for (int i = 0; i <= tmpSplits[1].Rows.Count; i++)
+				for (int i = 0; i < tmpSplits[1].Rows.Count; i++)
 				{
 					Console.WriteLine(tmpSplits[1].Rows[i]["cat"].ToString() +
 						"\t|" + tmpSplits[1].Rows[i][1].ToString());
 				}
 
+
+				Console.WriteLine("AAA");
 				tmpQuality = SplitQualityAlgorithm.CalcSplitQuality(tmpSplits, col);
+				Console.WriteLine("BBB");
 
 				if (set == 1)
 					Fix (tmpQuality, set, tmpSplits, col);
