@@ -26,20 +26,13 @@ namespace DataMining
 		public List<DataTable> CalcBestSplit()
 		{
 			foreach (DataColumn col in Table.Columns)
-			{
-				Console.Write(col.ColumnName);
 				// осуществляем разбиение по колонке
-				if (Table.Rows [0] [col] is int) {
-					Console.WriteLine (" is long");
+				if (Table.Rows [0] [col] is int)
 					CalcBestCatSplit (col);
-				} else if (Table.Rows [0] [col] is double) {
-					Console.WriteLine (" is double");
+				else if (Table.Rows [0] [col] is double)
 					CalcBestNumSplit (col);
-				} else {
-					Console.WriteLine (" is unknown type");
+				else 
 					throw new Exception ("Bad col type");
-				}
-			}
 
 			return Splits;
 		}
@@ -67,30 +60,22 @@ namespace DataMining
 			Table.DefaultView.Sort = col.ColumnName + " asc";
 			Table = Table.DefaultView.ToTable ();
 
-			Console.WriteLine ("col name == " + col.ColumnName);
-			Console.WriteLine ("row cnt == " + Table.Rows.Count);
 			for (int i = 0; i < Table.Rows.Count - 1; i++)
 			{
-				Console.WriteLine ("i == " + i);
-				Console.WriteLine (Table.Rows[i+1].Field<double>(col.Ordinal));
 				// вычисляем порог, как среднее
-				tmpThreshold = (Table.Rows[i].Field<double>(col.Ordinal) + Table.Rows[i+1].Field<double>(col.Ordinal)) / 2.0;
+				tmpThreshold = (Table.Rows[i].Field<double>(col.Ordinal) + Table.Rows[i + 1].Field<double>(col.Ordinal)) / 2.0;
 
 				List<DataTable> tmpSplits = new List<DataTable>();	// выделяем память под временное разбиение
 				tmpSplits.Add(Table.Clone());                  	// первое разбиение
 				tmpSplits.Add(Table.Clone());                  	// второе разбиение
 
 				for (int j = 0; j < Table.Rows.Count; j++)
-				{
-					if (Table.Rows[j].Field<double>(col) <= tmpThreshold)
-						tmpSplits[0].ImportRow(Table.Rows[j]);	//tmpSplits[0].Rows.Add(Table.Rows[j]);
+					if (Table.Rows[j].Field<double>(col.Ordinal) <= tmpThreshold)
+						tmpSplits[0].ImportRow(Table.Rows[j]);
 					else
-						tmpSplits[1].ImportRow(Table.Rows[j]);	//tmpSplits[1].Rows.Add(Table.Rows[j]);
-				}
-
-				Console.WriteLine("AA");
+						tmpSplits[1].ImportRow(Table.Rows[j]);
+					
 				tmpQuality = SplitQualityAlgorithm.CalcSplitQuality (tmpSplits, col);
-				Console.WriteLine("BB");
 
 				if (i == 0)
 					Fix(tmpQuality, tmpThreshold, tmpSplits, col);
@@ -102,51 +87,22 @@ namespace DataMining
 		public void CalcBestCatSplit(DataColumn col)
 		{
 			double tmpQuality;
-			int max = Table.AsEnumerable ().Max (d => (int)d [col]);
-			int Categories = (int)(Math.Log(max, 2.0) + 1);	// определяем кол-во категорий как максимальное значение категориального аттрибута
-			Categories = (int)(Math.Pow(2, Categories) - 1);
-
-			Console.WriteLine ("111");
-			Console.WriteLine ("Categories == " + Categories);
+			int max = Table.AsEnumerable().Max(d => (int)d[col]);
+			int Categories = (int)(Math.Pow(2, (int)(Math.Log(max, 2.0) + 1)) - 1);	// определяем кол-во категорий как максимальное значение категориального аттрибута
 
 			for (long set = 1; set < Categories - 1; set++)  // перебираем все катигории
 			{
-				Console.WriteLine ("222");
-
 				List<DataTable> tmpSplits = new List<DataTable>();	// выделяем память под временное разбиение
 				tmpSplits.Add(Table.Clone());                  	// первое разбиение
 				tmpSplits.Add(Table.Clone());                  	// второе разбиение
 
-				for (int i = 0; i < Table.Rows.Count; i++) {
-					Console.WriteLine ("Table.Rows [i].Field<int> (col) == " + Table.Rows [i].Field<int> (col));
+				for (int i = 0; i < Table.Rows.Count; i++)
 					if ((~set & Table.Rows [i].Field<int> (col)) == 0)
-						tmpSplits [0].ImportRow (Table.Rows [i]);	//tmpSplits [0].Rows.Add (Table.Rows [i]);
+						tmpSplits [0].ImportRow (Table.Rows [i]);
 					else
-						tmpSplits [1].ImportRow(Table.Rows [i]);	//tmpSplits [1].Rows.Add (Table.Rows [i]);
-				}
+						tmpSplits [1].ImportRow(Table.Rows [i]);
 
-				Console.WriteLine("1st split count: " + tmpSplits[0].Rows.Count);
-				Console.WriteLine("1st split col count: " + tmpSplits[0].Columns.Count);
-
-				for (int i = 0; i < tmpSplits[0].Rows.Count; i++)
-				{
-					//Console.WriteLine (tmpSplits [0].Rows.ToString());
-					Console.WriteLine(tmpSplits[0].Rows[i][0].ToString() +
-						"\t|" + tmpSplits[0].Rows[i][1].ToString());
-				}
-
-				Console.WriteLine("2nd split count: " + tmpSplits[1].Rows.Count);
-
-				for (int i = 0; i < tmpSplits[1].Rows.Count; i++)
-				{
-					Console.WriteLine(tmpSplits[1].Rows[i]["cat"].ToString() +
-						"\t|" + tmpSplits[1].Rows[i][1].ToString());
-				}
-
-
-				Console.WriteLine("AAA");
 				tmpQuality = SplitQualityAlgorithm.CalcSplitQuality(tmpSplits, col);
-				Console.WriteLine("BBB");
 
 				if (set == 1)
 					Fix (tmpQuality, set, tmpSplits, col);

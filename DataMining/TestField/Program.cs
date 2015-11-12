@@ -53,13 +53,13 @@ namespace TestField
 			List<DataTable> spl = s.CalcBestSplit ();
 
 			Console.WriteLine("split 0");
-			for (int i = 0; i <= spl[0].Rows.Count; i++)
+			for (int i = 0; i < spl[0].Rows.Count; i++)
 			{
 				Console.WriteLine(spl[0].Rows[i]["cat"].ToString() + "\t|" + spl[0].Rows[i][1].ToString());
 			}
 
 			Console.WriteLine("split 1");
-			for (int i = 0; i <= spl[1].Rows.Count; i++)
+			for (int i = 0; i < spl[1].Rows.Count; i++)
 			{
 				Console.WriteLine(spl[1].Rows[i]["cat"].ToString() + "\t|" + spl[1].Rows[i][1].ToString());
 			}
