@@ -1,0 +1,986 @@
+<Project>
+  <Name>DataMining</Name>
+  <ProjectItem type="NClass.DiagramEditor.ClassDiagram.Diagram" assembly="NClass.DiagramEditor, Version=2.4.1823.0, Culture=neutral, PublicKeyToken=null">
+    <Name>NeuralNetwork</Name>
+    <Language>CSharp</Language>
+    <Entities>
+      <Entity type="Class">
+        <Name>Synapse</Name>
+        <Access>Public</Access>
+        <Location left="1599" top="997" />
+        <Size width="336" height="196" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">private uint _id</Member>
+        <Member type="Field">private INeuron _link</Member>
+        <Member type="Field">private double _weight</Member>
+        <Member type="Property">public uint ID { get; }</Member>
+        <Member type="Property">public INeuron Link { get; }</Member>
+        <Member type="Property">public double Weight { get; set; }</Member>
+        <Member type="Constructor">public Synapse(uint id, INeuron left, INeuron right, double weight)</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Interface">
+        <Name>IActivationFunction</Name>
+        <Access>Public</Access>
+        <Location left="1067" top="2816" />
+        <Size width="183" height="95" />
+        <Collapsed>False</Collapsed>
+        <Member type="Method">double Process(double x)</Member>
+        <Member type="Method">double Derivative(double x)</Member>
+      </Entity>
+      <Entity type="Class">
+        <Name>Sigmoid</Name>
+        <Access>Public</Access>
+        <Location left="1067" top="3004" />
+        <Size width="183" height="145" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">private double _a</Member>
+        <Member type="Constructor">public Sigmoid(double a)</Member>
+        <Member type="Method">public double Derivative(double x)</Member>
+        <Member type="Method">public double Process(double x)</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Interface">
+        <Name>ISynapse</Name>
+        <Access>Public</Access>
+        <Location left="1679" top="712" />
+        <Size width="177" height="112" />
+        <Collapsed>False</Collapsed>
+        <Member type="Property">uint ID { get; }</Member>
+        <Member type="Property">INeuron Link { get; }</Member>
+        <Member type="Property">double Weight { get; set; }</Member>
+      </Entity>
+      <Entity type="Class">
+        <Name>Layer</Name>
+        <Access>Public</Access>
+        <Location left="347" top="979" />
+        <Size width="201" height="196" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">private uint _id</Member>
+        <Member type="Field">private List&lt;INeuron&gt; _neurons</Member>
+        <Member type="Property">public uint ID { get; }</Member>
+        <Member type="Property">public List&lt;INeuron&gt; Neurons { get; }</Member>
+        <Member type="Constructor">public Layer(uint id)</Member>
+        <Member type="Method">public void Add(INeuron neuron)</Member>
+        <Member type="Method">public void CalcAxons()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>NeuronNetwork</Name>
+        <Access>Public</Access>
+        <Location left="35" top="979" />
+        <Size width="239" height="230" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">private List&lt;ILayer&gt; _layers</Member>
+        <Member type="Property">public uint LayerCount { get; }</Member>
+        <Member type="Property">public List&lt;ILayer&gt; Layers { get; }</Member>
+        <Member type="Property">public uint NeuronCount { get; }</Member>
+        <Member type="Property">public uint SynapseCount { get; }</Member>
+        <Member type="Constructor">public NeuronNetwork(uint[] layersStructure)</Member>
+        <Member type="Method">public List&lt;double&gt; Calc(List&lt;double&gt; input)</Member>
+        <Member type="Method">public void LoadNetwork(string file)</Member>
+        <Member type="Method">public void SaveNetwork(string file)</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Interface">
+        <Name>INeuronNetwork</Name>
+        <Access>Public</Access>
+        <Location left="35" top="712" />
+        <Size width="239" height="129" />
+        <Collapsed>False</Collapsed>
+        <Member type="Property">List&lt;ILayer&gt; Layers { get; }</Member>
+        <Member type="Method">List&lt;double&gt; Calc(List&lt;double&gt; input)</Member>
+        <Member type="Method">void LoadNetwork(string file)</Member>
+        <Member type="Method">void SaveNetwork(string file)</Member>
+      </Entity>
+      <Entity type="Interface">
+        <Name>ILayer</Name>
+        <Access>Public</Access>
+        <Location left="347" top="712" />
+        <Size width="201" height="129" />
+        <Collapsed>False</Collapsed>
+        <Member type="Property">uint ID { get; }</Member>
+        <Member type="Property">List&lt;INeuron&gt; Neurons { get; }</Member>
+        <Member type="Method">void Add(INeuron neuron)</Member>
+        <Member type="Method">void CalcAxons()</Member>
+      </Entity>
+      <Entity type="Class">
+        <Name>BackPropagation</Name>
+        <Access>Public</Access>
+        <Location left="35" top="286" />
+        <Size width="402" height="196" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">private INeuronNetwork _neuronNetwork</Member>
+        <Member type="Field">private double _trainingSpeed</Member>
+        <Member type="Property">public double TrainingSpeed { get; set; }</Member>
+        <Member type="Constructor">public BackPropagation(INeuronNetwork neuronNetwork, double trainingSpeed)</Member>
+        <Member type="Method">public void Training(List&lt;double&gt; input, List&lt;double&gt; answer)</Member>
+        <Member type="Method">public void Training(List&lt;List&lt;double&gt;&gt; inputs, List&lt;List&lt;double&gt;&gt; answers)</Member>
+        <Member type="Method">private void GradientPropagation(INeuron neuron, double gradient)</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Interface">
+        <Name>ILearningAlgorithm</Name>
+        <Access>Public</Access>
+        <Location left="16" top="32" />
+        <Size width="402" height="112" />
+        <Collapsed>False</Collapsed>
+        <Member type="Property">double TrainingSpeed { get; set; }</Member>
+        <Member type="Method">void Training(List&lt;double&gt; input, List&lt;double&gt; answer)</Member>
+        <Member type="Method">void Training(List&lt;List&lt;double&gt;&gt; inputs, List&lt;List&lt;double&gt;&gt; answers)</Member>
+      </Entity>
+      <Entity type="Class">
+        <Name>Tanh</Name>
+        <Access>Public</Access>
+        <Location left="841" top="3004" />
+        <Size width="183" height="145" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">private double _a</Member>
+        <Member type="Constructor">public Tanh(double a)</Member>
+        <Member type="Method">public double Derivative(double x)</Member>
+        <Member type="Method">public double Process(double x)</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>BipolarSigmoid</Name>
+        <Access>Public</Access>
+        <Location left="1296" top="3004" />
+        <Size width="183" height="145" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">private double _a</Member>
+        <Member type="Constructor">public BipolarSigmoid(double a)</Member>
+        <Member type="Method">public double Derivative(double x)</Member>
+        <Member type="Method">public double Process(double x)</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>Neuron</Name>
+        <Access>Public</Access>
+        <Location left="1005" top="997" />
+        <Size width="320" height="383" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">protected IAddSynapseStrategy _addSynapseBehaviour</Member>
+        <Member type="Field">protected ICalcAxonStrategy _calcAxonBehaviour</Member>
+        <Member type="Field">protected ISetAxonStrategy _setAxonStrategy</Member>
+        <Member type="Field">private double _axon</Member>
+        <Member type="Field">IActivationFunction _f</Member>
+        <Member type="Field">private int _id</Member>
+        <Member type="Field">private List&lt;ISynapse&gt; _synapses</Member>
+        <Member type="Field">private double _threshold</Member>
+        <Member type="Field">private NeuronType _type</Member>
+        <Member type="Property">public IActivationFunction F { get; }</Member>
+        <Member type="Property">public int ID { get; }</Member>
+        <Member type="Property">public List&lt;ISynapse&gt; Synapses { get; }</Member>
+        <Member type="Property">public NeuronType Type { get; }</Member>
+        <Member type="Property">public double Axon { get; set; }</Member>
+        <Member type="Property">public double Threshold { get; set; }</Member>
+        <Member type="Constructor">public Neuron(uint id, NeuronType type, IActivationFunction f)</Member>
+        <Member type="Method">public void AddSynapse(ISynapse synapse)</Member>
+        <Member type="Method">public void CalcAxon()</Member>
+        <Modifier>Abstract</Modifier>
+      </Entity>
+      <Entity type="Interface">
+        <Name>INeuron</Name>
+        <Access>Public</Access>
+        <Location left="1047" top="712" />
+        <Size width="227" height="197" />
+        <Collapsed>False</Collapsed>
+        <Member type="Property">IActivationFunction F { get; }</Member>
+        <Member type="Property">int ID { get; }</Member>
+        <Member type="Property">List&lt;ISynapse&gt; Synapses { get; }</Member>
+        <Member type="Property">NeuronType Type { get; }</Member>
+        <Member type="Property">double Axon { get; set; }</Member>
+        <Member type="Property">double Threshold { get; set; }</Member>
+        <Member type="Method">void AddSynapse(ISynapse synapse)</Member>
+        <Member type="Method">void CalcAxon()</Member>
+      </Entity>
+      <Entity type="Class">
+        <Name>NeuronA</Name>
+        <Access>Public</Access>
+        <Location left="801" top="1475" />
+        <Size width="227" height="94" />
+        <Collapsed>False</Collapsed>
+        <Member type="Constructor">public NeuronA(int id, IActivationFunction f)</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>NeuronR</Name>
+        <Access>Public</Access>
+        <Location left="1052" top="1475" />
+        <Size width="227" height="94" />
+        <Collapsed>False</Collapsed>
+        <Member type="Constructor">public NeuronR(int id, IActivationFunction f)</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>NeuronS</Name>
+        <Access>Public</Access>
+        <Location left="1308" top="1475" />
+        <Size width="226" height="94" />
+        <Collapsed>False</Collapsed>
+        <Member type="Constructor">public NeuronS(int id, IActivationFunction f)</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Interface">
+        <Name>IAddSynapseStrategy</Name>
+        <Access>Public</Access>
+        <Location left="983" top="1694" />
+        <Size width="362" height="78" />
+        <Collapsed>False</Collapsed>
+        <Member type="Method">void AddSynapse(List&lt;ISynapse&gt; synapses, ISynapse synapse)</Member>
+      </Entity>
+      <Entity type="Interface">
+        <Name>ICalcAxonStrategy</Name>
+        <Access>Public</Access>
+        <Location left="1008" top="2087" />
+        <Size width="323" height="78" />
+        <Collapsed>False</Collapsed>
+        <Member type="Method">void CalcAxon(INeuronBase neuron, ref double axon)</Member>
+      </Entity>
+      <Entity type="Class">
+        <Name>AddSynapseNotAllowed</Name>
+        <Access>Public</Access>
+        <Location left="793" top="1905" />
+        <Size width="362" height="94" />
+        <Collapsed>False</Collapsed>
+        <Member type="Method">public void AddSynapse(List&lt;ISynapse&gt; synapses, ISynapse synapse)</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>AddSynapseAllowed</Name>
+        <Access>Public</Access>
+        <Location left="1179" top="1905" />
+        <Size width="362" height="94" />
+        <Collapsed>False</Collapsed>
+        <Member type="Method">public void AddSynapse(List&lt;ISynapse&gt; synapses, ISynapse synapse)</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>CalcAxonNotAllowed</Name>
+        <Access>Public</Access>
+        <Location left="842" top="2298" />
+        <Size width="323" height="94" />
+        <Collapsed>False</Collapsed>
+        <Member type="Method">public void CalcAxon(INeuronBase neuron, ref double axon)</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>CalcAxonAllowed</Name>
+        <Access>Public</Access>
+        <Location left="1180" top="2298" />
+        <Size width="323" height="94" />
+        <Collapsed>False</Collapsed>
+        <Member type="Method">public void CalcAxon(INeuronBase neuron, ref double axon)</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Enum">
+        <Name>NeuronType</Name>
+        <Access>Public</Access>
+        <Location left="1418" top="1254" />
+        <Size width="163" height="112" />
+        <Collapsed>False</Collapsed>
+        <Value>S</Value>
+        <Value>A</Value>
+        <Value>R</Value>
+      </Entity>
+      <Entity type="Interface">
+        <Name>ISetAxonStrategy</Name>
+        <Access>Public</Access>
+        <Location left="1008" top="2474" />
+        <Size width="298" height="78" />
+        <Collapsed>False</Collapsed>
+        <Member type="Method">void SetAxon(double newAxon, ref double axon)</Member>
+      </Entity>
+      <Entity type="Class">
+        <Name>SetAxonAllowed</Name>
+        <Access>Public</Access>
+        <Location left="842" top="2608" />
+        <Size width="298" height="94" />
+        <Collapsed>False</Collapsed>
+        <Member type="Method">public void SetAxon(double newAxon, ref double axon)</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>SetAxonNotAllowed</Name>
+        <Access>Public</Access>
+        <Location left="1180" top="2608" />
+        <Size width="298" height="94" />
+        <Collapsed>False</Collapsed>
+        <Member type="Method">public void SetAxon(double newAxon, ref double axon)</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>NeuroFabric</Name>
+        <Access>Public</Access>
+        <Location left="1295" top="233" />
+        <Size width="296" height="179" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">protected static int _layerId</Member>
+        <Member type="Field">protected static int _neuronId</Member>
+        <Member type="Field">protected static int _synapsId</Member>
+        <Member type="Method">public ILayer GetLayer()</Member>
+        <Member type="Method">public abstract INeuron GetNeuron(NeuronType type)</Member>
+        <Member type="Method">public abstract ISynapse GetSynapse(INeuron left, INeuron right)</Member>
+        <Modifier>Abstract</Modifier>
+      </Entity>
+      <Entity type="Interface">
+        <Name>INeuroFabric</Name>
+        <Access>Public</Access>
+        <Location left="1295" top="53" />
+        <Size width="296" height="112" />
+        <Collapsed>False</Collapsed>
+        <Member type="Method">ILayer GetLayer()</Member>
+        <Member type="Method">INeuron GetNeuron(NeuronType type)</Member>
+        <Member type="Method">ISynapse GetSynapse(INeuron left, INeuron right)</Member>
+      </Entity>
+      <Entity type="Class">
+        <Name>ClassicNeuroFabric</Name>
+        <Access>Public</Access>
+        <Location left="1132" top="506" />
+        <Size width="296" height="111" />
+        <Collapsed>False</Collapsed>
+        <Member type="Method">public override INeuron GetNeuron(NeuronType type)</Member>
+        <Member type="Method">public override ISynapse GetSynapse(INeuron left, INeuron right)</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>RandomNuroFabric</Name>
+        <Access>Public</Access>
+        <Location left="1462" top="506" />
+        <Size width="296" height="111" />
+        <Collapsed>False</Collapsed>
+        <Member type="Method">public override INeuron GetNeuron(NeuronType type)</Member>
+        <Member type="Method">public override ISynapse GetSynapse(INeuron left, INeuron right)</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+    </Entities>
+    <Relationships>
+      <Relationship type="Realization" first="2" second="1">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+        <BendPoint relativeToStartShape="False">
+          <X>1158</X>
+          <Y>2937</Y>
+        </BendPoint>
+      </Relationship>
+      <Relationship type="Realization" first="0" second="3">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+      </Relationship>
+      <Relationship type="Realization" first="5" second="6">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+      </Relationship>
+      <Relationship type="Realization" first="4" second="7">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+      </Relationship>
+      <Relationship type="Realization" first="8" second="9">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+      </Relationship>
+      <Relationship type="Association" first="8" second="6">
+        <Label>
+        </Label>
+        <StartOrientation>Horizontal</StartOrientation>
+        <EndOrientation>Horizontal</EndOrientation>
+        <Direction>Unidirectional</Direction>
+        <AssociationType>Association</AssociationType>
+      </Relationship>
+      <Relationship type="Realization" first="10" second="1">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+      </Relationship>
+      <Relationship type="Realization" first="11" second="1">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+      </Relationship>
+      <Relationship type="Association" first="5" second="7">
+        <StartOrientation>Horizontal</StartOrientation>
+        <EndOrientation>Horizontal</EndOrientation>
+        <Direction>Unidirectional</Direction>
+        <AssociationType>Composition</AssociationType>
+      </Relationship>
+      <Relationship type="Realization" first="12" second="13">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+      </Relationship>
+      <Relationship type="Generalization" first="14" second="12">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+      </Relationship>
+      <Relationship type="Generalization" first="15" second="12">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+      </Relationship>
+      <Relationship type="Generalization" first="16" second="12">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+      </Relationship>
+      <Relationship type="Association" first="12" second="17">
+        <StartOrientation>Horizontal</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+        <BendPoint relativeToStartShape="True">
+          <X>755</X>
+          <Y>1266</Y>
+        </BendPoint>
+        <BendPoint relativeToStartShape="False">
+          <X>1160</X>
+          <Y>1644</Y>
+        </BendPoint>
+        <Direction>Unidirectional</Direction>
+        <AssociationType>Association</AssociationType>
+      </Relationship>
+      <Relationship type="Association" first="12" second="18">
+        <StartOrientation>Horizontal</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+        <BendPoint relativeToStartShape="True">
+          <X>710</X>
+          <Y>1231</Y>
+        </BendPoint>
+        <BendPoint relativeToStartShape="False">
+          <X>1167</X>
+          <Y>2046</Y>
+        </BendPoint>
+        <Direction>Unidirectional</Direction>
+        <AssociationType>Association</AssociationType>
+      </Relationship>
+      <Relationship type="Realization" first="19" second="17">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+      </Relationship>
+      <Relationship type="Realization" first="20" second="17">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+      </Relationship>
+      <Relationship type="Realization" first="21" second="18">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+      </Relationship>
+      <Relationship type="Realization" first="22" second="18">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+      </Relationship>
+      <Relationship type="Association" first="12" second="23">
+        <StartOrientation>Horizontal</StartOrientation>
+        <EndOrientation>Horizontal</EndOrientation>
+        <Direction>Unidirectional</Direction>
+        <AssociationType>Association</AssociationType>
+      </Relationship>
+      <Relationship type="Association" first="12" second="1">
+        <StartOrientation>Horizontal</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+        <BendPoint relativeToStartShape="True">
+          <X>627</X>
+          <Y>1144</Y>
+        </BendPoint>
+        <BendPoint relativeToStartShape="False">
+          <X>1157</X>
+          <Y>2774</Y>
+        </BendPoint>
+        <Direction>Unidirectional</Direction>
+        <AssociationType>Association</AssociationType>
+      </Relationship>
+      <Relationship type="Association" first="0" second="13">
+        <StartOrientation>Horizontal</StartOrientation>
+        <EndOrientation>Horizontal</EndOrientation>
+        <Direction>Unidirectional</Direction>
+        <AssociationType>Association</AssociationType>
+      </Relationship>
+      <Relationship type="Association" first="12" second="3">
+        <StartOrientation>Horizontal</StartOrientation>
+        <EndOrientation>Horizontal</EndOrientation>
+        <Direction>Unidirectional</Direction>
+        <AssociationType>Composition</AssociationType>
+      </Relationship>
+      <Relationship type="Association" first="4" second="13">
+        <StartOrientation>Horizontal</StartOrientation>
+        <EndOrientation>Horizontal</EndOrientation>
+        <BendPoint relativeToStartShape="True">
+          <X>576</X>
+          <Y>1090</Y>
+        </BendPoint>
+        <BendPoint relativeToStartShape="False">
+          <X>977</X>
+          <Y>792</Y>
+        </BendPoint>
+        <Direction>Unidirectional</Direction>
+        <AssociationType>Composition</AssociationType>
+      </Relationship>
+      <Relationship type="Realization" first="25" second="24">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+      </Relationship>
+      <Relationship type="Realization" first="26" second="24">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+      </Relationship>
+      <Relationship type="Association" first="12" second="24">
+        <StartOrientation>Horizontal</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+        <BendPoint relativeToStartShape="True">
+          <X>672</X>
+          <Y>1188</Y>
+        </BendPoint>
+        <Direction>Unidirectional</Direction>
+        <AssociationType>Association</AssociationType>
+      </Relationship>
+      <Relationship type="Realization" first="27" second="28">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+      </Relationship>
+      <Relationship type="Generalization" first="29" second="27">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+      </Relationship>
+      <Relationship type="Generalization" first="30" second="27">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+      </Relationship>
+    </Relationships>
+  </ProjectItem>
+  <ProjectItem type="NClass.DiagramEditor.ClassDiagram.Diagram" assembly="NClass.DiagramEditor, Version=2.4.1823.0, Culture=neutral, PublicKeyToken=null">
+    <Name>DicigionTrees</Name>
+    <Language>CSharp</Language>
+    <Entities>
+      <Entity type="Interface">
+        <Name>IGeneralNode&lt;T&gt;</Name>
+        <Access>Public</Access>
+        <Location left="232" top="738" />
+        <Size width="262" height="112" />
+        <Collapsed>False</Collapsed>
+        <Member type="Property">IGeneralNode&lt;T&gt;[] Children { get; }</Member>
+        <Member type="Property">new IGeneralNode&lt;T&gt; Parent { get; }</Member>
+        <Member type="Method">void CreateChild(IGeneralNode&lt;T&gt; child)</Member>
+      </Entity>
+      <Entity type="Class">
+        <Name>AbstractNodeBase&lt;T&gt;</Name>
+        <Access>Public</Access>
+        <Location left="657" top="576" />
+        <Size width="226" height="179" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">protected INodeBase&lt;T&gt; _parent</Member>
+        <Member type="Field">protected NodeType _type</Member>
+        <Member type="Property">public INodeBase&lt;T&gt; Parent { get; }</Member>
+        <Member type="Property">public NodeType Type { get; }</Member>
+        <Member type="Property">public virtual T Variable { get; }</Member>
+        <Member type="Constructor">public AbstractNodeBase(NodeType type)</Member>
+        <Modifier>Abstract</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>GeneralRoot&lt;T&gt;</Name>
+        <Access>Public</Access>
+        <Location left="65" top="1238" />
+        <Size width="162" height="128" />
+        <Collapsed>False</Collapsed>
+        <Member type="Constructor">public GeneralRoot()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>GeneralNode&lt;T&gt;</Name>
+        <Access>Public</Access>
+        <Location left="262" top="1238" />
+        <Size width="231" height="128" />
+        <Collapsed>False</Collapsed>
+        <Member type="Constructor">public GeneralNode()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>GeneralLeaf&lt;T&gt;</Name>
+        <Access>Public</Access>
+        <Location left="519" top="1238" />
+        <Size width="265" height="145" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">protected T _variable</Member>
+        <Member type="Property">public override T Variable { get; }</Member>
+        <Member type="Constructor">public GeneralLeaf()</Member>
+        <Member type="Method">public override void CreateChild(IGeneralNode&lt;T&gt; child)</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Interface">
+        <Name>ITree&lt;T&gt;</Name>
+        <Access>Public</Access>
+        <Location left="821" top="18" />
+        <Size width="162" height="61" />
+        <Collapsed>False</Collapsed>
+      </Entity>
+      <Entity type="Enum">
+        <Name>NodeType</Name>
+        <Access>Public</Access>
+        <Location left="431" top="600" />
+        <Size width="162" height="112" />
+        <Collapsed>False</Collapsed>
+        <Value>Node</Value>
+        <Value>Root</Value>
+        <Value>Leaf</Value>
+      </Entity>
+      <Entity type="Class">
+        <Name>GeneralTree&lt;T&gt;</Name>
+        <Access>Public</Access>
+        <Location left="288" top="177" />
+        <Size width="167" height="94" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">private IGeneralNode&lt;T&gt; _root</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>CARTTree&lt;T&gt;</Name>
+        <Access>Public</Access>
+        <Location left="1831" top="174" />
+        <Size width="162" height="94" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">ICARTNode _root</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Interface">
+        <Name>INodeBase&lt;T&gt;</Name>
+        <Access>Public</Access>
+        <Location left="657" top="272" />
+        <Size width="195" height="129" />
+        <Collapsed>False</Collapsed>
+        <Member type="Property">int Id { get; }</Member>
+        <Member type="Property">INodeBase&lt;T&gt; Parent { get; }</Member>
+        <Member type="Property">NodeType Type { get; }</Member>
+        <Member type="Property">T Variable { get; }</Member>
+      </Entity>
+      <Entity type="Interface">
+        <Name>IBinaryNode&lt;T&gt;</Name>
+        <Access>Public</Access>
+        <Location left="966" top="710" />
+        <Size width="282" height="146" />
+        <Collapsed>False</Collapsed>
+        <Member type="Property">IBinaryNode&lt;T&gt; Left { get; }</Member>
+        <Member type="Property">new IBinaryNode&lt;T&gt; Parent { get; }</Member>
+        <Member type="Property">IBinaryNode&lt;T&gt; Right { get; }</Member>
+        <Member type="Method">void CreateLeftChild(IBinaryNode&lt;T&gt; child)</Member>
+        <Member type="Method">void CreateRightChild(IBinaryNode&lt;T&gt; child)</Member>
+      </Entity>
+      <Entity type="Interface">
+        <Name>ICARTNode&lt;T&gt;</Name>
+        <Access>Public</Access>
+        <Location left="1796" top="1095" />
+        <Size width="199" height="112" />
+        <Collapsed>False</Collapsed>
+        <Member type="Property">long ElementsCount { get; }</Member>
+        <Member type="Property">new ICARTNode&lt;T&gt; Parent { get; }</Member>
+        <Member type="Property">IRule Rule { get; set; }</Member>
+      </Entity>
+      <Entity type="Class">
+        <Name>AbstractGeneralNode&lt;T&gt;</Name>
+        <Access>Public</Access>
+        <Location left="288" top="1002" />
+        <Size width="231" height="145" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">protected List&lt;IGeneralNode&lt;T&gt;&gt; _children</Member>
+        <Member type="Property">public IGeneralNode&lt;T&gt;[] Children { get; }</Member>
+        <Member type="Property">public IGeneralNode&lt;T&gt; Parent { get; }</Member>
+        <Member type="Method">public virtual void CreateChild(IGeneralNode&lt;T&gt; child)</Member>
+        <Modifier>Abstract</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>AbstractBinaryNode&lt;T&gt;</Name>
+        <Access>Public</Access>
+        <Location left="966" top="1002" />
+        <Size width="285" height="196" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">protected IBinaryNode _left</Member>
+        <Member type="Field">protected IBinaryNode _right</Member>
+        <Member type="Property">public IBinaryNode&lt;T&gt; Left { get; }</Member>
+        <Member type="Property">public new IBinaryNode&lt;T&gt; Parent { get; }</Member>
+        <Member type="Property">public IBinaryNode&lt;T&gt; Right { get; }</Member>
+        <Member type="Method">public virtual void CreateLeftChild(IBinaryNode&lt;T&gt; child)</Member>
+        <Member type="Method">public virtual void CreateRightChild(IBinaryNode&lt;T&gt; child)</Member>
+        <Modifier>Abstract</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>BinaryRoot&lt;T&gt;</Name>
+        <Access>Public</Access>
+        <Location left="837" top="1331" />
+        <Size width="163" height="94" />
+        <Collapsed>False</Collapsed>
+        <Member type="Constructor">public BinaryRoot()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>BinaryNode&lt;T&gt;</Name>
+        <Access>Public</Access>
+        <Location left="1026" top="1331" />
+        <Size width="235" height="94" />
+        <Collapsed>False</Collapsed>
+        <Member type="Constructor">public BinaryNode(IBinaryNode&lt;T&gt; parent)</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>BinaryLeaf&lt;T&gt;</Name>
+        <Access>Public</Access>
+        <Location left="1304" top="1331" />
+        <Size width="285" height="162" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">protected T _variable</Member>
+        <Member type="Property">public override T Variable { get; }</Member>
+        <Member type="Constructor">public BinaryLeaf(IBinaryNode&lt;T&gt; parent)</Member>
+        <Member type="Method">public override void CreateLeftChild(IBinaryNode&lt;T&gt; child)</Member>
+        <Member type="Method">public override void CreateRightChild(IBinaryNode&lt;T&gt; child)</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>BinaryTree&lt;T&gt;</Name>
+        <Access>Public</Access>
+        <Location left="986" top="174" />
+        <Size width="163" height="94" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">IBinaryNode&lt;T&gt; _root</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>AbstractCARTNode&lt;T&gt;</Name>
+        <Access>Public</Access>
+        <Location left="1704" top="1331" />
+        <Size width="361" height="179" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">protected long _elementsCount</Member>
+        <Member type="Field">protected IRule _rule</Member>
+        <Member type="Property">public long ElementsCount { get; }</Member>
+        <Member type="Property">public new ICARTNode&lt;T&gt; Parent { get; }</Member>
+        <Member type="Property">public IRule Rule { get; set; }</Member>
+        <Member type="Constructor">public AbstractCARTNode(NodeType type, ICARTNode&lt;T&gt; parent)</Member>
+        <Modifier>Abstract</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>CARTRoot&lt;T&gt;</Name>
+        <Access>Public</Access>
+        <Location left="1606" top="1589" />
+        <Size width="163" height="94" />
+        <Collapsed>False</Collapsed>
+        <Member type="Constructor">public CARTRoot()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>CARTLeaf&lt;T&gt;</Name>
+        <Access>Public</Access>
+        <Location left="2044" top="1589" />
+        <Size width="219" height="128" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">protected T _variable</Member>
+        <Member type="Property">public override T Variable { get; }</Member>
+        <Member type="Constructor">public CARTLeaf(ICARTNode&lt;T&gt; parent)</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>CartNode&lt;T&gt;</Name>
+        <Access>Public</Access>
+        <Location left="1796" top="1589" />
+        <Size width="220" height="94" />
+        <Collapsed>False</Collapsed>
+        <Member type="Constructor">public CartNode(ICARTNode&lt;T&gt; parent)</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+    </Entities>
+    <Relationships>
+      <Relationship type="Association" first="1" second="6">
+        <StartOrientation>Horizontal</StartOrientation>
+        <EndOrientation>Horizontal</EndOrientation>
+        <Direction>Unidirectional</Direction>
+        <AssociationType>Association</AssociationType>
+        <StartMultiplicity>1</StartMultiplicity>
+        <EndMultiplicity>1</EndMultiplicity>
+      </Relationship>
+      <Relationship type="Realization" first="7" second="5">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+      </Relationship>
+      <Relationship type="Realization" first="8" second="5">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+      </Relationship>
+      <Relationship type="Generalization" first="0" second="9">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+        <BendPoint relativeToStartShape="True">
+          <X>394</X>
+          <Y>522</Y>
+        </BendPoint>
+        <BendPoint relativeToStartShape="False">
+          <X>703</X>
+          <Y>459</Y>
+        </BendPoint>
+      </Relationship>
+      <Relationship type="Generalization" first="10" second="9">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+        <BendPoint relativeToStartShape="True">
+          <X>1066</X>
+          <Y>499</Y>
+        </BendPoint>
+        <BendPoint relativeToStartShape="False">
+          <X>789</X>
+          <Y>455</Y>
+        </BendPoint>
+      </Relationship>
+      <Relationship type="Generalization" first="11" second="10">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+        <BendPoint relativeToStartShape="False">
+          <X>1136</X>
+          <Y>881</Y>
+        </BendPoint>
+      </Relationship>
+      <Relationship type="Realization" first="1" second="9">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+      </Relationship>
+      <Relationship type="Realization" first="12" second="0">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+        <BendPoint relativeToStartShape="False">
+          <X>359</X>
+          <Y>876</Y>
+        </BendPoint>
+      </Relationship>
+      <Relationship type="Generalization" first="12" second="1">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+        <BendPoint relativeToStartShape="False">
+          <X>720</X>
+          <Y>781</Y>
+        </BendPoint>
+      </Relationship>
+      <Relationship type="Generalization" first="2" second="12">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+        <BendPoint relativeToStartShape="False">
+          <X>313</X>
+          <Y>1172</Y>
+        </BendPoint>
+      </Relationship>
+      <Relationship type="Generalization" first="3" second="12">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+        <BendPoint relativeToStartShape="False">
+          <X>359</X>
+          <Y>1172</Y>
+        </BendPoint>
+      </Relationship>
+      <Relationship type="Generalization" first="4" second="12">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+      </Relationship>
+      <Relationship type="Realization" first="13" second="10">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+        <BendPoint relativeToStartShape="True">
+          <X>1090</X>
+          <Y>975</Y>
+        </BendPoint>
+      </Relationship>
+      <Relationship type="Generalization" first="13" second="1">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+        <BendPoint relativeToStartShape="True">
+          <X>1038</X>
+          <Y>976</Y>
+        </BendPoint>
+        <BendPoint relativeToStartShape="False">
+          <X>803</X>
+          <Y>780</Y>
+        </BendPoint>
+      </Relationship>
+      <Relationship type="Generalization" first="14" second="13">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+        <BendPoint relativeToStartShape="False">
+          <X>1040</X>
+          <Y>1230</Y>
+        </BendPoint>
+      </Relationship>
+      <Relationship type="Generalization" first="15" second="13">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+        <BendPoint relativeToStartShape="True">
+          <X>1117</X>
+          <Y>1300</Y>
+        </BendPoint>
+      </Relationship>
+      <Relationship type="Generalization" first="16" second="13">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+        <BendPoint relativeToStartShape="False">
+          <X>1157</X>
+          <Y>1230</Y>
+        </BendPoint>
+      </Relationship>
+      <Relationship type="Realization" first="17" second="5">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+      </Relationship>
+      <Relationship type="Generalization" first="18" second="13">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+        <BendPoint relativeToStartShape="True">
+          <X>1760</X>
+          <Y>1241</Y>
+        </BendPoint>
+        <BendPoint relativeToStartShape="False">
+          <X>1187</X>
+          <Y>1221</Y>
+        </BendPoint>
+      </Relationship>
+      <Relationship type="Realization" first="18" second="11">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+      </Relationship>
+      <Relationship type="Generalization" first="21" second="18">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+      </Relationship>
+      <Relationship type="Generalization" first="19" second="18">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+        <BendPoint relativeToStartShape="False">
+          <X>1793</X>
+          <Y>1537</Y>
+        </BendPoint>
+      </Relationship>
+      <Relationship type="Generalization" first="20" second="18">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+        <BendPoint relativeToStartShape="False">
+          <X>1963</X>
+          <Y>1536</Y>
+        </BendPoint>
+      </Relationship>
+      <Relationship type="Association" first="7" second="0">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+        <BendPoint relativeToStartShape="True">
+          <X>350</X>
+          <Y>296</Y>
+        </BendPoint>
+        <Direction>Unidirectional</Direction>
+        <AssociationType>Association</AssociationType>
+        <StartMultiplicity>1</StartMultiplicity>
+        <EndMultiplicity>1</EndMultiplicity>
+      </Relationship>
+      <Relationship type="Association" first="17" second="10">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+        <BendPoint relativeToStartShape="True">
+          <X>1087</X>
+          <Y>293</Y>
+        </BendPoint>
+        <Direction>Unidirectional</Direction>
+        <AssociationType>Association</AssociationType>
+        <StartMultiplicity>1</StartMultiplicity>
+        <EndMultiplicity>1</EndMultiplicity>
+      </Relationship>
+      <Relationship type="Association" first="8" second="11">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+        <Direction>Unidirectional</Direction>
+        <AssociationType>Association</AssociationType>
+        <StartMultiplicity>1</StartMultiplicity>
+        <EndMultiplicity>1</EndMultiplicity>
+      </Relationship>
+    </Relationships>
+  </ProjectItem>
+</Project>

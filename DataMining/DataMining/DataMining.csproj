@@ -41,8 +41,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DecisionTree\Elements\Cell.cs" />
-    <Compile Include="DecisionTree\Elements\Column.cs" />
     <Compile Include="DecisionTree\LearningAlgorithms\CARTLearning.cs" />
     <Compile Include="DecisionTree\LearningAlgorithms\ILearningAlgorithm.cs" />
     <Compile Include="DecisionTree\NodeBase\BinaryNode\AbstractBinaryNode\AbstractBinaryNode.cs" />

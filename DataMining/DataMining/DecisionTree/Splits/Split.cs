@@ -26,8 +26,7 @@ namespace DataMining
 		public List<DataTable> CalcBestSplit()
 		{
 			foreach (DataColumn col in Table.Columns)
-				// осуществляем разбиение по колонке
-				if (Table.Rows [0] [col] is int)
+				if (Table.Rows [0] [col] is int)	// осуществляем разбиение по колонке
 					CalcBestCatSplit (col);
 				else if (Table.Rows [0] [col] is double)
 					CalcBestNumSplit (col);
@@ -45,7 +44,6 @@ namespace DataMining
 
 		private void Fix(double quality, object threshold, List<DataTable> splits, DataColumn col)
 		{
-			Console.WriteLine ("Fixing...");
 			Quality = quality;
 			Threshold = threshold;
 			Splits = splits;
