@@ -1,14 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-
 namespace DataMining.DecisionTree
 {
-    /// <summary>
-    /// Фабрика узлов стандартного дерева
-    /// </summary>
-    /// <typeparam name="T">Тип хранимой информации в узлах дерева</typeparam>
     public static class GeneralNodeFactory<T>
     {
         private static int _id = 1;
@@ -20,14 +14,14 @@ namespace DataMining.DecisionTree
             return new GeneralRoot<T>(NewId);
         }
 
-        public static INodeBase<T> GetNode(INodeBase<T> parent)
+        public static INodeBase<T> GetNode()
         {
-            return new GeneralNode<T>(NewId, parent);
+            return new GeneralNode<T>(NewId);
         }
 
-        public static INodeBase<T> GetLeaf(INodeBase<T> parent)
+        public static INodeBase<T> GetLeaf()
         {
-            return new GeneralLeaf<T>(NewId, parent);
+            return new GeneralLeaf<T>(NewId);
         }
     }
 }

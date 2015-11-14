@@ -2,9 +2,6 @@
 {
     public class CARTNode<T> : AbstractCARTNode<T>
     {
-        public CARTNode(int id, INodeBase<T> parent)
-            : base(id, NodeType.Node, parent)
-        {
-        }
+        public CARTNode(int id):base(id, NodeType.Node) {}
     }
 }

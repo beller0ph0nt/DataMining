@@ -3,7 +3,6 @@ using System.Data;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using DataMining.DecisionTree.Elements;
 
 namespace DataMining.DecisionTree.SplitQualityAlgorithm
 {
@@ -12,7 +11,6 @@ namespace DataMining.DecisionTree.SplitQualityAlgorithm
 		// вычисляет показатель качества разбиения для числового аттрибута
 		double CalcSplitQuality (List<DataTable> tables,	// набор
 			DataColumn column);								// атрибут по которому производится вычисление индекса
-			//string colname);								// атрибут по которому производится вычисление индекса
 
         // сравнивает показатели качества разбиения
         // выход:

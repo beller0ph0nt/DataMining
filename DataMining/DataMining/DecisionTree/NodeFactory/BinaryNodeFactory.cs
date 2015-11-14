@@ -1,17 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace DataMining.DecisionTree
+﻿namespace DataMining.DecisionTree
 {
-    /// <summary>
-    /// Фабрика узлов бинарного дерева
-    /// </summary>
-    /// <typeparam name="T">Тип хранимой информации в узлах дерева</typeparam>
-    public static class BinaryNodeFactory<T>
+	public static class BinaryNodeFactory<T>
     {
-        private static int _id = 1;     // Идентификатор узлов
+        private static int _id = 1;
 
         private static int NewId { get { return _id++; } }
 
@@ -20,14 +11,14 @@ namespace DataMining.DecisionTree
             return new BinaryRoot<T>(NewId);
         }
 
-        public static IBinaryNode<T> GetNode(IBinaryNode<T> parent)
+        public static IBinaryNode<T> GetNode()
         {
-            return new BinaryNode<T>(NewId, parent);
-        }
+            return new BinaryNode<T>(NewId);
+		}
 
-        public static IBinaryNode<T> GetLeaf(IBinaryNode<T> parent)
+        public static IBinaryNode<T> GetLeaf()
         {
-            return new BinaryLeaf<T>(NewId, parent);
+            return new BinaryLeaf<T>(NewId);
         }
     }
 }

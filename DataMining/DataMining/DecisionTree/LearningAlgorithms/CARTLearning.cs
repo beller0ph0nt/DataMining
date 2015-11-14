@@ -9,7 +9,7 @@ namespace DataMining.DecisionTree.LearningAlgorithm
 {
     public class CARTLearning : ILearningAlgorithm
     {
-		private CARTTree<DataTable> _tree;	// обучаемое дерево
+		//private CARTTree<DataTable> _tree;	// обучаемое дерево
 
 
         //private ISplitQualityAlgorithm _splitQuality;
@@ -17,7 +17,7 @@ namespace DataMining.DecisionTree.LearningAlgorithm
 
 		public CARTLearning(CARTTree<DataTable> tree)
         {
-            _tree = tree;
+            //_tree = tree;
 
             //_splitQuality = new GiniSplit();
             //_bestSplitQualityes = new Dictionary<int, ISplitQualityAlgorithm>();
@@ -25,8 +25,8 @@ namespace DataMining.DecisionTree.LearningAlgorithm
 
 		public void Training(DataTable table)
 		{
-			int id = _tree.CreateRoot();	// Создать корень у дерева
-			Split s = new Split(table);		// Получить лучшее разбиение
+			//int id = _tree.CreateRoot();	// Создать корень у дерева
+			//Split s = new Split(table);		// Получить лучшее разбиение
 
 			// Создать у текущего узла два листа
 			// В левый лист поместить [0] разбиение

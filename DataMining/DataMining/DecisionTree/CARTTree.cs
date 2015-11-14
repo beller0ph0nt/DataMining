@@ -99,6 +99,7 @@ namespace DataMining.DecisionTree
         // cоздает левый узел
 		public int CreateLeftNode(int parentId)	// идентификатор родителя
         {
+			/*
             if (_nodes.ContainsKey(parentId))   // если есть родитель
             {
                 var node = _nodes[parentId].CreateLeftNode() as ICARTNode<T>;
@@ -108,11 +109,14 @@ namespace DataMining.DecisionTree
             }
             else
                 throw new ArgumentOutOfRangeException("Не найден родительский узел с Id = " + parentId);
+			*/
+			throw new NotImplementedException ();
         }
 
         // создает правый узел
 		public int CreateRightNode(int parentId)	// идентификатор родителя
         {
+			/*
             if (_nodes.ContainsKey(parentId))   // если есть родитель
             {
                 var node = _nodes[parentId].CreateRightNode() as ICARTNode<T>;
@@ -122,11 +126,14 @@ namespace DataMining.DecisionTree
             }
             else
                 throw new ArgumentOutOfRangeException("Не найден родительский узел с Id = " + parentId);
+			*/
+			throw new NotImplementedException ();
         }
 			
         // создает левый лист
 		public int CreateLeftLeaf(int parentId)	// идентификатор родителя
         {
+			/*
             if (_nodes.ContainsKey(parentId))   // если есть родитель
             {
                 var leaf = _nodes[parentId].CreateLeftLeaf() as ICARTNode<T>;
@@ -136,11 +143,14 @@ namespace DataMining.DecisionTree
             }
             else
                 throw new ArgumentOutOfRangeException("Не найден родительский узел с Id = " + parentId);
+			*/
+			throw new NotImplementedException ();
         }
 			
         // создает правый лист
 		public int CreateRightLeaf(int parentId)	// идентификатор родителя
         {
+			/*
             if (_nodes.ContainsKey(parentId))   // если есть родитель
             {
                 var leaf = _nodes[parentId].CreateRightLeaf() as ICARTNode<T>;
@@ -150,6 +160,8 @@ namespace DataMining.DecisionTree
             }
             else
                 throw new ArgumentOutOfRangeException("Не найден родительский узел с Id = " + parentId);
+			*/
+			throw new NotImplementedException ();
         }
 
         #endregion

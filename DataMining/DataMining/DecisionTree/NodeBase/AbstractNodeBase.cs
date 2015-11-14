@@ -1,22 +1,16 @@
 ﻿namespace DataMining.DecisionTree
 {
-    // базовый клас для всех узлов
     public abstract class AbstractNodeBase<T> : INodeBase<T>
     {
-        private readonly int _id;       // идентификатор узла
-        private NodeType _type;         // тип узла
-        private INodeBase<T> _parent;   // ссылка на родителя
+		public int Id { get; private set; }
+		public NodeType Type { get; private set; }
+		public INodeBase<T> Parent { get; set; }
+		public virtual T Variable { get; set; }
 
-        public int Id { get { return _id; } }
-        public NodeType Type { get { return _type; } }
-        public INodeBase<T> Parent { get { return _parent; } }
-        public virtual T Variable { get { return default(T); } }
-
-        public AbstractNodeBase(int id, NodeType type, INodeBase<T> parent)
+        public AbstractNodeBase(int id, NodeType type)
         {
-            _id = id;
-            _type = type;
-            _parent = parent;
+            Id = id;
+            Type = type;
         }
 
         public override string ToString()

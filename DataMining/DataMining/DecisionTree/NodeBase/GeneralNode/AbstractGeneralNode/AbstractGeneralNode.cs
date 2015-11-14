@@ -4,31 +4,12 @@ namespace DataMining.DecisionTree
 {
     public abstract class AbstractGeneralNode<T> : AbstractNodeBase<T>, IGeneralNode<T>
     {
-        private List<IGeneralNode<T>> _children;
+		public new IGeneralNode<T> Parent { get; set; }
+		public List<IGeneralNode<T>> Children { get; set; }
 
-        public new IGeneralNode<T> Parent { get { return base.Parent as IGeneralNode<T>; } }
-        public IGeneralNode<T>[] Children { get { return _children.ToArray(); } }
-
-        public AbstractGeneralNode(int id, NodeType type, INodeBase<T> parent)
-            : base(id, type, parent)
+        public AbstractGeneralNode(int id, NodeType type):base(id, type)
         {
-            _children = new List<IGeneralNode<T>>();
-        }
-
-        public virtual IGeneralNode<T> CreateNode()
-        {
-            var node = GeneralNodeFactory<T>.GetNode(this) as IGeneralNode<T>;
-            _children.Add(node);
-
-            return node;
-        }
-
-        public virtual IGeneralNode<T> CreateLeaf()
-        {
-            var leaf = GeneralNodeFactory<T>.GetLeaf(this) as IGeneralNode<T>;
-            _children.Add(leaf);
-
-            return leaf;
+			Children = new List<IGeneralNode<T>>();
         }
     }
 }

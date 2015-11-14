@@ -62,11 +62,9 @@
     <Compile Include="DecisionTree\ITree.cs" />
     <Compile Include="DecisionTree\NodeBase\CARTNode\AbstractCARTNode\CARTNodes\CARTNode.cs" />
     <Compile Include="DecisionTree\CARTTree.cs" />
-    <Compile Include="DecisionTree\NodeFactory\AbstractNodeFactory.cs" />
     <Compile Include="DecisionTree\NodeFactory\BinaryNodeFactory.cs" />
     <Compile Include="DecisionTree\NodeFactory\CARTNodeFactory.cs" />
     <Compile Include="DecisionTree\NodeFactory\GeneralNodeFactory.cs" />
-    <Compile Include="DecisionTree\NodeFactory\INodeFactory.cs" />
     <Compile Include="DecisionTree\SplitQualityAlgorithm\GiniSplit.cs" />
     <Compile Include="DecisionTree\SplitQualityAlgorithm\ISplitQualityAlgorithm.cs" />
     <Compile Include="DecisionTree\SplitQualityAlgorithm\GiniSplitOptimized.cs" />
