@@ -8,12 +8,12 @@ namespace DataMining.DecisionTree
     public class CARTTree<T> : ITree
     {
         private IDictionary<int, ICARTNode<T>> _nodes;  // словарь всех узлов
-        private IDictionary<int, ICARTNode<T>> _leafs;  // словарь всех листов
+        //private IDictionary<int, ICARTNode<T>> _leafs;  // словарь всех листов
 
         public CARTTree()
         {
             _nodes = new Dictionary<int, ICARTNode<T>>();
-            _leafs = new Dictionary<int, ICARTNode<T>>();
+            //_leafs = new Dictionary<int, ICARTNode<T>>();
         }
 
         #region Методы
