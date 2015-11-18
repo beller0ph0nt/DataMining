@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace DataMining.DecisionTree
 {
+	[Serializable]
     public abstract class AbstractGeneralNode<T> : AbstractNodeBase<T>, IGeneralNode<T>
     {
 		public new IGeneralNode<T> Parent { get; set; }

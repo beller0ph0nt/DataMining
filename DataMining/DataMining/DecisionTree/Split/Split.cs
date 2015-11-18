@@ -6,6 +6,7 @@ using DataMining.DecisionTree.SplitQualityAlgorithm;
 
 namespace DataMining
 {
+	[Serializable]
 	public class Split : IComparable
 	{
 		public DataTable Table { get; set; }

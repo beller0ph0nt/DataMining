@@ -1,5 +1,8 @@
-﻿namespace DataMining.DecisionTree
+﻿using System;
+
+namespace DataMining.DecisionTree
 {
+	[Serializable]
     public abstract class AbstractNodeBase<T> : INodeBase<T>
     {
 		public int Id { get; private set; }

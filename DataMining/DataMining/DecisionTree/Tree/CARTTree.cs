@@ -1,28 +1,33 @@
 ﻿using System;
+using System.IO;
 using System.Data;
 using System.Linq;
 using System.Collections.Generic;
+using System.Runtime.Serialization.Formatters.Binary;
 
 namespace DataMining.DecisionTree
 {
-    // бинарное дерево CART
     public class CARTTree<T> : ITree
     {
 		private CARTRoot<T> _root;
-        //private IDictionary<int, ICARTNode<T>> _leafs;  // словарь всех листов
+		private BinaryFormatter _formatter;
 
-        public CARTTree()
+		public CARTTree(CARTRoot<T> root)
         {
+			_root = root;
+			_formatter = new BinaryFormatter();
         }
 
         public void Load(string file)
 		{
-			throw new System.NotImplementedException();
+			using (Stream fStream = new FileStream(file, FileMode.Open, FileAccess.Read, FileShare.None))
+				_root = (CARTRoot<T>)_formatter.Deserialize (fStream);
 		}
 
         public void Save(string file)
 		{
-			throw new System.NotImplementedException();
+			using(Stream fStream = new FileStream(file, FileMode.Create, FileAccess.Write, FileShare.None))
+				_formatter.Serialize(fStream, _root);
 		}
 
         public void Calc(DataRow input)

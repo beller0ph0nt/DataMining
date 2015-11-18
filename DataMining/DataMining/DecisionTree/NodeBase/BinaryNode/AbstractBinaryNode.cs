@@ -1,5 +1,8 @@
-﻿namespace DataMining.DecisionTree
+﻿using System;
+
+namespace DataMining.DecisionTree
 {
+	[Serializable]
     public abstract class AbstractBinaryNode<T> : AbstractNodeBase<T>, IBinaryNode<T>
     {
 		public new IBinaryNode<T> Parent { get; set; }

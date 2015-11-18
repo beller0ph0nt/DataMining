@@ -1,5 +1,8 @@
-﻿namespace DataMining.DecisionTree
+﻿using System;
+
+namespace DataMining.DecisionTree
 {
+	[Serializable]
     public abstract class AbstractCARTNode<T> : AbstractBinaryNode<T>, ICARTNode<T>
     {
 		public new ICARTNode<T> Parent { get; set; }

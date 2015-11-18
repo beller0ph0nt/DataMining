@@ -6,6 +6,7 @@ using System.Text;
 
 namespace DataMining.DecisionTree.SplitQualityAlgorithm
 {
+	[Serializable]
     public class GiniSplitOptimized : ISplitQualityAlgorithm
     {
 		public double GiniIndexOptimized(DataTable table, DataColumn col)
