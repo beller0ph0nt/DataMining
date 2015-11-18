@@ -17,7 +17,6 @@ namespace DataMining.DecisionTree.SplitQualityAlgorithm
         //  -1 - первый показатель лучше второго
         //   0 - показатели равны
         //   1 - второй показатель лучше первого
-		int Compare(double firstQuality,	// первый показатель
-					double secondQuality);	// второй показатель
+		int Compare(double firstQuality, double secondQuality);
     }
 }

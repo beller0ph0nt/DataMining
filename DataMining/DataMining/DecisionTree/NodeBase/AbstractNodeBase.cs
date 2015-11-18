@@ -5,7 +5,7 @@
 		public int Id { get; private set; }
 		public NodeType Type { get; private set; }
 		public INodeBase<T> Parent { get; set; }
-		public virtual T Variable { get; set; }
+		public T Variable { get; set; }
 
         public AbstractNodeBase(int id, NodeType type)
         {

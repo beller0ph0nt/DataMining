@@ -9,18 +9,13 @@ namespace DataMining.DecisionTree.LearningAlgorithm
 {
     public class CARTLearning : ILearningAlgorithm
     {
-		//private CARTTree<DataTable> _tree;	// обучаемое дерево
+		private CARTTree<Split> _tree;	// обучаемое дерево
+        private ISplitQualityAlgorithm _splitQuality;
 
-
-        //private ISplitQualityAlgorithm _splitQuality;
-        //private Dictionary<int, ISplitQualityAlgorithm> _bestSplitQualityes;
-
-		public CARTLearning(CARTTree<DataTable> tree)
+		public CARTLearning(CARTTree<Split> tree)
         {
-            //_tree = tree;
-
-            //_splitQuality = new GiniSplit();
-            //_bestSplitQualityes = new Dictionary<int, ISplitQualityAlgorithm>();
+            _tree = tree;
+            _splitQuality = new GiniSplit();
         }
 
 		public void Training(DataTable table)
@@ -43,38 +38,5 @@ namespace DataMining.DecisionTree.LearningAlgorithm
 			// Если в разбиении получилось только одно множество, то такое разбиение пропускаем.
 			// Если в разбиении 2 подмножества, то родительский лист надо заменить на узел и к нему привязать 2-а листа и заполнить их разбиениями.
 		}
-
-        /*
-        public void Training(List<List<double>> inputs, List<double> answers)
-        {
-            for (int i = 0; i < inputs.Count; i++)
-            {
-                var attribut = inputs[i];
-
-                attribut.Sort();
-
-                for (int j = 0; j < attribut.Count - 1; j++)
-                {
-                    double threshold = (attribut[j] + attribut[j + 1]) / 2;
-                    var firstSplit = attribut.Where(e => e <= threshold).ToList();
-                    var secondSplit = attribut.Where(e => e > threshold).ToList();
-
-                    //_splitQuality.CalcSplitQuality(new List<List<double>>() { firstSplit, secondSplit },
-                    //    attribut.Count);
-
-                    //if (j == 0)
-                        //_bestSplitQualityes[i] = _splitQuality;
-                    //else
-                    //{
-                        //if (_splitQuality.CompareTo(_bestSplitQualityes[i]) < 0)
-                        //    _bestSplitQualityes[i] = _splitQuality;
-                    //}
-                }
-            }
-
-            // Необходимо сохранять и порог для лучшего разбиения
-            //_bestSplitQualityes.OrderBy(p => p.Value.Quality).First();
-        }
-        */
     }
 }
