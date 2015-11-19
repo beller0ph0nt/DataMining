@@ -4,11 +4,9 @@ using System.Data;
 using System.Collections.Generic;
 using DataMining.DecisionTree.SplitQualityAlgorithm;
 
-namespace DataMining
-{
+namespace DataMining {
 	[Serializable]
-	public class Split : IComparable
-	{
+	public class Split : IComparable {
 		public DataTable Table { get; set; }
 		public List<DataTable> Splits { get; private set; }
 		public object Threshold { get; private set;}
@@ -16,16 +14,14 @@ namespace DataMining
 		public DataColumn Column { get; private set; }
 		public ISplitQualityAlgorithm SplitQualityAlgorithm { get; private set; }
 
-		public Split(DataTable table):this(table, new GiniSplit())	{ }
-		public Split(DataTable table, ISplitQualityAlgorithm algo)
-		{
+		public Split(DataTable table):this(table, new GiniSplit()) {}
+		public Split(DataTable table, ISplitQualityAlgorithm algo) {
 			Table = table;
 			SplitQualityAlgorithm = algo;
 			Splits = new List<DataTable> ();
 		}
 
-		public List<DataTable> CalcBestSplit()
-		{
+		public List<DataTable> CalcBestSplit() {
 			foreach (DataColumn col in Table.Columns)
 				if (Table.Rows [0] [col] is int)	// осуществляем разбиение по колонке
 					CalcBestCatSplit (col);
@@ -37,30 +33,26 @@ namespace DataMining
 			return Splits;
 		}
 
-		public List<DataTable> CalcBestSplit(DataTable table)
-		{
+		public List<DataTable> CalcBestSplit(DataTable table) {
 			Table = table;
 			return CalcBestSplit();
 		}
 
-		private void Fix(double quality, object threshold, List<DataTable> splits, DataColumn col)
-		{
+		private void Fix(double quality, object threshold, List<DataTable> splits, DataColumn col) {
 			Quality = quality;
 			Threshold = threshold;
 			Splits = splits;
 			Column = col;
 		}
 
-		private void CalcBestNumSplit(DataColumn col)
-		{
+		private void CalcBestNumSplit(DataColumn col) {
 			double tmpQuality;
 			double tmpThreshold;
 
 			Table.DefaultView.Sort = col.ColumnName + " asc";
 			Table = Table.DefaultView.ToTable ();
 
-			for (int i = 0; i < Table.Rows.Count - 1; i++)
-			{	// вычисляем порог, как среднее
+			for (int i = 0; i < Table.Rows.Count - 1; i++) {	// вычисляем порог, как среднее
 				tmpThreshold = (Table.Rows[i].Field<double>(col.Ordinal) + Table.Rows[i + 1].Field<double>(col.Ordinal)) / 2.0;
 
 				List<DataTable> tmpSplits = new List<DataTable>();	// выделяем память под временное разбиение
@@ -82,14 +74,12 @@ namespace DataMining
 			}
 		}
 
-		public void CalcBestCatSplit(DataColumn col)
-		{
+		public void CalcBestCatSplit(DataColumn col) {
 			double tmpQuality;
 			int max = Table.AsEnumerable().Max(d => (int)d[col]);
 			int Categories = (int)(Math.Pow(2, (int)(Math.Log(max, 2.0) + 1)) - 1);	// определяем кол-во категорий как максимальное значение категориального аттрибута
 
-			for (long set = 1; set < Categories - 1; set++)  // перебираем все катигории
-			{
+			for (long set = 1; set < Categories - 1; set++) {	// перебираем все катигории
 				List<DataTable> tmpSplits = new List<DataTable>();	// выделяем память под временное разбиение
 				tmpSplits.Add(Table.Clone());                  	// первое разбиение
 				tmpSplits.Add(Table.Clone());                  	// второе разбиение
@@ -109,8 +99,7 @@ namespace DataMining
 			}
 		}
 
-		public int CompareTo(object obj)
-		{
+		public int CompareTo(object obj) {
 			return SplitQualityAlgorithm.Compare(Quality, ((Split)obj).Quality);
 		}
 	}

@@ -1,10 +1,8 @@
 ﻿using System;
 
-namespace DataMining.DecisionTree
-{
+namespace DataMining.DecisionTree {
 	[Serializable]
-    public abstract class AbstractBinaryNode<T> : AbstractNodeBase<T>, IBinaryNode<T>
-    {
+    public abstract class AbstractBinaryNode<T> : AbstractNodeBase<T>, IBinaryNode<T> {
 		public new IBinaryNode<T> Parent { get; set; }
 		public IBinaryNode<T> Left { get; set; }
 		public IBinaryNode<T> Right { get; set; }
