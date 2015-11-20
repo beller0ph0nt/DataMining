@@ -22,14 +22,15 @@ namespace DataMining {
 		}
 
 		public List<DataTable> CalcBestSplit() {
-			foreach (DataColumn col in Table.Columns)
-				if (Table.Rows [0] [col] is int)	// осуществляем разбиение по колонке
+			foreach (DataColumn col in Table.Columns) {
+				if (Table.Rows [0] [col] is int) {
 					CalcBestCatSplit (col);
-				else if (Table.Rows [0] [col] is double)
+				} else if (Table.Rows [0] [col] is double) {
 					CalcBestNumSplit (col);
-				else 
+				} else {
 					throw new Exception ("Bad col type");
-
+				}
+			}
 			return Splits;
 		}
 
@@ -48,29 +49,26 @@ namespace DataMining {
 		private void CalcBestNumSplit(DataColumn col) {
 			double tmpQuality;
 			double tmpThreshold;
-
 			Table.DefaultView.Sort = col.ColumnName + " asc";
 			Table = Table.DefaultView.ToTable ();
-
-			for (int i = 0; i < Table.Rows.Count - 1; i++) {	// вычисляем порог, как среднее
-				tmpThreshold = (Table.Rows[i].Field<double>(col.Ordinal) + Table.Rows[i + 1].Field<double>(col.Ordinal)) / 2.0;
-
-				List<DataTable> tmpSplits = new List<DataTable>();	// выделяем память под временное разбиение
-				tmpSplits.Add(Table.Clone());                  	// первое разбиение
-				tmpSplits.Add(Table.Clone());                  	// второе разбиение
-
-				for (int j = 0; j < Table.Rows.Count; j++)
-					if (Table.Rows[j].Field<double>(col.Ordinal) <= tmpThreshold)
-						tmpSplits[0].ImportRow(Table.Rows[j]);
-					else
-						tmpSplits[1].ImportRow(Table.Rows[j]);
-					
+			for (int i = 0; i < Table.Rows.Count - 1; i++) {
+				tmpThreshold = (Table.Rows[i].Field<double>(col.Ordinal) + Table.Rows[i + 1].Field<double>(col.Ordinal)) / 2.0;	// вычисляем порог, как среднее
+				List<DataTable> tmpSplits = new List<DataTable>();
+				tmpSplits.Add(Table.Clone());
+				tmpSplits.Add(Table.Clone());
+				for (int j = 0; j < Table.Rows.Count; j++) {
+					if (Table.Rows [j].Field<double> (col.Ordinal) <= tmpThreshold) {
+						tmpSplits [0].ImportRow (Table.Rows [j]);
+					} else {
+						tmpSplits [1].ImportRow (Table.Rows [j]);
+					}
+				}
 				tmpQuality = SplitQualityAlgorithm.CalcSplitQuality (tmpSplits, col);
-
-				if (i == 0)
-					Fix(tmpQuality, tmpThreshold, tmpSplits, col);
-				else if(SplitQualityAlgorithm.Compare(tmpQuality, Quality) < 0)
-					Fix(tmpQuality, tmpThreshold, tmpSplits, col);
+				if (i == 0) {
+					Fix (tmpQuality, tmpThreshold, tmpSplits, col);
+				} else if (SplitQualityAlgorithm.Compare (tmpQuality, Quality) < 0) {
+					Fix (tmpQuality, tmpThreshold, tmpSplits, col);
+				}
 			}
 		}
 
@@ -78,24 +76,23 @@ namespace DataMining {
 			double tmpQuality;
 			int max = Table.AsEnumerable().Max(d => (int)d[col]);
 			int Categories = (int)(Math.Pow(2, (int)(Math.Log(max, 2.0) + 1)) - 1);	// определяем кол-во категорий как максимальное значение категориального аттрибута
-
 			for (long set = 1; set < Categories - 1; set++) {	// перебираем все катигории
-				List<DataTable> tmpSplits = new List<DataTable>();	// выделяем память под временное разбиение
-				tmpSplits.Add(Table.Clone());                  	// первое разбиение
-				tmpSplits.Add(Table.Clone());                  	// второе разбиение
-
-				for (int i = 0; i < Table.Rows.Count; i++)
-					if ((~set & Table.Rows [i].Field<int> (col)) == 0)
+				List<DataTable> tmpSplits = new List<DataTable>();
+				tmpSplits.Add(Table.Clone());
+				tmpSplits.Add(Table.Clone());
+				for (int i = 0; i < Table.Rows.Count; i++) {
+					if ((~set & Table.Rows [i].Field<int> (col)) == 0) {
 						tmpSplits [0].ImportRow (Table.Rows [i]);
-					else
-						tmpSplits [1].ImportRow(Table.Rows [i]);
-
+					} else {
+						tmpSplits [1].ImportRow (Table.Rows [i]);
+					}
+				}
 				tmpQuality = SplitQualityAlgorithm.CalcSplitQuality(tmpSplits, col);
-
-				if (set == 1)
+				if (set == 1) {
 					Fix (tmpQuality, set, tmpSplits, col);
-				else if(SplitQualityAlgorithm.Compare(tmpQuality, Quality) < 0)
-					Fix(tmpQuality, set, tmpSplits, col);
+				} else if (SplitQualityAlgorithm.Compare (tmpQuality, Quality) < 0) {
+					Fix (tmpQuality, set, tmpSplits, col);
+				}
 			}
 		}
 

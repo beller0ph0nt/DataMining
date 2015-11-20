@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-
-namespace DataMining.DecisionTree {
+﻿namespace DataMining.DecisionTree {
     public static class CARTNodeFactory<T> {
         private static int _id = 1;
 

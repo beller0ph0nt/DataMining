@@ -9,8 +9,7 @@ namespace DataMining.DecisionTree.SplitQualityAlgorithm
     public interface ISplitQualityAlgorithm
     {
 		// вычисляет показатель качества разбиения для числового аттрибута
-		double CalcSplitQuality (List<DataTable> tables,	// набор
-			DataColumn column);								// атрибут по которому производится вычисление индекса
+		double CalcSplitQuality (List<DataTable> tables, DataColumn column);
 
         // сравнивает показатели качества разбиения
         // выход:

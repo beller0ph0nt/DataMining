@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using DataMining.DecisionTree;
 using DataMining;
+using DataMining.DecisionTree.LearningAlgorithm;
 
 namespace TestField
 {
@@ -49,6 +50,10 @@ namespace TestField
 				table.Rows.Add(row);
 			}
 
+			CARTLearning learn = new CARTLearning ();
+			learn.Training (table);
+
+			/*
 			Split s = new Split (table);
 			List<DataTable> spl = s.CalcBestSplit ();
 
@@ -84,6 +89,7 @@ namespace TestField
 
 			Console.WriteLine("-------");
 			Console.WriteLine("cnt = " + cnt);
+			*/
 
 			// примеры группировок
 

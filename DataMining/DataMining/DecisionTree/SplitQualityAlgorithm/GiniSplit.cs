@@ -26,12 +26,13 @@ namespace DataMining.DecisionTree.SplitQualityAlgorithm {
         // 	 0 - показатели равны
         //   1 - первый показатель хуже второго
 		public int Compare(double firstQuality, double secondQuality) {
-            if (firstQuality > secondQuality)
-                return 1;
-            else if (firstQuality < secondQuality)
-                return -1;
-            else
-                return 0;
+			if (firstQuality > secondQuality) {
+				return 1;
+			} else if (firstQuality < secondQuality) {
+				return -1;
+			} else {
+				return 0;
+			}
         }
     }
 }
