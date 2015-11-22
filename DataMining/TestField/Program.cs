@@ -50,8 +50,10 @@ namespace TestField
 				table.Rows.Add(row);
 			}
 
+
+
 			CARTLearning learn = new CARTLearning ();
-			learn.Training (table);
+			Console.WriteLine (learn.Training (table).ToString ());
 
 			/*
 			Split s = new Split (table);

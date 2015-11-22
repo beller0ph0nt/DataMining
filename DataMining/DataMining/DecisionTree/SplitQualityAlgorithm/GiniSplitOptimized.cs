@@ -9,15 +9,15 @@ namespace DataMining.DecisionTree.SplitQualityAlgorithm {
     public class GiniSplitOptimized : ISplitQualityAlgorithm {
 		public double GiniIndexOptimized(DataTable table, DataColumn col) {
 			return table.AsEnumerable ().
-				GroupBy(k => k[col], (k, e) => new { cnt = e.Count() }).
+				GroupBy(r => r[col.Ordinal], (k, e) => new { cnt = e.Count() }).
 				Sum (a => a.cnt * a.cnt);
 		}
 
 		// вычисляет показатель качества разбиения для категориального аттрибута
 		public double CalcSplitQuality(List<DataTable> tables, DataColumn column) {
-			return tables.Sum (a => GiniIndexOptimized(a, column) / a.Rows.Count);
+			return tables.Sum (t => GiniIndexOptimized(t, column) / t.Rows.Count); // делить надо не на 
 		}
-			
+
         // Сравнивает показатели качества разбиения
         // -1 - первый показатель лучше второго
         //  0 - показатели равны

@@ -7,45 +7,47 @@ namespace DataMining.DecisionTree.LearningAlgorithm {
         private ISplitQualityAlgorithm _qualityAlgo;
 
 		public CARTLearning() {
-            _qualityAlgo = new GiniSplit();
+			_qualityAlgo = new GiniSplit();
+			//_qualityAlgo = new GiniSplitOptimized ();
         }
 
-		public void Training(DataTable table) {
-			// !!! после обучения должен выплюнуть готовое дерево CARTTree<Split> _tree !!!
+		public CARTTree<Split> Training(DataTable table) {
 			ICARTNode<Split> root = CARTNodeFactory<Split>.GetRoot ();
 			CreateTree (root, table);
-			CARTTree<Split> tree = new CARTTree<Split> ((CARTRoot<Split>)root);
-			Console.Write (tree.ToString ());
+			return new CARTTree<Split> ((CARTRoot<Split>)root);	//CARTTree<Split> tree = new CARTTree<Split> ((CARTRoot<Split>)root);
+			//Console.Write (tree.ToString ());
 		}
 
 		private void CreateTree(ICARTNode<Split> node, DataTable table) {
 			Split s = new Split (table, _qualityAlgo);
 			s.CalcBestSplit ();
-			Console.WriteLine ("split list count: " + s.Splits.Count);
-			if (s.Splits.Count == 0) {	//if (s.Splits [0].Rows.Count == 0 || s.Splits [1].Rows.Count == 0) {
+			node.Variable = s;
+			Console.WriteLine (node.ToString() + " split count: " + s.Splits.Count + " quality: " + s.Quality);
+			if (s.Splits.Count == 0 || s.Splits [0].Rows.Count == 0 || s.Splits [1].Rows.Count == 0) {
 				if (node.Id == node.Parent.Right.Id) {
 					node.Parent.Right = CARTNodeFactory<Split>.GetLeaf ();
 					node.Parent.Right.Parent = node.Parent;
 					node.Parent.Right.Variable = node.Variable;
+					Console.WriteLine ("replace " + node.ToString () + " on " + node.Parent.Right.ToString ());
 				} else if (node.Id == node.Parent.Left.Id) {
 					node.Parent.Left = CARTNodeFactory<Split>.GetLeaf ();
 					node.Parent.Left.Parent = node.Parent;
 					node.Parent.Left.Variable = node.Variable;
+					Console.WriteLine ("replace " + node.ToString () + " on " + node.Parent.Left.ToString ());
 				}
-				Console.WriteLine ("RETURN");
 				return;
 			}
-			if (s.Splits [1].Rows.Count > 0) {			// !!! повторяется бесконечно !!!
+			Console.WriteLine ("\t1st split rows count: " + s.Splits [0].Rows.Count + " || 2nd split rows count: " + s.Splits [1].Rows.Count);
+			if (s.Splits [1].Rows.Count > 0 && node.Right == null) {
 				node.Right = CARTNodeFactory<Split>.GetNode ();
 				node.Right.Parent = node;
-				Console.WriteLine ("go to the right branch");
+				Console.WriteLine ("\tgo to the right branch");
 				CreateTree (node.Right, s.Splits [1]);
 			}
-			node.Variable = s;
-			if (s.Splits [0].Rows.Count > 0) {
+			if (s.Splits [0].Rows.Count > 0 && node.Left == null) {
 				node.Left = CARTNodeFactory<Split>.GetNode ();
 				node.Left.Parent = node;
-				Console.WriteLine ("go to the left branch");
+				Console.WriteLine ("\tgo to the left branch");
 				CreateTree (node.Left, s.Splits [0]);
 			}
 		}

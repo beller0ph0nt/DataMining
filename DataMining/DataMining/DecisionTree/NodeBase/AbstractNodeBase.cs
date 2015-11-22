@@ -11,10 +11,12 @@ namespace DataMining.DecisionTree {
         public AbstractNodeBase(int id, NodeType type) {
             Id = id;
             Type = type;
+			Parent = null;
+			Variable = default(T);
         }
 
         public override string ToString() {
-            return string.Format("{0}:{1}", Type.ToString(), Id);
+            return string.Format("{0} id: {1}", Type.ToString(), Id);
         }
     }
 }

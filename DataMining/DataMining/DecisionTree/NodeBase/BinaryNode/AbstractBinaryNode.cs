@@ -7,6 +7,9 @@ namespace DataMining.DecisionTree {
 		public IBinaryNode<T> Left { get; set; }
 		public IBinaryNode<T> Right { get; set; }
 
-        public AbstractBinaryNode(int id, NodeType type):base(id, type) {}
+        public AbstractBinaryNode(int id, NodeType type):base(id, type) {
+			Left = null;
+			Right = null;
+		}
     }
 }

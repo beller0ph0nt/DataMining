@@ -2,6 +2,6 @@
 
 namespace DataMining.DecisionTree.LearningAlgorithm {
     public interface ILearningAlgorithm {
-		void Training(DataTable table);
+		CARTTree<Split> Training(DataTable table);
     }
 }

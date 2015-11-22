@@ -47,8 +47,7 @@ namespace DataMining {
 		}
 
 		private void CalcBestNumSplit(DataColumn col) {
-			double tmpQuality;
-			double tmpThreshold;
+			double tmpQuality, tmpThreshold;
 			Table.DefaultView.Sort = col.ColumnName + " asc";
 			Table = Table.DefaultView.ToTable ();
 			for (int i = 0; i < Table.Rows.Count - 1; i++) {
@@ -74,8 +73,8 @@ namespace DataMining {
 
 		public void CalcBestCatSplit(DataColumn col) {
 			double tmpQuality;
-			int max = Table.AsEnumerable().Max(d => (int)d[col]);
-			int Categories = (int)(Math.Pow(2, (int)(Math.Log(max, 2.0) + 1)) - 1);	// определяем кол-во категорий как максимальное значение категориального аттрибута
+			int max = Table.AsEnumerable().Max(r => (int)r[col]);
+			int Categories = (int)(Math.Pow(2, (int)(Math.Log(max, 2) + 1)) - 1);	// определяем кол-во категорий как максимальное значение категориального аттрибута
 			for (long set = 1; set < Categories - 1; set++) {	// перебираем все катигории
 				List<DataTable> tmpSplits = new List<DataTable>();
 				tmpSplits.Add(Table.Clone());

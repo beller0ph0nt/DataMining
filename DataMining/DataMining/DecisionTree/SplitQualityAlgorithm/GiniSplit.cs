@@ -16,15 +16,15 @@ namespace DataMining.DecisionTree.SplitQualityAlgorithm {
 
 		// вычисляет показатель качества разбиения для категориального аттрибута
 		public double CalcSplitQuality(List<DataTable> tables, DataColumn column) {
-			double totalCount = tables.Sum(tbl => tbl.Rows.Count);
-			return tables.Sum(tbl => tbl.Rows.Count * GiniIndex(tbl, column) / totalCount);
+			double totalCount = tables.Sum(t => t.Rows.Count);
+			return tables.Sum(t => t.Rows.Count * GiniIndex(t, column) / totalCount);
 		}
         
         // сравнивает показатели качества разбиения
         // выход:
-        //  -1 - первый показатель лучше второго
+        //  -1 - первый показатель лучше
         // 	 0 - показатели равны
-        //   1 - первый показатель хуже второго
+        //   1 - второй показатель лучше
 		public int Compare(double firstQuality, double secondQuality) {
 			if (firstQuality > secondQuality) {
 				return 1;
