@@ -14,8 +14,7 @@ namespace DataMining.DecisionTree.LearningAlgorithm {
 		public CARTTree<Split> Training(DataTable table) {
 			ICARTNode<Split> root = CARTNodeFactory<Split>.GetRoot ();
 			CreateTree (root, table);
-			return new CARTTree<Split> ((CARTRoot<Split>)root);	//CARTTree<Split> tree = new CARTTree<Split> ((CARTRoot<Split>)root);
-			//Console.Write (tree.ToString ());
+			return new CARTTree<Split> ((CARTRoot<Split>)root);
 		}
 
 		private void CreateTree(ICARTNode<Split> node, DataTable table) {
@@ -28,24 +27,26 @@ namespace DataMining.DecisionTree.LearningAlgorithm {
 					node.Parent.Right = CARTNodeFactory<Split>.GetLeaf ();
 					node.Parent.Right.Parent = node.Parent;
 					node.Parent.Right.Variable = node.Variable;
-					Console.WriteLine ("replace " + node.ToString () + " on " + node.Parent.Right.ToString ());
+					Console.WriteLine ("\treplace " + node.ToString () + " on " + node.Parent.Right.ToString ());
 				} else if (node.Id == node.Parent.Left.Id) {
 					node.Parent.Left = CARTNodeFactory<Split>.GetLeaf ();
 					node.Parent.Left.Parent = node.Parent;
 					node.Parent.Left.Variable = node.Variable;
-					Console.WriteLine ("replace " + node.ToString () + " on " + node.Parent.Left.ToString ());
+					Console.WriteLine ("\treplace " + node.ToString () + " on " + node.Parent.Left.ToString ());
 				}
 				return;
 			}
 			Console.WriteLine ("\t1st split rows count: " + s.Splits [0].Rows.Count + " || 2nd split rows count: " + s.Splits [1].Rows.Count);
 			if (s.Splits [1].Rows.Count > 0 && node.Right == null) {
 				node.Right = CARTNodeFactory<Split>.GetNode ();
+				Console.WriteLine ("\tcreate right " + node.Right.ToString ());
 				node.Right.Parent = node;
 				Console.WriteLine ("\tgo to the right branch");
 				CreateTree (node.Right, s.Splits [1]);
 			}
 			if (s.Splits [0].Rows.Count > 0 && node.Left == null) {
 				node.Left = CARTNodeFactory<Split>.GetNode ();
+				Console.WriteLine ("\tcreate left " + node.Left.ToString ());
 				node.Left.Parent = node;
 				Console.WriteLine ("\tgo to the left branch");
 				CreateTree (node.Left, s.Splits [0]);

@@ -52,9 +52,7 @@ namespace DataMining {
 			Table = Table.DefaultView.ToTable ();
 			for (int i = 0; i < Table.Rows.Count - 1; i++) {
 				tmpThreshold = (Table.Rows[i].Field<double>(col.Ordinal) + Table.Rows[i + 1].Field<double>(col.Ordinal)) / 2.0;	// вычисляем порог, как среднее
-				List<DataTable> tmpSplits = new List<DataTable>();
-				tmpSplits.Add(Table.Clone());
-				tmpSplits.Add(Table.Clone());
+				List<DataTable> tmpSplits = new List<DataTable> () { Table.Clone(), Table.Clone() };
 				for (int j = 0; j < Table.Rows.Count; j++) {
 					if (Table.Rows [j].Field<double> (col.Ordinal) <= tmpThreshold) {
 						tmpSplits [0].ImportRow (Table.Rows [j]);
@@ -76,9 +74,7 @@ namespace DataMining {
 			int max = Table.AsEnumerable().Max(r => (int)r[col]);
 			int Categories = (int)(Math.Pow(2, (int)(Math.Log(max, 2) + 1)) - 1);	// определяем кол-во категорий как максимальное значение категориального аттрибута
 			for (long set = 1; set < Categories - 1; set++) {	// перебираем все катигории
-				List<DataTable> tmpSplits = new List<DataTable>();
-				tmpSplits.Add(Table.Clone());
-				tmpSplits.Add(Table.Clone());
+				List<DataTable> tmpSplits = new List<DataTable>() { Table.Clone(), Table.Clone() };
 				for (int i = 0; i < Table.Rows.Count; i++) {
 					if ((~set & Table.Rows [i].Field<int> (col)) == 0) {
 						tmpSplits [0].ImportRow (Table.Rows [i]);

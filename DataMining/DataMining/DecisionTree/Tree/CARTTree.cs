@@ -33,7 +33,20 @@ namespace DataMining.DecisionTree {
 			Stack<ICARTNode<T>> returnNodeStack = new Stack<ICARTNode<T>> ();
 			Stack<int> returnLevelStack = new Stack<int> ();
 			int currentLevel = 0;
-			Func<int, ICARTNode<T>, string> outputFormat = (l, n) => string.Format ("").PadLeft (l << 1) + string.Format ("|--{0}\n", n.ToString ());
+			Func<int, ICARTNode<T>, string> outputFormat = (l, n) => {
+				/*
+				string str = "";
+				for (int i = 1; i < l << 1; i++) {
+					if (i % 2 == 0) {
+						str += "|";
+					} else {
+						str += " ";
+					}
+				}
+				return str + string.Format ("|_{0}\n", n.ToString ());
+				*/
+				return string.Format ("").PadLeft (l << 1) + string.Format ("|--{0}\n", n.ToString ());
+			};
 			ICARTNode<T> currentNode = _root;
 			string s = string.Format ("{0}\n", currentNode.ToString ());
 			while (currentNode != null) {
@@ -42,13 +55,10 @@ namespace DataMining.DecisionTree {
 						returnNodeStack.Push (currentNode.Left);
 						returnLevelStack.Push (currentLevel + 1);
 					}
-					// корректируем текущий узел и его уровень
 					currentNode = currentNode.Right;
 					currentLevel++;
-					// выводим текущий узел
 					s += outputFormat (currentLevel, currentNode);
 				}
-				// если остались узлы возврата
 				if (returnNodeStack.Count > 0) {
 					currentNode = returnNodeStack.Pop ();
 					currentLevel = returnLevelStack.Pop ();
