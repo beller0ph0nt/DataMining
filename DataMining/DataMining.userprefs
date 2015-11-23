@@ -2,12 +2,12 @@
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Release" />
   <MonoDevelop.Ide.Workbench ActiveDocument="DataMining/DecisionTree/LearningAlgorithms/CARTLearning.cs">
     <Files>
-      <File FileName="DataMining/DecisionTree/Split/Split.cs" Line="77" Column="88" />
-      <File FileName="DataMining/DecisionTree/LearningAlgorithms/CARTLearning.cs" Line="15" Column="35" />
+      <File FileName="DataMining/DecisionTree/Split/Split.cs" Line="48" Column="4" />
+      <File FileName="DataMining/DecisionTree/LearningAlgorithms/CARTLearning.cs" Line="8" Column="3" />
       <File FileName="DataMining/DecisionTree/LearningAlgorithms/ILearningAlgorithm.cs" Line="1" Column="1" />
-      <File FileName="DataMining/DecisionTree/Tree/CARTTree.cs" Line="31" Column="9" />
+      <File FileName="DataMining/DecisionTree/Tree/CARTTree.cs" Line="1" Column="1" />
       <File FileName="DataMining/DecisionTree/Tree/ITree.cs" Line="1" Column="1" />
-      <File FileName="TestField/Program.cs" Line="1" Column="1" />
+      <File FileName="TestField/Program.cs" Line="46" Column="20" />
       <File FileName="DataMining/DecisionTree/NodeBase/CARTNode/ICARTNode.cs" Line="1" Column="1" />
       <File FileName="DataMining/DecisionTree/NodeBase/BinaryNode/IBinaryNode.cs" Line="1" Column="1" />
       <File FileName="DataMining/DecisionTree/NodeBase/CARTNode/AbstractCARTNode.cs" Line="1" Column="1" />

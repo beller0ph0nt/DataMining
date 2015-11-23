@@ -11,7 +11,7 @@ namespace DataMining {
 		public List<DataTable> Splits { get; private set; }
 		public object Threshold { get; private set; }
 		public double Quality { get; private set;}
-		public int ColOrginal { get; private set; }	//public DataColumn Column { get; private set; }
+		public int ColOrginal { get; private set; }
 		public ISplitQualityAlgorithm SplitQualityAlgorithm { get; private set; }
 
 		public Split(DataTable table):this(table, new GiniSplit()) {}
@@ -44,7 +44,7 @@ namespace DataMining {
 			Quality = quality;
 			Threshold = threshold;
 			Splits = splits;
-			ColOrginal = col.Ordinal;	//Column = col;
+			ColOrginal = col.Ordinal;
 		}
 
 		private void CalcBestNumSplit(DataColumn col) {

@@ -22,16 +22,18 @@ namespace DataMining.DecisionTree.LearningAlgorithm {
 			node.Variable = s;
 			Console.WriteLine ("CUR_NODE=(" + node.ToString () + ") CUR_SPLIT=(count: " + s.Splits.Count + " quality: " + s.Quality + " threshold: " + s.Threshold + ") CUR_TABLE=(row count: " + table.Rows.Count + ")");
 			if (s.Splits.Count == 0 || s.Splits [0].Rows.Count == 0 || s.Splits [1].Rows.Count == 0) {
-				if (node.Id == node.Parent.Right.Id) {
-					node.Parent.Right = CARTNodeFactory<Split>.GetLeaf ();
-					node.Parent.Right.Parent = node.Parent;
-					node.Parent.Right.Variable = node.Variable;
-					Console.WriteLine ("CUR_NODE=(" + node.ToString() + ")\treplace " + node.ToString () + " on " + node.Parent.Right.ToString ());
-				} else if (node.Id == node.Parent.Left.Id) {
-					node.Parent.Left = CARTNodeFactory<Split>.GetLeaf ();
-					node.Parent.Left.Parent = node.Parent;
-					node.Parent.Left.Variable = node.Variable;
-					Console.WriteLine ("CUR_NODE=(" + node.ToString() + ")\treplace " + node.ToString () + " on " + node.Parent.Left.ToString ());
+				if (node.Type != NodeType.Root) {
+					if (node.Id == node.Parent.Right.Id) {
+						node.Parent.Right = CARTNodeFactory<Split>.GetLeaf ();
+						node.Parent.Right.Parent = node.Parent;
+						node.Parent.Right.Variable = node.Variable;
+						Console.WriteLine ("CUR_NODE=(" + node.ToString () + ")\treplace " + node.ToString () + " on " + node.Parent.Right.ToString ());
+					} else if (node.Id == node.Parent.Left.Id) {
+						node.Parent.Left = CARTNodeFactory<Split>.GetLeaf ();
+						node.Parent.Left.Parent = node.Parent;
+						node.Parent.Left.Variable = node.Variable;
+						Console.WriteLine ("CUR_NODE=(" + node.ToString () + ")\treplace " + node.ToString () + " on " + node.Parent.Left.ToString ());
+					}
 				}
 				return;
 			}
