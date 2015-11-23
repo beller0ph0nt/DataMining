@@ -53,7 +53,9 @@ namespace TestField
 
 
 			CARTLearning learn = new CARTLearning ();
-			Console.WriteLine (learn.Training (table).ToString ());
+			CARTTree<Split> tree = learn.Training (table);
+			Console.WriteLine (tree.ToString ());
+			tree.Save ("tst_tree.bin");
 
 			/*
 			Split s = new Split (table);

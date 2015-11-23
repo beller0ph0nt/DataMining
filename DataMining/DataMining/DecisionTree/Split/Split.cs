@@ -9,13 +9,14 @@ namespace DataMining {
 	public class Split : IComparable {
 		public DataTable Table { get; set; }
 		public List<DataTable> Splits { get; private set; }
-		public object Threshold { get; private set;}
+		public object Threshold { get; private set; }
 		public double Quality { get; private set;}
-		public DataColumn Column { get; private set; }
+		public int ColOrginal { get; private set; }	//public DataColumn Column { get; private set; }
 		public ISplitQualityAlgorithm SplitQualityAlgorithm { get; private set; }
 
 		public Split(DataTable table):this(table, new GiniSplit()) {}
 		public Split(DataTable table, ISplitQualityAlgorithm algo) {
+			Threshold = null;
 			Table = table;
 			SplitQualityAlgorithm = algo;
 			Splits = new List<DataTable> ();
@@ -43,7 +44,7 @@ namespace DataMining {
 			Quality = quality;
 			Threshold = threshold;
 			Splits = splits;
-			Column = col;
+			ColOrginal = col.Ordinal;	//Column = col;
 		}
 
 		private void CalcBestNumSplit(DataColumn col) {
