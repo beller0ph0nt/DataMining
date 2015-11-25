@@ -25,7 +25,7 @@ namespace DataMining.DecisionTree {
 				_formatter.Serialize (fStream, _root);
 		}
 
-        public void Calc(DataRow input) {
+        public void Calc(DataRow row) {
 			throw new System.NotImplementedException();
 		}
         

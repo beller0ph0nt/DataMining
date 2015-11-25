@@ -24,6 +24,7 @@ namespace DataMining {
 
 		public List<DataTable> CalcBestSplit() {
 			for (int i = 0; i < Table.Columns.Count - 1; i++) {
+				Console.WriteLine ("CUR_COL=" + Table.Columns [i].ColumnName);
 				if (Table.Rows[0][i] is int) {
 					CalcBestCatSplit(Table.Columns[i]);
 				} else if (Table.Rows[0][i] is double) {
@@ -52,6 +53,7 @@ namespace DataMining {
 		}
 
 		private void CalcBestNumSplit(DataColumn col) {
+			Console.WriteLine ("CalcBestNumSplit");
 			double tmpQuality, tmpThreshold;
 			Table.DefaultView.Sort = col.ColumnName + " asc";
 			Table = Table.DefaultView.ToTable ();
@@ -75,6 +77,7 @@ namespace DataMining {
 		}
 
 		public void CalcBestCatSplit(DataColumn col) {
+			Console.WriteLine ("CalcBestCatSplit");
 			double tmpQuality;
 			int max = Table.AsEnumerable().Max(r => (int)r[col]);
 			int Categories = (int)(Math.Pow(2, (int)(Math.Log(max, 2) + 1)) - 1);	// определяем кол-во категорий как максимальное значение категориального аттрибута
