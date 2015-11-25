@@ -15,25 +15,12 @@ namespace TestField
         static void Main(string[] args)
         {
 			//Random rnd = new Random();
-
 			DataTable table = new DataTable("TEST");
-
-			DataColumn column;
 			DataRow row;
 
-			column = new DataColumn();
-			column.DataType = System.Type.GetType("System.Int32");
-			column.ColumnName = "cat";
-			column.ReadOnly = true;
-			column.Unique = false;
-			table.Columns.Add(column);
-
-			column = new DataColumn();
-			column.DataType = System.Type.GetType("System.Double");
-			column.ColumnName = "num";
-			column.ReadOnly = true;
-			column.Unique = false;
-			table.Columns.Add(column);
+			table.Columns.Add(new DataColumn("cat", System.Type.GetType("System.Int32")));
+			table.Columns.Add(new DataColumn("num", System.Type.GetType("System.Double")));
+			table.Columns.Add(new DataColumn("func", System.Type.GetType("System.Double")));
 
 			int count = 10;
 
@@ -41,16 +28,12 @@ namespace TestField
 			for (int i = 0; i <= count; i++)
 			{
 				row = table.NewRow();
-				//row["cat"] = rnd.Next();
-				row["cat"] = i % 3;
+				row["cat"] = i % 3;		//row["cat"] = rnd.Next();
 				row["num"] = i;
-
-				Console.WriteLine(row["cat"].ToString() + ", " + row["num"].ToString());
-
+				row["func"] = (i < 5) ? 1 : 2;
+				Console.WriteLine(row["cat"].ToString() + ", " + row["num"].ToString() + ", " + row["func"].ToString());
 				table.Rows.Add(row);
 			}
-
-
 
 			CARTLearning learn = new CARTLearning ();
 			CARTTree<Split> tree = learn.Training (table);

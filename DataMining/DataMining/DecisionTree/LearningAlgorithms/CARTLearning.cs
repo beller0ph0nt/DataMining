@@ -21,7 +21,7 @@ namespace DataMining.DecisionTree.LearningAlgorithm {
 			s.CalcBestSplit ();
 			node.Variable = s;
 			Console.WriteLine ("CUR_NODE=(" + node.ToString () + ") CUR_SPLIT=(count: " + s.Splits.Count + " quality: " + s.Quality + " threshold: " + s.Threshold + ") CUR_TABLE=(row count: " + table.Rows.Count + ")");
-			if (s.Splits.Count == 0 || s.Splits [0].Rows.Count == 0 || s.Splits [1].Rows.Count == 0) {
+			if (s.IsEmpty()) {
 				if (node.Type != NodeType.Root) {
 					if (node.Id == node.Parent.Right.Id) {
 						node.Parent.Right = CARTNodeFactory<Split>.GetLeaf ();

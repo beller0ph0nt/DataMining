@@ -35,6 +35,10 @@ namespace DataMining {
 			return Splits;
 		}
 
+		public bool IsEmpty() {
+			return Splits.Count == 0 || Splits [0].Rows.Count == 0 || Splits [1].Rows.Count == 0;
+		}
+
 		public List<DataTable> CalcBestSplit(DataTable table) {
 			Table = table;
 			return CalcBestSplit();
