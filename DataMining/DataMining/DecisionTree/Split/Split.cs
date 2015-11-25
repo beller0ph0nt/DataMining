@@ -6,7 +6,7 @@ using DataMining.DecisionTree.SplitQualityAlgorithm;
 
 namespace DataMining {
 	[Serializable]
-	public class Split : IComparable {
+	public class Split {
 		public DataTable Table { get; set; }
 		public List<DataTable> Splits { get; private set; }
 		public object Threshold { get; private set; }
@@ -23,11 +23,11 @@ namespace DataMining {
 		}
 
 		public List<DataTable> CalcBestSplit() {
-			foreach (DataColumn col in Table.Columns) {
-				if (Table.Rows [0] [col] is int) {
-					CalcBestCatSplit (col);
-				} else if (Table.Rows [0] [col] is double) {
-					CalcBestNumSplit (col);
+			for (int i = 0; i < Table.Columns.Count - 1; i++) {
+				if (Table.Rows[0][i] is int) {
+					CalcBestCatSplit(Table.Columns[i]);
+				} else if (Table.Rows[0][i] is double) {
+					CalcBestNumSplit(Table.Columns[i]);
 				} else {
 					throw new Exception ("Bad col type");
 				}
@@ -90,10 +90,6 @@ namespace DataMining {
 					Fix (tmpQuality, set, tmpSplits, col);
 				}
 			}
-		}
-
-		public int CompareTo(object obj) {
-			return SplitQualityAlgorithm.Compare(Quality, ((Split)obj).Quality);
 		}
 	}
 }
