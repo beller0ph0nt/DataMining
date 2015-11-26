@@ -33,11 +33,11 @@ namespace DataMining.DecisionTree {
 			Stack<ICARTNode<T>> returnNodeStack = new Stack<ICARTNode<T>> ();
 			Stack<int> returnLevelStack = new Stack<int> ();
 			int currentLevel = 0;
-			Func<int, ICARTNode<T>, string> outputFormat = (l, n) => {
+			Func<int, ICARTNode<T>, string> outputFormat = (l, n) => {	//Func<int, ICARTNode<T>, int, string> outputFormat = (l, n, m) => {
 				/*
 				string str = "";
 				for (int i = 1; i < l << 1; i++) {
-					if (i % 2 == 0) {
+					if (i % 2 == 0 && i > m << 1) {
 						str += "|";
 					} else {
 						str += " ";
@@ -57,12 +57,15 @@ namespace DataMining.DecisionTree {
 					}
 					currentNode = currentNode.Right;
 					currentLevel++;
-					s += outputFormat (currentLevel, currentNode);
+					s += outputFormat (currentLevel, currentNode);	//s += outputFormat (currentLevel, currentNode, returnLevelStack.Min<int>());
 				}
 				if (returnNodeStack.Count > 0) {
+					Console.WriteLine ("returnLevelStack.Min<int>() == " + returnLevelStack.Min<int>());
+					Console.WriteLine ("returnLevelStack.Max<int>() == " + returnLevelStack.Max<int>());
 					currentNode = returnNodeStack.Pop ();
 					currentLevel = returnLevelStack.Pop ();
-					s += outputFormat (currentLevel, currentNode);
+
+					s += outputFormat (currentLevel, currentNode);	//s += outputFormat (currentLevel, currentNode, returnLevelStack.Min<int>());
 				} else {
 					currentNode = null;
 				}
