@@ -2,6 +2,7 @@
 using System.IO;
 using System.Data;
 using System.Linq;
+using System.Text;
 using System.Collections.Generic;
 using System.Runtime.Serialization.Formatters.Binary;
 
@@ -33,12 +34,12 @@ namespace DataMining.DecisionTree {
 			Stack<ICARTNode<T>> returnNodeStack = new Stack<ICARTNode<T>> ();
 			Stack<int> returnLevelStack = new Stack<int> ();
 			int currentLevel = 0;
-			Func<int, ICARTNode<T>, int, string> outputFormat = (l, n, m) => {
+			Func<int, ICARTNode<T>, int, bool, string> outputFormat = (l, n, m, f) => {
 				string str = "";
 				for (int i = 1; i < l * 2; i++) {
 					str += (i % 2 == 0 && i > (m - 1) * 2) ? "|" : " ";
 				}
-				return str + string.Format ("|--{0}\n", n.ToString ());
+				return str + string.Format (((f) ? "\u2514" : "\u251C") + "\u2500{0}\n", n.ToString ());
 			};
 			ICARTNode<T> currentNode = _root;
 			string s = string.Format ("{0}\n", currentNode.ToString ());
@@ -50,13 +51,13 @@ namespace DataMining.DecisionTree {
 					}
 					currentNode = currentNode.Right;
 					currentLevel++;
-					s += outputFormat (currentLevel, currentNode, returnLevelStack.Min<int>());
+					s += outputFormat (currentLevel, currentNode, returnLevelStack.Min<int>(), false);
 				}
 				if (returnNodeStack.Count > 0) {
 					currentNode = returnNodeStack.Pop ();
 					int minLevel = returnLevelStack.Min<int> ();
 					currentLevel = returnLevelStack.Pop ();
-					s += outputFormat (currentLevel, currentNode, minLevel);
+					s += outputFormat (currentLevel, currentNode, minLevel, true);
 				} else {
 					currentNode = null;
 				}
