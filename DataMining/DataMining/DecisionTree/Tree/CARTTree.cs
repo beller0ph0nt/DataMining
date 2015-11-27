@@ -33,19 +33,12 @@ namespace DataMining.DecisionTree {
 			Stack<ICARTNode<T>> returnNodeStack = new Stack<ICARTNode<T>> ();
 			Stack<int> returnLevelStack = new Stack<int> ();
 			int currentLevel = 0;
-			Func<int, ICARTNode<T>, string> outputFormat = (l, n) => {	//Func<int, ICARTNode<T>, int, string> outputFormat = (l, n, m) => {
-				/*
+			Func<int, ICARTNode<T>, int, string> outputFormat = (l, n, m) => {
 				string str = "";
-				for (int i = 1; i < l << 1; i++) {
-					if (i % 2 == 0 && i > m << 1) {
-						str += "|";
-					} else {
-						str += " ";
-					}
+				for (int i = 1; i < l * 2; i++) {
+					str += (i % 2 == 0 && i > (m - 1) * 2) ? "|" : " ";
 				}
-				return str + string.Format ("|_{0}\n", n.ToString ());
-				*/
-				return string.Format ("").PadLeft (l << 1) + string.Format ("|--{0}\n", n.ToString ());
+				return str + string.Format ("|--{0}\n", n.ToString ());
 			};
 			ICARTNode<T> currentNode = _root;
 			string s = string.Format ("{0}\n", currentNode.ToString ());
@@ -57,15 +50,13 @@ namespace DataMining.DecisionTree {
 					}
 					currentNode = currentNode.Right;
 					currentLevel++;
-					s += outputFormat (currentLevel, currentNode);	//s += outputFormat (currentLevel, currentNode, returnLevelStack.Min<int>());
+					s += outputFormat (currentLevel, currentNode, returnLevelStack.Min<int>());
 				}
 				if (returnNodeStack.Count > 0) {
-					Console.WriteLine ("returnLevelStack.Min<int>() == " + returnLevelStack.Min<int>());
-					Console.WriteLine ("returnLevelStack.Max<int>() == " + returnLevelStack.Max<int>());
 					currentNode = returnNodeStack.Pop ();
+					int minLevel = returnLevelStack.Min<int> ();
 					currentLevel = returnLevelStack.Pop ();
-
-					s += outputFormat (currentLevel, currentNode);	//s += outputFormat (currentLevel, currentNode, returnLevelStack.Min<int>());
+					s += outputFormat (currentLevel, currentNode, minLevel);
 				} else {
 					currentNode = null;
 				}
