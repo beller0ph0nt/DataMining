@@ -24,21 +24,21 @@ namespace TestField
 
 			int count = 10;
 
-			Console.WriteLine("gen table...");
+//			Console.WriteLine("gen table...");
 			for (int i = 0; i <= count; i++)
 			{
 				row = table.NewRow();
 				row["cat"] = i % 3;		//row["cat"] = rnd.Next();
 				row["num"] = i;
 				row["func"] = (i < 5) ? 1 : 2;
-				Console.WriteLine(row["cat"].ToString() + ", " + row["num"].ToString() + ", " + row["func"].ToString());
+//				Console.WriteLine(row["cat"].ToString() + ", " + row["num"].ToString() + ", " + row["func"].ToString());
 				table.Rows.Add(row);
 			}
 
 			CARTLearning learn = new CARTLearning ();
-			CARTTree<Split> tree = learn.Training (table);
+			CART tree = learn.Training (table);
 			Console.WriteLine (tree.ToString ());
-			tree.Save ("tst_tree.bin");
+			tree.Save ("cart.bin");
 
 			/*
 			Split s = new Split (table);

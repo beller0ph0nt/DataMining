@@ -11,7 +11,8 @@ namespace DataMining {
 		public List<DataTable> Splits { get; private set; }
 		public object Threshold { get; private set; }
 		public double Quality { get; private set;}
-		public int ColOrginal { get; private set; }
+		//public double ClassErr { get; private set;}
+		public int ColOrdinal { get; private set; }
 		public ISplitQualityAlgorithm SplitQualityAlgorithm { get; private set; }
 
 		public Split(DataTable table):this(table, new GiniSplit()) {}
@@ -23,12 +24,11 @@ namespace DataMining {
 		}
 
 		public List<DataTable> CalcBestSplit() {
-			for (int i = 0; i < Table.Columns.Count - 1; i++) {
-				Console.WriteLine ("CUR_COL=" + Table.Columns [i].ColumnName);
-				if (Table.Rows[0][i] is int) {
-					CalcBestCatSplit(Table.Columns[i]);
-				} else if (Table.Rows[0][i] is double) {
-					CalcBestNumSplit(Table.Columns[i]);
+			for (int col = 0; col < Table.Columns.Count - 1; col++) {
+				if (Table.Rows[0][col] is int) {
+					CalcBestCatSplit(Table.Columns[col]);
+				} else if (Table.Rows[0][col] is double) {
+					CalcBestNumSplit(Table.Columns[col]);
 				} else {
 					throw new Exception ("Bad col type");
 				}
@@ -49,11 +49,10 @@ namespace DataMining {
 			Quality = quality;
 			Threshold = threshold;
 			Splits = splits;
-			ColOrginal = col.Ordinal;
+			ColOrdinal = col.Ordinal;
 		}
 
 		private void CalcBestNumSplit(DataColumn col) {
-			Console.WriteLine ("CalcBestNumSplit");
 			double tmpQuality, tmpThreshold;
 			Table.DefaultView.Sort = col.ColumnName + " asc";
 			Table = Table.DefaultView.ToTable ();
@@ -77,7 +76,6 @@ namespace DataMining {
 		}
 
 		public void CalcBestCatSplit(DataColumn col) {
-			Console.WriteLine ("CalcBestCatSplit");
 			double tmpQuality;
 			int max = Table.AsEnumerable().Max(r => (int)r[col]);
 			int Categories = (int)(Math.Pow(2, (int)(Math.Log(max, 2) + 1)) - 1);	// определяем кол-во категорий как максимальное значение категориального аттрибута
@@ -97,6 +95,10 @@ namespace DataMining {
 					Fix (tmpQuality, set, tmpSplits, col);
 				}
 			}
+		}
+
+		public override string ToString() {
+			return string.Format("qlt: {0} thrld: {1}", Quality.ToString(), Threshold.ToString());
 		}
 	}
 }

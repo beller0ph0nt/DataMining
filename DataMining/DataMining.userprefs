@@ -1,16 +1,16 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Release" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="DataMining/DecisionTree/Tree/CARTTree.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="DataMining/DecisionTree/Tree/CART.cs">
     <Files>
-      <File FileName="DataMining/DecisionTree/Split/Split.cs" Line="1" Column="1" />
-      <File FileName="DataMining/DecisionTree/LearningAlgorithms/CARTLearning.cs" Line="1" Column="1" />
-      <File FileName="DataMining/DecisionTree/LearningAlgorithms/ILearningAlgorithm.cs" Line="1" Column="1" />
-      <File FileName="DataMining/DecisionTree/Tree/CARTTree.cs" Line="24" Column="40" />
+      <File FileName="DataMining/DecisionTree/Split/Split.cs" Line="14" Column="5" />
+      <File FileName="DataMining/DecisionTree/LearningAlgorithms/CARTLearning.cs" Line="18" Column="4" />
+      <File FileName="DataMining/DecisionTree/LearningAlgorithms/ILearningAlgorithm.cs" Line="5" Column="7" />
+      <File FileName="DataMining/DecisionTree/Tree/CART.cs" Line="22" Column="4" />
       <File FileName="DataMining/DecisionTree/Tree/ITree.cs" Line="1" Column="1" />
-      <File FileName="TestField/Program.cs" Line="1" Column="1" />
+      <File FileName="TestField/Program.cs" Line="40" Column="1" />
       <File FileName="DataMining/DecisionTree/NodeBase/CARTNode/ICARTNode.cs" Line="1" Column="1" />
       <File FileName="DataMining/DecisionTree/NodeBase/BinaryNode/IBinaryNode.cs" Line="1" Column="1" />
-      <File FileName="DataMining/DecisionTree/NodeBase/CARTNode/AbstractCARTNode.cs" Line="1" Column="1" />
+      <File FileName="DataMining/DecisionTree/NodeBase/CARTNode/AbstractCARTNode.cs" Line="12" Column="2" />
       <File FileName="DataMining/DecisionTree/NodeBase/BinaryNode/AbstractBinaryNode.cs" Line="1" Column="1" />
       <File FileName="DataMining/DecisionTree/NodeBase/CARTNode/CARTNodes/CARTLeaf.cs" Line="1" Column="1" />
       <File FileName="DataMining/DecisionTree/NodeBase/CARTNode/CARTNodes/CARTNode.cs" Line="1" Column="1" />
@@ -22,7 +22,7 @@
       <File FileName="DataMining/DecisionTree/NodeBase/GeneralNode/GeneralNodes/GeneralNode.cs" Line="1" Column="1" />
       <File FileName="DataMining/DecisionTree/NodeBase/GeneralNode/GeneralNodes/GeneralRoot.cs" Line="1" Column="1" />
       <File FileName="DataMining/DecisionTree/NodeBase/GeneralNode/AbstractGeneralNode.cs" Line="1" Column="1" />
-      <File FileName="DataMining/DecisionTree/NodeBase/AbstractNodeBase.cs" Line="1" Column="1" />
+      <File FileName="DataMining/DecisionTree/NodeBase/AbstractNodeBase.cs" Line="20" Column="10" />
       <File FileName="DataMining/DecisionTree/SplitQualityAlgorithm/GiniSplit.cs" Line="1" Column="1" />
       <File FileName="DataMining/DecisionTree/SplitQualityAlgorithm/GiniSplitOptimized.cs" Line="1" Column="1" />
       <File FileName="DataMining/DecisionTree/NodeFactory/CARTNodeFactory.cs" Line="1" Column="1" />
