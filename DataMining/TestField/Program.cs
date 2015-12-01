@@ -24,6 +24,17 @@ namespace TestField
 
 			int count = 10;
 
+
+			List<int> list = new List<int> () { 1, 2, 2, 3, 3, 4, 6, 7, 7, 7 };
+
+			var tmp = list.GroupBy (i => i, (key, grp) => new { val = key, cnt = grp.Count () }).Aggregate ((t1, t2) => (t1.cnt > t2.cnt) ? t1 : t2);
+			Console.WriteLine ("MAX GRP key: " + tmp.val + " cnt: " + tmp.cnt);
+
+			foreach (var lst in list.GroupBy(i => i, (key, grp) => new { cnt = grp.Count(), val = key })) {
+				Console.WriteLine ("key: " + lst.val.ToString () + " cnt: " + lst.cnt);
+			}
+
+
 //			Console.WriteLine("gen table...");
 			for (int i = 0; i <= count; i++)
 			{

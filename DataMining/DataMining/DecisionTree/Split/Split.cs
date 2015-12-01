@@ -11,7 +11,7 @@ namespace DataMining {
 		public List<DataTable> Splits { get; private set; }
 		public object Threshold { get; private set; }
 		public double Quality { get; private set;}
-		//public double ClassErr { get; private set;}
+		public double ClassErr { get; private set;}
 		public int ColOrdinal { get; private set; }
 		public ISplitQualityAlgorithm SplitQualityAlgorithm { get; private set; }
 
@@ -50,6 +50,12 @@ namespace DataMining {
 			Threshold = threshold;
 			Splits = splits;
 			ColOrdinal = col.Ordinal;
+		}
+
+		private void CalcClassErr() {
+			if (Table.Rows.Count > 0) {
+				//Table.AsEnumerable().GroupBy(row => row[ColOrdinal], (key, grp) => new { row = grp.First(), cnt = grp.Count }).Max(
+			}
 		}
 
 		private void CalcBestNumSplit(DataColumn col) {
