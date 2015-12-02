@@ -52,10 +52,17 @@ namespace DataMining {
 			ColOrdinal = col.Ordinal;
 		}
 
-		private void CalcClassErr() {
-			if (Table.Rows.Count > 0) {
-				//Table.AsEnumerable().GroupBy(row => row[ColOrdinal], (key, grp) => new { row = grp.First(), cnt = grp.Count }).Max(
+		private double CalcClassErr() {
+			if (Table.Rows.Count == 0) {
+				return 100.0;
 			}
+				//var mainClass = (object)Table.AsEnumerable ().
+				//	GroupBy (row => row [Table.Columns.Count - 1], (key, grp) => new { val = grp.First (), cnt = grp.Count () }).
+				//		Aggregate ((t1, t2) => (t1.cnt > t2.cnt) ? t1.val : t2.val);
+				//return Table.AsEnumerable ().Where (row => row [Table.Columns.Count - 1] != mainClass).Count() / Table.Rows.Count;
+
+			int mainClass = Table.AsEnumerable ().GroupBy (row => (int)row [Table.Columns.Count - 1]).Aggregate ((t1, t2) => (t1.Count () > t2.Count ()) ? t1 : t2).Key;
+			return Table.AsEnumerable ().Where (row => (int)row [Table.Columns.Count - 1] != mainClass).Count () / Table.Rows.Count;
 		}
 
 		private void CalcBestNumSplit(DataColumn col) {
