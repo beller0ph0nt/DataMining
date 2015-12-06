@@ -52,20 +52,26 @@ namespace DataMining {
 			ColOrdinal = col.Ordinal;
 		}
 
-		private double CalcClassErr() {
+		private void CalcClassErr() {
 			if (Table.Rows.Count == 0) {
-				return 100.0;
-			}
-				//var mainClass = (object)Table.AsEnumerable ().
-				//	GroupBy (row => row [Table.Columns.Count - 1], (key, grp) => new { val = grp.First (), cnt = grp.Count () }).
-				//		Aggregate ((t1, t2) => (t1.cnt > t2.cnt) ? t1.val : t2.val);
-				//return Table.AsEnumerable ().Where (row => row [Table.Columns.Count - 1] != mainClass).Count() / Table.Rows.Count;
+				ClassErr = 1.0;
+			} else {
 
-			int mainClass = Table.AsEnumerable ().GroupBy (row => (int)row [Table.Columns.Count - 1]).Aggregate ((t1, t2) => (t1.Count () > t2.Count ()) ? t1 : t2).Key;
-			return Table.AsEnumerable ().Where (row => (int)row [Table.Columns.Count - 1] != mainClass).Count () / Table.Rows.Count;
+				for (int i = 0; i < Table.Rows.Count; i++) {
+					for (int j = 0; j < Table.Columns.Count; j++) {
+						Console.Write ("\t" + Table.Rows[i][j]);
+					}
+					Console.WriteLine ();
+				}
+
+				var mainClass = Table.AsEnumerable ().GroupBy (row => (int)row [Table.Columns.Count - 1]).Aggregate ((t1, t2) => (t1.Count () > t2.Count ()) ? t1 : t2).Key;
+				ClassErr = (double)Table.AsEnumerable ().Where (row => (int)row [Table.Columns.Count - 1] != mainClass).Count () / Table.Rows.Count;
+				Console.WriteLine ("CLASS: " + mainClass + " ERROR: " + ClassErr);
+			}
 		}
 
 		private void CalcBestNumSplit(DataColumn col) {
+			Console.WriteLine ("CalcBestNumSplit");
 			double tmpQuality, tmpThreshold;
 			Table.DefaultView.Sort = col.ColumnName + " asc";
 			Table = Table.DefaultView.ToTable ();
@@ -86,9 +92,11 @@ namespace DataMining {
 					Fix (tmpQuality, tmpThreshold, tmpSplits, col);
 				}
 			}
+			CalcClassErr ();
 		}
 
 		public void CalcBestCatSplit(DataColumn col) {
+			Console.WriteLine ("CalcBestCatSplit");
 			double tmpQuality;
 			int max = Table.AsEnumerable().Max(r => (int)r[col]);
 			int Categories = (int)(Math.Pow(2, (int)(Math.Log(max, 2) + 1)) - 1);	// определяем кол-во категорий как максимальное значение категориального аттрибута
@@ -108,6 +116,7 @@ namespace DataMining {
 					Fix (tmpQuality, set, tmpSplits, col);
 				}
 			}
+			CalcClassErr ();
 		}
 
 		public override string ToString() {

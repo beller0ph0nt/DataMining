@@ -20,11 +20,11 @@ namespace TestField
 
 			table.Columns.Add(new DataColumn("cat", System.Type.GetType("System.Int32")));
 			table.Columns.Add(new DataColumn("num", System.Type.GetType("System.Double")));
-			table.Columns.Add(new DataColumn("func", System.Type.GetType("System.Double")));
+			table.Columns.Add(new DataColumn("func", System.Type.GetType("System.Int32")));
 
 			int count = 10;
 
-
+			/*
 			List<int> list = new List<int> () { 1, 2, 2, 3, 3, 4, 6, 7, 7, 7 };
 
 			var tmp = list.GroupBy (i => i).Aggregate ((t1, t2) => (t1.Count() > t2.Count()) ? t1 : t2);
@@ -33,16 +33,17 @@ namespace TestField
 			foreach (var lst in list.GroupBy(i => i, (key, grp) => new { cnt = grp.Count(), val = key })) {
 				Console.WriteLine ("key: " + lst.val.ToString () + " cnt: " + lst.cnt);
 			}
+			*/
 
 
-//			Console.WriteLine("gen table...");
+			//Console.WriteLine("gen table...");
 			for (int i = 0; i <= count; i++)
 			{
 				row = table.NewRow();
 				row["cat"] = i % 3;		//row["cat"] = rnd.Next();
 				row["num"] = i;
 				row["func"] = (i < 5) ? 1 : 2;
-//				Console.WriteLine(row["cat"].ToString() + ", " + row["num"].ToString() + ", " + row["func"].ToString());
+				//Console.WriteLine(row["cat"].ToString() + ", " + row["num"].ToString() + ", " + row["func"].ToString());
 				table.Rows.Add(row);
 			}
 
