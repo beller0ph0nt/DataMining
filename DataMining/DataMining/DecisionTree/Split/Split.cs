@@ -111,9 +111,5 @@ namespace DataMining {
 			}
 			CalcClassErr ();
 		}
-
-		public override string ToString() {
-			return string.Format("qlt: {0} thrld: {1}", Quality.ToString(), Threshold.ToString());
-		}
 	}
 }
