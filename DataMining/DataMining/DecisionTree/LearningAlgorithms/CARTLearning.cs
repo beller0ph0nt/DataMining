@@ -8,7 +8,7 @@ namespace DataMining.DecisionTree.LearningAlgorithm {
         private ISplitQualityAlgorithm _qualityAlgo;
 
 		public CARTLearning() {
-			_qualityAlgo = new GiniSplit();	//_qualityAlgo = new GiniSplitOptimized ();
+			_qualityAlgo = new GiniSplit();	// _qualityAlgo = new GiniSplitOptimized ();	//
         }
 
 		public CART Training(DataTable table) {

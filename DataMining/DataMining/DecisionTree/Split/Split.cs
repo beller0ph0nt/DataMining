@@ -11,6 +11,7 @@ namespace DataMining {
 		public List<DataTable> Splits { get; private set; }
 		public object Threshold { get; private set; }
 		public double Quality { get; private set;}
+		public double ClassVal { get; private set;}
 		public double ClassErr { get; private set;}
 		public int ColOrdinal { get; private set; }
 		public ISplitQualityAlgorithm SplitQualityAlgorithm { get; private set; }
@@ -37,7 +38,7 @@ namespace DataMining {
 		}
 
 		public bool IsEmpty() {
-			return Splits.Count == 0 || Splits [0].Rows.Count == 0 || Splits [1].Rows.Count == 0;
+			return Splits.Count == 0 || Splits [0].Rows.Count == 0 || Splits [1].Rows.Count == 0 || ClassErr == 0;
 		}
 
 		public List<DataTable> CalcBestSplit(DataTable table) {
@@ -56,22 +57,15 @@ namespace DataMining {
 			if (Table.Rows.Count == 0) {
 				ClassErr = 1.0;
 			} else {
-
-				for (int i = 0; i < Table.Rows.Count; i++) {
-					for (int j = 0; j < Table.Columns.Count; j++) {
-						Console.Write ("\t" + Table.Rows[i][j]);
-					}
-					Console.WriteLine ();
+				if (Table.Rows [0] [Table.Columns.Count - 1] is int) {
+					ClassVal = Table.AsEnumerable ().GroupBy (row => (int)row [Table.Columns.Count - 1]).Aggregate ((t1, t2) => (t1.Count () > t2.Count ()) ? t1 : t2).Key;
+					ClassErr = (double)Table.AsEnumerable ().Where (row => (int)row [Table.Columns.Count - 1] != ClassVal).Count () / Table.Rows.Count;
+				} else if (Table.Rows [0] [Table.Columns.Count - 1] is double) {
 				}
-
-				var mainClass = Table.AsEnumerable ().GroupBy (row => (int)row [Table.Columns.Count - 1]).Aggregate ((t1, t2) => (t1.Count () > t2.Count ()) ? t1 : t2).Key;
-				ClassErr = (double)Table.AsEnumerable ().Where (row => (int)row [Table.Columns.Count - 1] != mainClass).Count () / Table.Rows.Count;
-				Console.WriteLine ("CLASS: " + mainClass + " ERROR: " + ClassErr);
 			}
 		}
 
 		private void CalcBestNumSplit(DataColumn col) {
-			Console.WriteLine ("CalcBestNumSplit");
 			double tmpQuality, tmpThreshold;
 			Table.DefaultView.Sort = col.ColumnName + " asc";
 			Table = Table.DefaultView.ToTable ();
@@ -96,7 +90,6 @@ namespace DataMining {
 		}
 
 		public void CalcBestCatSplit(DataColumn col) {
-			Console.WriteLine ("CalcBestCatSplit");
 			double tmpQuality;
 			int max = Table.AsEnumerable().Max(r => (int)r[col]);
 			int Categories = (int)(Math.Pow(2, (int)(Math.Log(max, 2) + 1)) - 1);	// определяем кол-во категорий как максимальное значение категориального аттрибута

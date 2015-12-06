@@ -13,7 +13,6 @@ namespace DataMining.DecisionTree.SplitQualityAlgorithm {
 				Sum (a => a.cnt * a.cnt);
 		}
 
-		// вычисляет показатель качества разбиения для категориального аттрибута
 		public double CalcSplitQuality(List<DataTable> tables, DataColumn column) {
 			return tables.Sum (t => GiniIndexOptimized(t, column) / t.Rows.Count); // делить надо не на 
 		}

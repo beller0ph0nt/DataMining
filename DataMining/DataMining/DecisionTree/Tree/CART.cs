@@ -35,15 +35,12 @@ namespace DataMining.DecisionTree {
 			Stack<int> returnLevelStack = new Stack<int> ();
 			int currentLevel = 0;
 			Func<int, ICARTNode<Split>, Stack<int>, bool, string> outputFormat = (l, n, st, f) => {
+				int spaces = 1;
 				string str = "";
-				for (int i = 1; i < l * 2; i++) {
-					str += (i % 2 == 0 && st.Contains(i / 2)) ? "|" : " ";
+				for (int i = 1; i < l * (spaces + 1); i++) {
+					str += (i % (spaces + 1) == 0 && st.Contains(i / (spaces + 1))) ? "|" : " ";
 				}
-				return str + string.Format (((f) ? "\u2514" : "\u251C") + "\u2500{0} [qlt: {1:0.000} thr: {2} err: {3:0.000}]\n",
-				                            n.ToString (),
-				                            n.Variable.Quality,
-				                            n.Variable.Threshold,
-				                            n.Variable.ClassErr);
+				return str + string.Format (((f) ? "\u2514" : "\u251C") + "\u2500{0} [qlt: {1:0.000} thr: {2} err: {3:0.000}]\n", n.ToString (), n.Variable.Quality, n.Variable.Threshold, n.Variable.ClassErr);
 			};
 			ICARTNode<Split> currentNode = _root;
 			string s = string.Format ("{0}\n", currentNode.ToString ());
@@ -59,9 +56,9 @@ namespace DataMining.DecisionTree {
 				}
 				if (returnNodeStack.Count > 0) {
 					currentNode = returnNodeStack.Pop ();
-					var stk = returnLevelStack;
+					var levelStack = returnLevelStack;
 					currentLevel = returnLevelStack.Pop ();
-					s += outputFormat (currentLevel, currentNode, stk, true);
+					s += outputFormat (currentLevel, currentNode, levelStack, true);
 				} else {
 					currentNode = null;
 				}

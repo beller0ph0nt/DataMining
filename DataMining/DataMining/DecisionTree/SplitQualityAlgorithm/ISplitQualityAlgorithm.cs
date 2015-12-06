@@ -8,9 +8,7 @@ namespace DataMining.DecisionTree.SplitQualityAlgorithm
 {
     public interface ISplitQualityAlgorithm
     {
-		// вычисляет показатель качества разбиения для числового аттрибута
 		double CalcSplitQuality (List<DataTable> tables, DataColumn column);
-
         // сравнивает показатели качества разбиения
         // выход:
         //  -1 - первый показатель лучше второго
