@@ -40,7 +40,8 @@ namespace DataMining.DecisionTree {
 				for (int i = 1; i < l * (spaces + 1); i++) {
 					str += (i % (spaces + 1) == 0 && st.Contains(i / (spaces + 1))) ? "|" : " ";
 				}
-				return str + string.Format (((f) ? "\u2514" : "\u251C") + "\u2500{0} [qlt: {1:0.000} thr: {2} err: {3:0.000}]\n", n.ToString (), n.Variable.Quality, n.Variable.Threshold, n.Variable.ClassErr);
+				//return str + string.Format (((f) ? "\u2514" : "\u251C") + "\u2500{0} [qlt: {1:0.000} thr: {2} err: {3:0.000}]\n", n.ToString (), n.Variable.Quality, n.Variable.Threshold, n.Variable.ClassErr);
+				return str + string.Format (((f) ? "\u2514" : "\u251C") + "\u2500{0} [qlt: {1:0.000} thr: {2}]\n", n.ToString (), n.Variable.Quality, n.Variable.Threshold);
 			};
 			ICARTNode<Split> currentNode = _root;
 			string s = string.Format ("{0}\n", currentNode.ToString ());

@@ -11,8 +11,8 @@ namespace DataMining {
 		public List<DataTable> Splits { get; private set; }
 		public object Threshold { get; private set; }
 		public double Quality { get; private set;}
-		public double ClassVal { get; private set;}
-		public double ClassErr { get; private set;}
+		public object ClassVal { get; private set;}
+		//public double ClassErr { get; private set;}
 		public int ColOrdinal { get; private set; }
 		public ISplitQualityAlgorithm SplitQualityAlgorithm { get; private set; }
 
@@ -38,7 +38,7 @@ namespace DataMining {
 		}
 
 		public bool IsEmpty() {
-			return Splits.Count == 0 || Splits [0].Rows.Count == 0 || Splits [1].Rows.Count == 0 || ClassErr == 0;
+			return Splits.Count == 0 || Splits [0].Rows.Count == 0 || Splits [1].Rows.Count == 0;// || Quality == 0 ;// || ClassErr == 0;
 		}
 
 		public List<DataTable> CalcBestSplit(DataTable table) {
@@ -53,13 +53,13 @@ namespace DataMining {
 			ColOrdinal = col.Ordinal;
 		}
 
-		private void CalcClassErr() {
+		private void CalcClass() {	//private void CalcClassErr() {
 			if (Table.Rows.Count == 0) {
-				ClassErr = 1.0;
+				//ClassErr = 1.0;
 			} else {
 				if (Table.Rows [0] [Table.Columns.Count - 1] is int) {
 					ClassVal = Table.AsEnumerable ().GroupBy (row => (int)row [Table.Columns.Count - 1]).Aggregate ((t1, t2) => (t1.Count () > t2.Count ()) ? t1 : t2).Key;
-					ClassErr = (double)Table.AsEnumerable ().Where (row => (int)row [Table.Columns.Count - 1] != ClassVal).Count () / Table.Rows.Count;
+					//ClassErr = (double)Table.AsEnumerable ().Where (row => (int)row [Table.Columns.Count - 1] != ClassVal).Count () / Table.Rows.Count;
 				} else if (Table.Rows [0] [Table.Columns.Count - 1] is double) {
 				}
 			}
@@ -86,7 +86,7 @@ namespace DataMining {
 					Fix (tmpQuality, tmpThreshold, tmpSplits, col);
 				}
 			}
-			CalcClassErr ();
+			CalcClass ();	//CalcClassErr ();
 		}
 
 		public void CalcBestCatSplit(DataColumn col) {
@@ -109,7 +109,7 @@ namespace DataMining {
 					Fix (tmpQuality, set, tmpSplits, col);
 				}
 			}
-			CalcClassErr ();
+			CalcClass ();	//CalcClassErr ();
 		}
 	}
 }

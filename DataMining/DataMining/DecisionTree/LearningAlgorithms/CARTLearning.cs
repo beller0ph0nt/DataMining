@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Data;
 using DataMining.DecisionTree.SplitQualityAlgorithm;
@@ -55,6 +56,16 @@ namespace DataMining.DecisionTree.LearningAlgorithm {
 
 		private void PruneTree(ICARTNode<Split> node) {
 			throw new NotImplementedException ();
+		}
+
+		private int WrongClassExamples(ICARTNode<Split> node) {
+			if (node.Type == NodeType.Leaf) {
+				return node.Variable.Table.AsEnumerable ().Where (row => (int)row [node.Variable.Table.Columns.Count - 1] != (int)node.Variable.ClassVal).Count ();
+			} else if (node == null) {
+				return 0;
+			} else {
+				return WrongClassExamples (node.Right) + WrongClassExamples (node.Right);
+			}
 		}
 
 		private void SelectFinalTree(List<ICARTNode<Split>> l) {
