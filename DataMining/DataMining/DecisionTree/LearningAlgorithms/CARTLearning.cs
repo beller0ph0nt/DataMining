@@ -40,13 +40,13 @@ namespace DataMining.DecisionTree.LearningAlgorithm {
 				return;
 			}
 //			Console.WriteLine ("CUR_NODE=(" + node.ToString() + ")\tCUR_SPLIT=(left rows count: " + s.Splits [0].Rows.Count + " right rows count: " + s.Splits [1].Rows.Count + ")");
-			if (s.Splits [1].Rows.Count > 0 /*&& node.Right == null*/) {
+			if (s.Splits [1].Rows.Count > 0) {
 				node.Right = CARTNodeFactory<Split>.GetNode ();
 //				Console.WriteLine ("CUR_NODE=(" + node.ToString() + ")\tcreate right " + node.Right.ToString () + "\tgo to the right branch");
 				node.Right.Parent = node;
 				CreateTree (node.Right, s.Splits [1]);
 			}
-			if (s.Splits [0].Rows.Count > 0 /*&& node.Left == null*/) {
+			if (s.Splits [0].Rows.Count > 0) {
 				node.Left = CARTNodeFactory<Split>.GetNode ();
 //				Console.WriteLine ("CUR_NODE=(" + node.ToString() + ")\tcreate left " + node.Left.ToString () + "\tgo to the left branch");
 				node.Left.Parent = node;
@@ -58,13 +58,17 @@ namespace DataMining.DecisionTree.LearningAlgorithm {
 			throw new NotImplementedException ();
 		}
 
-		private int WrongClassExamples(ICARTNode<Split> node) {
+		private double ClassError(ICARTNode<Split> node, int rows) {
+			return (double)WrongClassCount (node) / rows;
+		}
+
+		private int WrongClassCount(ICARTNode<Split> node) {
 			if (node.Type == NodeType.Leaf) {
 				return node.Variable.Table.AsEnumerable ().Where (row => (int)row [node.Variable.Table.Columns.Count - 1] != (int)node.Variable.ClassVal).Count ();
 			} else if (node == null) {
 				return 0;
 			} else {
-				return WrongClassExamples (node.Right) + WrongClassExamples (node.Right);
+				return WrongClassCount (node.Left) + WrongClassCount (node.Right);
 			}
 		}
 
