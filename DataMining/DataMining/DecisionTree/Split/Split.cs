@@ -46,6 +46,14 @@ namespace DataMining {
 			return CalcBestSplit();
 		}
 
+		public bool IsClassification() {
+			return (Table.Rows [0] [Table.Columns.Count - 1] is int) ? true : false;
+		}
+
+		public bool IsRegression() {
+			return (Table.Rows [0] [Table.Columns.Count - 1] is double) ? true : false;
+		}
+
 		private void Fix(double quality, object threshold, List<DataTable> splits, DataColumn col) {
 			Quality = quality;
 			Threshold = threshold;
@@ -53,15 +61,10 @@ namespace DataMining {
 			ColOrdinal = col.Ordinal;
 		}
 
-		private void CalcClass() {	//private void CalcClassErr() {
-			if (Table.Rows.Count == 0) {
-				//ClassErr = 1.0;
-			} else {
-				if (Table.Rows [0] [Table.Columns.Count - 1] is int) {
-					ClassVal = Table.AsEnumerable ().GroupBy (row => (int)row [Table.Columns.Count - 1]).Aggregate ((t1, t2) => (t1.Count () > t2.Count ()) ? t1 : t2).Key;
-					//ClassErr = (double)Table.AsEnumerable ().Where (row => (int)row [Table.Columns.Count - 1] != ClassVal).Count () / Table.Rows.Count;
-				} else if (Table.Rows [0] [Table.Columns.Count - 1] is double) {
-				}
+		private void CalcClass() {
+			if (IsClassification()) {
+				ClassVal = Table.AsEnumerable ().GroupBy (row => (int)row [Table.Columns.Count - 1]).Aggregate ((t1, t2) => (t1.Count () > t2.Count ()) ? t1 : t2).Key;
+			} else if (IsRegression()) {
 			}
 		}
 

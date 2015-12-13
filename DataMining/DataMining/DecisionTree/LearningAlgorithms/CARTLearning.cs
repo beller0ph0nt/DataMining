@@ -64,7 +64,11 @@ namespace DataMining.DecisionTree.LearningAlgorithm {
 
 		private int WrongClassCount(ICARTNode<Split> node) {
 			if (node.Type == NodeType.Leaf) {
-				return node.Variable.Table.AsEnumerable ().Where (row => (int)row [node.Variable.Table.Columns.Count - 1] != (int)node.Variable.ClassVal).Count ();
+				if (node.Variable.IsClassification ()) {
+					return node.Variable.Table.AsEnumerable ().Where (row => (int)row [node.Variable.Table.Columns.Count - 1] != (int)node.Variable.ClassVal).Count ();
+				} else if (node.Variable.IsRegression ()) {
+					throw new NotImplementedException ();
+				}
 			} else if (node == null) {
 				return 0;
 			} else {
