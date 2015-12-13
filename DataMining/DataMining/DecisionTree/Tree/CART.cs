@@ -11,6 +11,8 @@ namespace DataMining.DecisionTree {
 		private CARTRoot<Split> _root;
 		private BinaryFormatter _formatter;
 
+		public CARTRoot<Split> Root { get { return _root; } }
+
 		public CART(CARTRoot<Split> root) {
 			_root = root;
 			_formatter = new BinaryFormatter();

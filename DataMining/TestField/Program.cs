@@ -37,8 +37,7 @@ namespace TestField
 
 
 			//Console.WriteLine("gen table...");
-			for (int i = 0; i <= count; i++)
-			{
+			for (int i = 0; i <= count; i++) {
 				row = table.NewRow();
 				row["cat"] = i % 3;		//row["cat"] = rnd.Next();
 				row["num"] = i;
@@ -51,6 +50,7 @@ namespace TestField
 			CART tree = learn.Training (table);
 			Console.WriteLine (tree.ToString ());
 			tree.Save ("cart.bin");
+			Console.WriteLine("wrong class count = " + learn.WrongClassCount (tree.Root));
 
 			/*
 			Split s = new Split (table);

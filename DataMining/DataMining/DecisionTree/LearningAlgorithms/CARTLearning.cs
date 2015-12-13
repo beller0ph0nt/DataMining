@@ -58,16 +58,36 @@ namespace DataMining.DecisionTree.LearningAlgorithm {
 			throw new NotImplementedException ();
 		}
 
+		/*
+		private bool PruneFirstStage(ICARTNode<Split> node) {
+			if (node.Type == NodeType.Node) {
+				if (node.Left.Type == NodeType.Leaf && node.Right.Type == NodeType.Leaf) {
+					if () {
+					}
+				}
+			} else if (node == null) {
+			} else {
+			}
+		}
+		*/
+
+		private void PruneSecondStage(ICARTNode<Split> node) {
+			throw new NotImplementedException ();
+		}
+
 		private double ClassError(ICARTNode<Split> node, int rows) {
 			return (double)WrongClassCount (node) / rows;
 		}
 
-		private int WrongClassCount(ICARTNode<Split> node) {
+		public int WrongClassCount(ICARTNode<Split> node) {
 			if (node.Type == NodeType.Leaf) {
 				if (node.Variable.IsClassification ()) {
-					return node.Variable.Table.AsEnumerable ().Where (row => (int)row [node.Variable.Table.Columns.Count - 1] != (int)node.Variable.ClassVal).Count ();
+					return node.Variable.Table.AsEnumerable ().
+						Where (row => (int)row [node.Variable.Table.Columns.Count - 1] != (int)node.Variable.ClassVal).Count ();
 				} else if (node.Variable.IsRegression ()) {
 					throw new NotImplementedException ();
+				} else {
+					return 0;
 				}
 			} else if (node == null) {
 				return 0;
