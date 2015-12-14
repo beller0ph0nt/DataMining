@@ -12,7 +12,6 @@ namespace DataMining {
 		public object Threshold { get; private set; }
 		public double Quality { get; private set;}
 		public object ClassVal { get; private set;}
-		//public double ClassErr { get; private set;}
 		public int ColOrdinal { get; private set; }
 		public ISplitQualityAlgorithm SplitQualityAlgorithm { get; private set; }
 
@@ -38,7 +37,7 @@ namespace DataMining {
 		}
 
 		public bool IsEmpty() {
-			return Splits.Count == 0 || Splits [0].Rows.Count == 0 || Splits [1].Rows.Count == 0;// || Quality == 0 ;// || ClassErr == 0;
+			return Splits.Count == 0 || Splits [0].Rows.Count == 0 || Splits [1].Rows.Count == 0 || SplitQualityAlgorithm.IsTheBest (Quality);
 		}
 
 		public List<DataTable> CalcBestSplit(DataTable table) {
@@ -89,7 +88,7 @@ namespace DataMining {
 					Fix (tmpQuality, tmpThreshold, tmpSplits, col);
 				}
 			}
-			CalcClass ();	//CalcClassErr ();
+			CalcClass ();
 		}
 
 		public void CalcBestCatSplit(DataColumn col) {
@@ -112,7 +111,7 @@ namespace DataMining {
 					Fix (tmpQuality, set, tmpSplits, col);
 				}
 			}
-			CalcClass ();	//CalcClassErr ();
+			CalcClass ();
 		}
 	}
 }

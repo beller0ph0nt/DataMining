@@ -7,14 +7,17 @@ using DataMining.DecisionTree.SplitQualityAlgorithm;
 namespace DataMining.DecisionTree.LearningAlgorithm {
     public class CARTLearning : ILearningAlgorithm {
         private ISplitQualityAlgorithm _qualityAlgo;
+		private DataTable Table { get; set; }
 
 		public CARTLearning() {
 			_qualityAlgo = new GiniSplit();	// _qualityAlgo = new GiniSplitOptimized ();	//
         }
 
 		public CART Training(DataTable table) {
+			Table = table;
 			ICARTNode<Split> root = CARTNodeFactory<Split>.GetRoot ();
 			CreateTree (root, table);
+			PruneTree (root);
 			return new CART ((CARTRoot<Split>)root);
 		}
 
@@ -25,12 +28,12 @@ namespace DataMining.DecisionTree.LearningAlgorithm {
 //			Console.WriteLine ("CUR_NODE=(" + node.ToString () + ") CUR_SPLIT=(count: " + s.Splits.Count + " quality: " + s.Quality + " threshold: " + s.Threshold + ") CUR_TABLE=(row count: " + table.Rows.Count + ")");
 			if (s.IsEmpty()) {
 				if (node.Type != NodeType.Root) {
-					if (node.Id == node.Parent.Right.Id) {
+					if (node.Id == node.Parent.Right.Id) {	//if (node.IsRight ()) {	//
 						node.Parent.Right = CARTNodeFactory<Split>.GetLeaf ();
 						node.Parent.Right.Parent = node.Parent;
 						node.Parent.Right.Variable = node.Variable;
 //						Console.WriteLine ("CUR_NODE=(" + node.ToString () + ")\treplace " + node.ToString () + " on " + node.Parent.Right.ToString ());
-					} else if (node.Id == node.Parent.Left.Id) {
+					} else if (node.Id == node.Parent.Left.Id) {	//} else if (node.IsLeft ()) {	//
 						node.Parent.Left = CARTNodeFactory<Split>.GetLeaf ();
 						node.Parent.Left.Parent = node.Parent;
 						node.Parent.Left.Variable = node.Variable;
@@ -55,21 +58,39 @@ namespace DataMining.DecisionTree.LearningAlgorithm {
 		}
 
 		private void PruneTree(ICARTNode<Split> node) {
-			throw new NotImplementedException ();
+			while (PruneFirstStage(node));
 		}
 
-		/*
 		private bool PruneFirstStage(ICARTNode<Split> node) {
-			if (node.Type == NodeType.Node) {
-				if (node.Left.Type == NodeType.Leaf && node.Right.Type == NodeType.Leaf) {
-					if () {
+			if (node.Type == NodeType.Node && node.Left.Type == NodeType.Leaf && node.Right.Type == NodeType.Leaf) {
+				double err = ClassError (node, Table.Rows.Count);
+				Console.WriteLine ("node id: " + node.Id + " err: " + err);
+				if (err == ClassError (node.Left, Table.Rows.Count) && err == ClassError (node.Right, Table.Rows.Count)) {
+					Console.WriteLine ("creating new leaf...");
+					ICARTNode<Split> newLeaf = CARTNodeFactory<Split>.GetLeaf ();
+					Console.WriteLine ("set parent");
+					newLeaf.Parent = node.Parent;
+					Console.WriteLine ("set var");
+					newLeaf.Variable = node.Variable;
+					if (node.Id == node.Parent.Left.Id) {	//if (node.IsLeft ()) {
+						Console.WriteLine ("set parent.left");
+						node.Parent.Left = newLeaf;
+					} else if (node.Id == node.Parent.Right.Id) {	//} else if (node.IsRight ()) {
+						Console.WriteLine ("set parent.right");
+						node.Parent.Right = newLeaf;
+					} else {
+						Console.WriteLine ("exeption...");
+						throw new Exception ();
 					}
+					return true;
 				}
-			} else if (node == null) {
+				return false;
+			} else if (node.Type == NodeType.Leaf) {
+				return false;
 			} else {
+				return PruneFirstStage (node.Left) || PruneFirstStage (node.Right);
 			}
 		}
-		*/
 
 		private void PruneSecondStage(ICARTNode<Split> node) {
 			throw new NotImplementedException ();

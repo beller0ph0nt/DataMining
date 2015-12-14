@@ -11,5 +11,13 @@ namespace DataMining.DecisionTree {
 			Left = null;
 			Right = null;
 		}
+
+		public virtual bool IsLeft () {
+			return (Id == Parent.Left.Id) ? true : false;
+		}
+
+		public virtual bool IsRight () {
+			return (Id == Parent.Right.Id) ? true : false;
+		}
     }
 }

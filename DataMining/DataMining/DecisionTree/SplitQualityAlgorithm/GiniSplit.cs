@@ -31,5 +31,9 @@ namespace DataMining.DecisionTree.SplitQualityAlgorithm {
 				return 0;
 			}
         }
+
+		public bool IsTheBest (double quality) {
+			return (quality == 0.0) ? true : false;
+		}
     }
 }
