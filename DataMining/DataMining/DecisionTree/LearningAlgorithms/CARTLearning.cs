@@ -64,22 +64,22 @@ namespace DataMining.DecisionTree.LearningAlgorithm {
 		private bool PruneFirstStage(ICARTNode<Split> node) {
 			if (node.Type == NodeType.Node && node.Left.Type == NodeType.Leaf && node.Right.Type == NodeType.Leaf) {
 				double err = ClassError (node, Table.Rows.Count);
-				Console.WriteLine ("node id: " + node.Id + " err: " + err);
+				//Console.WriteLine ("node id: " + node.Id + " err: " + err);
 				if (err == ClassError (node.Left, Table.Rows.Count) && err == ClassError (node.Right, Table.Rows.Count)) {
-					Console.WriteLine ("creating new leaf...");
+					//Console.WriteLine ("creating new leaf...");
 					ICARTNode<Split> newLeaf = CARTNodeFactory<Split>.GetLeaf ();
-					Console.WriteLine ("set parent");
+					//Console.WriteLine ("set parent");
 					newLeaf.Parent = node.Parent;
-					Console.WriteLine ("set var");
+					//Console.WriteLine ("set var");
 					newLeaf.Variable = node.Variable;
 					if (node.Id == node.Parent.Left.Id) {	//if (node.IsLeft ()) {
-						Console.WriteLine ("set parent.left");
+						//Console.WriteLine ("set parent.left");
 						node.Parent.Left = newLeaf;
 					} else if (node.Id == node.Parent.Right.Id) {	//} else if (node.IsRight ()) {
-						Console.WriteLine ("set parent.right");
+						//Console.WriteLine ("set parent.right");
 						node.Parent.Right = newLeaf;
 					} else {
-						Console.WriteLine ("exeption...");
+						//Console.WriteLine ("exeption...");
 						throw new Exception ();
 					}
 					return true;
