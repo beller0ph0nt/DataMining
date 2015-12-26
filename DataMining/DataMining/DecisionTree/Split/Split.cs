@@ -7,6 +7,7 @@ using DataMining.DecisionTree.SplitQualityAlgorithm;
 namespace DataMining {
 	[Serializable]
 	public class Split {
+		//public enum SplitType : int { Left = 0, Right = 1 }
 		public DataTable Table { get; set; }
 		public List<DataTable> Splits { get; private set; }
 		public object Threshold { get; private set; }
@@ -51,6 +52,28 @@ namespace DataMining {
 
 		public bool IsRegression() {
 			return (Table.Rows [0] [Table.Columns.Count - 1] is double) ? true : false;
+		}
+
+		public int GetSplitIndex(DataRow row) {
+			if (row [ColOrdinal] is int) {
+				//Console.WriteLine ("col is int");
+				return ((~((int)Threshold) & ((int)row [ColOrdinal])) == 0) ? 0 : 1;
+			} else if (row [ColOrdinal] is double) {
+				//Console.WriteLine ("col is double");
+				return (((double)row [ColOrdinal]) <= ((double)Threshold)) ? 0 : 1;
+			} else {
+				throw new Exception ("wrong type of col");
+			}
+		}
+
+		public bool IsLeftSplit(DataRow row) {
+			//Console.WriteLine ("IsLeftSplit");
+			return (GetSplitIndex (row) == 0) ? true : false;
+		}
+
+		public bool IsRightSplit(DataRow row) {
+			//Console.WriteLine ("IsRightSplit");
+			return (GetSplitIndex (row) == 1) ? true : false;
 		}
 
 		private void Fix(double quality, object threshold, List<DataTable> splits, DataColumn col) {

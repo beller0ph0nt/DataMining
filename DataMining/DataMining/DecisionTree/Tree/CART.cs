@@ -29,7 +29,30 @@ namespace DataMining.DecisionTree {
 		}
 
         public void Calc(DataRow row) {
-			throw new System.NotImplementedException();
+			object o = Search (row, _root);
+			Console.WriteLine ("search [ DONE ]");
+			if (o is int) {
+				Console.WriteLine ("Class: " + o);
+			} else if (o is double) {
+				Console.WriteLine ("Regress: " + o);
+			} else {
+				Console.WriteLine ("exception");
+				throw new System.Exception();
+			}
+		}
+
+		private object Search(DataRow row, ICARTNode<Split> node) {
+			Console.WriteLine ("searching...");
+			if (node.Type == NodeType.Leaf) {
+				Console.WriteLine ("class founded!");
+				return node.Variable.ClassVal;
+			} else if (node.Variable.IsLeftSplit (row)) {
+				Console.WriteLine ("go to the left. " + node.Id + " -> " + node.Left.Id);
+				return Search (row, node.Left);
+			} else {
+				Console.WriteLine ("go to the right. " + node.Id + " -> " + node.Right.Id);
+				return Search (row, node.Right);
+			}
 		}
         
 		public override string ToString() {
