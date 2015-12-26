@@ -4,6 +4,6 @@ namespace DataMining.DecisionTree {
     public interface ITree {
 		void Load(string file);
 		void Save(string file);
-		void Calc(DataRow input);
+		object Calc(DataRow input);
 	}
 }

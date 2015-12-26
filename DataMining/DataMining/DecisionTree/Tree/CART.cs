@@ -28,9 +28,11 @@ namespace DataMining.DecisionTree {
 				_formatter.Serialize (fStream, _root);
 		}
 
-        public void Calc(DataRow row) {
-			object o = Search (row, _root);
-			Console.WriteLine ("search [ DONE ]");
+        public object Calc(DataRow row) {
+			Console.WriteLine ("searching...");
+			return Search (row, _root);
+			//object o = Search (row, _root);
+			/*
 			if (o is int) {
 				Console.WriteLine ("Class: " + o);
 			} else if (o is double) {
@@ -39,10 +41,10 @@ namespace DataMining.DecisionTree {
 				Console.WriteLine ("exception");
 				throw new System.Exception();
 			}
+			*/
 		}
 
 		private object Search(DataRow row, ICARTNode<Split> node) {
-			Console.WriteLine ("searching...");
 			if (node.Type == NodeType.Leaf) {
 				Console.WriteLine ("class founded!");
 				return node.Variable.ClassVal;

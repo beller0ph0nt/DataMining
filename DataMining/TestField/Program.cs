@@ -49,13 +49,13 @@ namespace TestField
 			CART tree = learn.Training (table);
 			Console.WriteLine (tree.ToString ());
 			tree.Save ("cart.bin");
-			Console.WriteLine("wrong class count = " + learn.WrongClassCount (tree.Root));
+			//Console.WriteLine("wrong class count = " + learn.WrongClassCount (tree.Root));
 
 			row = table.NewRow ();
 			row ["cat"] = 1;
 			row ["num"] = 8.0;
 			//row ["func"] = 0;
-			tree.Calc (row);
+			Console.WriteLine("key col: " + tree.Calc (row));
 
 			/*
 			Split s = new Split (table);
