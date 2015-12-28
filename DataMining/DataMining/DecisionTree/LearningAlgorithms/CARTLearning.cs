@@ -21,6 +21,22 @@ namespace DataMining.DecisionTree.LearningAlgorithm {
 			return new CART ((CARTRoot<Split>)root);
 		}
 
+		private ICARTNode<Split> CopyTree(CARTRoot<Split> root)
+		{
+			ICARTNode<Split> newRoot = CARTNodeFactory<Split>.GetRoot ();
+			newRoot.Variable = root.Variable;
+			CopyNode (root.Left, newRoot);
+			CopyNode (root.Right, newRoot);
+			return newRoot;
+		}
+
+		private void CopyNode(ICARTNode<Split> origNode, ICARTNode<Split> newParentNode)
+		{
+			// создаем копию оригинального узла
+			// дозаполняем новую копию даднными нового родителя (второй параметр)
+			// возможно необходимо будет новую копию возвращать на выходе функции
+		}
+
 		private void CreateTree(ICARTNode<Split> node, DataTable table) {
 			Split s = new Split (table, _qualityAlgo);
 			s.CalcBestSplit ();

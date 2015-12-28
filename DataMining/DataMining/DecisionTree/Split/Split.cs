@@ -114,7 +114,7 @@ namespace DataMining {
 			CalcClass ();
 		}
 
-		public void CalcBestCatSplit(DataColumn col) {
+		private void CalcBestCatSplit(DataColumn col) {
 			double tmpQuality;
 			int max = Table.AsEnumerable().Max(r => (int)r[col]);
 			int Categories = (int)(Math.Pow(2, (int)(Math.Log(max, 2) + 1)) - 1);	// определяем кол-во категорий как максимальное значение категориального аттрибута
