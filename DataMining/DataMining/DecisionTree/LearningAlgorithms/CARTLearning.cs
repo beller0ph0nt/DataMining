@@ -19,23 +19,23 @@ namespace DataMining.DecisionTree.LearningAlgorithm {
 			CreateTree (root, table);
 			PruneTree (root);
 
-			CART t1 = new CART ((CARTRoot<Split>)root);
-			Console.WriteLine ("tree 1");
-			Console.WriteLine (t1.ToString ());
+			//CART t1 = new CART ((CARTRoot<Split>)root);
+			//Console.WriteLine ("tree 1");
+			//Console.WriteLine (t1.ToString ());
 
-			ICARTNode<Split> root2 = CopyTree ((CARTRoot<Split>)root);
-			CART t2 = new CART ((CARTRoot<Split>)root2);
-			Console.WriteLine ("tree 2");
-			Console.WriteLine (t2.ToString ());
+			//ICARTNode<Split> root2 = CopyTree ((CARTRoot<Split>)root);
+			//CART t2 = new CART ((CARTRoot<Split>)root2);
+			//Console.WriteLine ("tree 2");
+			//Console.WriteLine (t2.ToString ());
 
-            return t1;
+            //return t1;
 
-			//return new CART ((CARTRoot<Split>)root);
+			return new CART ((CARTRoot<Split>)root);
 		}
 
 		private ICARTNode<Split> CopyTree(CARTRoot<Split> root)
 		{
-			Console.WriteLine ("coping tree...");
+			//Console.WriteLine ("coping tree...");
 			ICARTNode<Split> newRoot = CARTNodeFactory<Split>.GetRoot ();
 			newRoot.Variable = root.Variable;
 			CopyNode (root.Left, newRoot);
@@ -45,7 +45,7 @@ namespace DataMining.DecisionTree.LearningAlgorithm {
 
 		private void CopyNode(ICARTNode<Split> origNode, ICARTNode<Split> newParentNode)
 		{
-			Console.WriteLine ("copy node " + origNode.Id);
+			//Console.WriteLine ("copy node " + origNode.Id);
 			ICARTNode<Split> newNode = (origNode.Type == NodeType.Node) ? CARTNodeFactory<Split>.GetNode () : CARTNodeFactory<Split>.GetLeaf ();
 			newNode.Variable = origNode.Variable;
 			newNode.Parent = newParentNode;
