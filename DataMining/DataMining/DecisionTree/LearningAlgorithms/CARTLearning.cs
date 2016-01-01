@@ -96,8 +96,17 @@ namespace DataMining.DecisionTree.LearningAlgorithm {
 			}
 		}
 
-		private void PruneTree(ICARTNode<Split> node) {
-			while (PruneFirstStage(node));
+		private void PruneTree(ICARTNode<Split> root) {
+			while (PruneFirstStage(root));
+			/*
+			List<ICARTNode<Split>> treeSequense = new List<ICARTNode<Split>> ();
+			treeSequense.Add (root);
+			do {
+				ICARTNode<Split> newRoot = CopyTree (treeSequense.Last ());
+				PruneSecondStage(newRoot);
+
+			} while(true);
+			*/
 		}
 
 		private bool PruneFirstStage(ICARTNode<Split> node) {
@@ -118,8 +127,7 @@ namespace DataMining.DecisionTree.LearningAlgorithm {
 						//Console.WriteLine ("set parent.right");
 						node.Parent.Right = newLeaf;
 					} else {
-						//Console.WriteLine ("exeption...");
-						throw new Exception ();
+						throw new Exception ("exeption...");
 					}
 					return true;
 				}
