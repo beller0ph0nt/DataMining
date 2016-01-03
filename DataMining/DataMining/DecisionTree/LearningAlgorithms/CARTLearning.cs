@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Linq;
 using System.Collections.Generic;
 using System.Data;
@@ -16,8 +16,11 @@ namespace DataMining.DecisionTree.LearningAlgorithm {
 		public CART Training(DataTable table) {
 			Table = table;
 			ICARTNode<Split> root = CARTNodeFactory<Split>.GetRoot ();
+			Console.WriteLine ("[" + DateTime.Now.ToString() + "]: creating tree...");
 			CreateTree (root, table);
+			Console.WriteLine ("[" + DateTime.Now.ToString() + "]: pruning tree...");
 			PruneTree (root);
+			Console.WriteLine ("[" + DateTime.Now.ToString() + "]: traning done");
 
 			//CART t1 = new CART ((CARTRoot<Split>)root);
 			//Console.WriteLine ("tree 1");
@@ -29,6 +32,10 @@ namespace DataMining.DecisionTree.LearningAlgorithm {
 			//Console.WriteLine (t2.ToString ());
 
             //return t1;
+
+			Console.WriteLine ("(root) leafs: " + LeafCount(root));
+			Console.WriteLine ("(root.left) leafs: " + LeafCount(root.Left));
+			Console.WriteLine ("(root.right) leafs: " + LeafCount(root.Right));
 
 			return new CART ((CARTRoot<Split>)root);
 		}
@@ -107,6 +114,17 @@ namespace DataMining.DecisionTree.LearningAlgorithm {
 
 			} while(true);
 			*/
+		}
+
+		private int LeafCount(ICARTNode<Split> node)
+		{
+			if (node.Type == NodeType.Leaf) {
+				return 1;
+			} else if (node == null) {
+				return 0;
+			} else {
+				return LeafCount(node.Left) + LeafCount(node.Right);
+			}
 		}
 
 		private bool PruneFirstStage(ICARTNode<Split> node) {
