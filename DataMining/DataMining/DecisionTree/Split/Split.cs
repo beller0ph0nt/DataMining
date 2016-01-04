@@ -91,24 +91,27 @@ namespace DataMining {
 		}
 
 		private void CalcBestNumSplit(DataColumn col) {
-			double tmpQuality, tmpThreshold;
+			double tmpQuality, tmpThreshold, prevTmpThreshold = -1.0;
 			Table.DefaultView.Sort = col.ColumnName + " asc";
 			Table = Table.DefaultView.ToTable ();
 			for (int i = 0; i < Table.Rows.Count - 1; i++) {
 				tmpThreshold = (Table.Rows[i].Field<double>(col.Ordinal) + Table.Rows[i + 1].Field<double>(col.Ordinal)) / 2.0;	// вычисляем порог, как среднее
-				List<DataTable> tmpSplits = new List<DataTable> () { Table.Clone(), Table.Clone() };
-				for (int j = 0; j < Table.Rows.Count; j++) {
-					if (Table.Rows [j].Field<double> (col.Ordinal) <= tmpThreshold) {
-						tmpSplits [0].ImportRow (Table.Rows [j]);
-					} else {
-						tmpSplits [1].ImportRow (Table.Rows [j]);
+				if (prevTmpThreshold != tmpThreshold) {
+					prevTmpThreshold = tmpThreshold;
+					List<DataTable> tmpSplits = new List<DataTable> () { Table.Clone(), Table.Clone() };
+					for (int j = 0; j < Table.Rows.Count; j++) {
+						if (Table.Rows [j].Field<double> (col.Ordinal) <= tmpThreshold) {
+							tmpSplits [0].ImportRow (Table.Rows [j]);
+						} else {
+							tmpSplits [1].ImportRow (Table.Rows [j]);
+						}
 					}
-				}
-				tmpQuality = SplitQualityAlgorithm.CalcSplitQuality (tmpSplits, col);
-				if (i == 0) {
-					Fix (tmpQuality, tmpThreshold, tmpSplits, col);
-				} else if (SplitQualityAlgorithm.Compare (tmpQuality, Quality) < 0) {
-					Fix (tmpQuality, tmpThreshold, tmpSplits, col);
+					tmpQuality = SplitQualityAlgorithm.CalcSplitQuality (tmpSplits, col);
+					if (i == 0) {
+						Fix (tmpQuality, tmpThreshold, tmpSplits, col);
+					} else if (SplitQualityAlgorithm.Compare (tmpQuality, Quality) < 0) {
+						Fix (tmpQuality, tmpThreshold, tmpSplits, col);
+					}
 				}
 			}
 			CalcClass ();

@@ -22,7 +22,7 @@ namespace TestField
 			table.Columns.Add(new DataColumn("num", System.Type.GetType("System.Double")));
 			table.Columns.Add(new DataColumn("func", System.Type.GetType("System.Int32")));
 
-			int count = 10;
+			int count = 500;
 
 			/*
 			List<int> list = new List<int> () { 1, 2, 2, 3, 3, 4, 6, 7, 7, 7 };
