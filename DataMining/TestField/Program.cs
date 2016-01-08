@@ -58,6 +58,44 @@ namespace TestField
 			Console.WriteLine("key col: " + tree.Calc (row));
 
 			/*
+			int j = 0;
+			Console.WriteLine("Index;CalcBestCatSplit;");
+			foreach (var t in Delays.delays["CalcBestCatSplit"]) {
+				Console.WriteLine((j++) + ";" + t + ";");
+			}
+
+			j = 0;
+			Console.WriteLine("Index;CalcBestNumSplit;");
+			foreach (var t in Delays.delays["CalcBestNumSplit"]) {
+				Console.WriteLine((j++) + ";" + t + ";");
+			}
+
+			j = 0;
+			Console.WriteLine("Index;CalcBestNumSplit_Sort;");
+			foreach (var t in Delays.delays["CalcBestNumSplit_Sort"]) {
+				Console.WriteLine((j++) + ";" + t + ";");
+			}
+
+			j = 0;
+			Console.WriteLine("Index;CalcBestNumSplit_FillSplits;");
+			foreach (var t in Delays.delays["CalcBestNumSplit_FillSplits"]) {
+				Console.WriteLine((j++) + ";" + t + ";");
+			}
+
+			j = 0;
+			Console.WriteLine("Index;CalcBestNumSplit_CalcQuality;");
+			foreach (var t in Delays.delays["CalcBestNumSplit_CalcQuality"]) {
+				Console.WriteLine((j++) + ";" + t + ";");
+			}
+
+			j = 0;
+			Console.WriteLine("Index;CalcBestNumSplit_CalcClass;");
+			foreach (var t in Delays.delays["CalcBestNumSplit_CalcClass"]) {
+				Console.WriteLine((j++) + ";" + t + ";");
+			}
+			*/
+
+			/*
 			Split s = new Split (table);
 			List<DataTable> spl = s.CalcBestSplit ();
 

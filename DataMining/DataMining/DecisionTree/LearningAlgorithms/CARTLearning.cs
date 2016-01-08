@@ -15,6 +15,22 @@ namespace DataMining.DecisionTree.LearningAlgorithm {
 
 		public CART Training(DataTable table) {
 			Table = table;
+			/*
+			for (int col = 0; col < Table.Columns.Count - 1; col++) {
+				if (Table.Rows [0] [col] is double) {
+					Table.DefaultView.Sort = Table.Columns [col].ColumnName + " asc";
+					Table = Table.DefaultView.ToTable ();
+
+					Thrshld.dict [col] = new List<double> ();
+					for (int i = 0; i < Table.Rows.Count - 1; i++) {
+						if (Table.Rows [i].Field<double> (col) != Table.Rows [i + 1].Field<double> (col)) {
+							Thrshld.dict [col].Add ((Table.Rows [i].Field<double> (col) + Table.Rows [i + 1].Field<double> (col)) / 2.0);
+						}
+					}
+				}
+			}
+			*/
+
 			ICARTNode<Split> root = CARTNodeFactory<Split>.GetRoot ();
 			Console.WriteLine ("[" + DateTime.Now.ToString() + "]: creating tree...");
 			CreateTree (root, table);

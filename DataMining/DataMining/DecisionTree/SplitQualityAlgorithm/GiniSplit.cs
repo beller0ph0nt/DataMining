@@ -9,7 +9,7 @@ namespace DataMining.DecisionTree.SplitQualityAlgorithm {
     public class GiniSplit : ISplitQualityAlgorithm {
 		public double GiniIndex(DataTable table, DataColumn col) {
 			double count = table.Rows.Count;
-			return 1 - table.AsEnumerable ().GroupBy (row => row [col.Ordinal], (k, e) => new { cnt = e.Count() }).Sum (a => Math.Pow (a.cnt / count, 2));
+			return 1 - table.AsEnumerable ().GroupBy (row => row [col.Ordinal], (k, e) => new { cnt = e.Count () }).Sum (a => Math.Pow (a.cnt / count, 2));
 		}
 
 		public double CalcSplitQuality(List<DataTable> tables, DataColumn column) {
