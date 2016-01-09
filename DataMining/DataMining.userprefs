@@ -1,13 +1,13 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Release" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="DataMining/DecisionTree/Split/Split.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="DataMining/DecisionTree/SplitQualityAlgorithm/GiniSplitOptimized2.cs">
     <Files>
-      <File FileName="DataMining/DecisionTree/Split/Split.cs" Line="124" Column="41" />
-      <File FileName="DataMining/DecisionTree/LearningAlgorithms/CARTLearning.cs" Line="28" Column="8" />
+      <File FileName="DataMining/DecisionTree/Split/Split.cs" Line="1" Column="1" />
+      <File FileName="DataMining/DecisionTree/LearningAlgorithms/CARTLearning.cs" Line="17" Column="18" />
       <File FileName="DataMining/DecisionTree/LearningAlgorithms/ILearningAlgorithm.cs" Line="1" Column="1" />
       <File FileName="DataMining/DecisionTree/Tree/CART.cs" Line="1" Column="1" />
       <File FileName="DataMining/DecisionTree/Tree/ITree.cs" Line="1" Column="1" />
-      <File FileName="TestField/Program.cs" Line="49" Column="1" />
+      <File FileName="TestField/Program.cs" Line="1" Column="1" />
       <File FileName="DataMining/DecisionTree/NodeBase/CARTNode/ICARTNode.cs" Line="1" Column="1" />
       <File FileName="DataMining/DecisionTree/NodeBase/BinaryNode/IBinaryNode.cs" Line="1" Column="1" />
       <File FileName="DataMining/DecisionTree/NodeBase/CARTNode/AbstractCARTNode.cs" Line="1" Column="1" />
@@ -23,7 +23,7 @@
       <File FileName="DataMining/DecisionTree/NodeBase/GeneralNode/GeneralNodes/GeneralRoot.cs" Line="1" Column="1" />
       <File FileName="DataMining/DecisionTree/NodeBase/GeneralNode/AbstractGeneralNode.cs" Line="1" Column="1" />
       <File FileName="DataMining/DecisionTree/NodeBase/AbstractNodeBase.cs" Line="1" Column="1" />
-      <File FileName="DataMining/DecisionTree/SplitQualityAlgorithm/GiniSplit.cs" Line="32" Column="5" />
+      <File FileName="DataMining/DecisionTree/SplitQualityAlgorithm/GiniSplit.cs" Line="1" Column="1" />
       <File FileName="DataMining/DecisionTree/SplitQualityAlgorithm/GiniSplitOptimized.cs" Line="1" Column="1" />
       <File FileName="DataMining/DecisionTree/NodeFactory/CARTNodeFactory.cs" Line="1" Column="1" />
       <File FileName="DataMining/DecisionTree/NodeBase/INodeBase.cs" Line="1" Column="1" />
@@ -32,9 +32,27 @@
       <File FileName="DataMining/DecisionTree/NodeFactory/GeneralNodeFactory.cs" Line="1" Column="1" />
       <File FileName="DataMining/DecisionTree/SplitQualityAlgorithm/ISplitQualityAlgorithm.cs" Line="1" Column="1" />
       <File FileName="TestField/Properties/AssemblyInfo.cs" Line="1" Column="1" />
-      <File FileName="DataMining/DecisionTree/Diagnostics/Delays.cs" Line="22" Column="2" />
-      <File FileName="DataMining/DecisionTree/ThresholdDict/ThrshldDict.cs" Line="31" Column="4" />
+      <File FileName="DataMining/DecisionTree/Diagnostics/Delays.cs" Line="1" Column="1" />
+      <File FileName="DataMining/DecisionTree/ThresholdDict/ThrshldDict.cs" Line="1" Column="1" />
+      <File FileName="DataMining/DecisionTree/SplitQualityAlgorithm/GiniSplitAsync.cs" Line="17" Column="4" />
+      <File FileName="DataMining/DecisionTree/SplitQualityAlgorithm/GiniSplitOptimized2.cs" Line="19" Column="11" />
     </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State expanded="True">
+          <Node name="DataMining" expanded="True">
+            <Node name="DecisionTree" expanded="True">
+              <Node name="LearningAlgorithms" expanded="True" />
+              <Node name="Split" expanded="True" />
+              <Node name="SplitQualityAlgorithm" expanded="True">
+                <Node name="GiniSplitOptimized2.cs" selected="True" />
+              </Node>
+              <Node name="ThresholdDict" expanded="True" />
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />

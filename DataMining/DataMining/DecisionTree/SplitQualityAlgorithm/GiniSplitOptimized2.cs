@@ -8,15 +8,46 @@ using System.Threading.Tasks;
 
 namespace DataMining.DecisionTree.SplitQualityAlgorithm {
 	[Serializable]
-    public class GiniSplit : ISplitQualityAlgorithm {
+    public class GiniSplitOptimized2 : ISplitQualityAlgorithm {
 		public double GiniIndex(DataTable table, DataColumn col) {
 			double count = table.Rows.Count;
-			return 1 - table.AsEnumerable ().GroupBy (row => row [col.Ordinal], (k, e) => new { cnt = e.Count () }).Sum (a => Math.Pow (a.cnt / count, 2));
+			int i;
+
+			object key = new object ();
+			Dictionary<object, long> grp = new Dictionary<object, long>();
+			for (i = 0; i < count; i++) {
+				key = table.Rows [i] [col.Ordinal];
+				if (grp.Keys.Contains (key)) {
+					grp [key]++;
+				} else {
+					grp [key] = 1;
+				}
+			}
+
+			double sum = 0;
+			double count2 = count * count;
+			long e;
+			for (i = grp.Count - 1; i >= 0 ; i--) {
+				e = grp.Values.ElementAt (i);
+				sum += (e * e / count2);
+			}
+
+			return 1 - sum;
 		}
 
 		public double CalcSplitQuality(List<DataTable> tables, DataColumn column) {
-			double totalCount = tables.Sum(t => t.Rows.Count);
-			return tables.Sum(t => t.Rows.Count * GiniIndex(t, column) / totalCount);
+			double totalCount = 0, res = 0;
+			int i, cnt = tables.Count - 1;
+
+			for (i = cnt; i >= 0; i--) {
+				totalCount += tables [i].Rows.Count;
+			}
+
+			for (i = cnt; i >= 0; i--) {
+				res += tables [i].Rows.Count * GiniIndex (tables [i], column) / totalCount;
+			}
+
+			return res;
 		}
         
         // сравнивает показатели качества разбиения

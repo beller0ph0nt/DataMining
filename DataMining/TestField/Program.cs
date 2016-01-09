@@ -41,7 +41,7 @@ namespace TestField
 				row["cat"] = i % 3;		//row["cat"] = rnd.Next();
 				row["num"] = i;
 				row["func"] = (i < 5) ? 1 : 2;
-				Console.WriteLine(row["cat"].ToString() + ", " + row["num"].ToString() + ", " + row["func"].ToString());
+				//Console.WriteLine(row["cat"].ToString() + ", " + row["num"].ToString() + ", " + row["func"].ToString());
 				table.Rows.Add(row);
 			}
 

@@ -10,7 +10,7 @@ namespace DataMining.DecisionTree.LearningAlgorithm {
 		private DataTable Table { get; set; }
 
 		public CARTLearning() {
-			_qualityAlgo = new GiniSplit();	// _qualityAlgo = new GiniSplitOptimized ();	//
+			_qualityAlgo = new GiniSplitOptimized2();	// _qualityAlgo = new GiniSplitOptimized ();	//
         }
 
 		public CART Training(DataTable table) {

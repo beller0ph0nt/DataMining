@@ -114,14 +114,38 @@ namespace DataMining {
 		private void CalcBestNumSplit(DataColumn col) {
 			double tmpQuality;
 			double tmpThreshold;
-			double prevTmpThreshold = -1.0;
+			//double prevTmpThreshold = -1.0;
 
 			// lock
 			//var sw = new Stopwatch ();
 			//sw.Start ();
 
-			Table.DefaultView.Sort = col.ColumnName + " asc";
-			Table = Table.DefaultView.ToTable ();
+			//Table.DefaultView.Sort = col.ColumnName + " asc";
+			//Table = Table.DefaultView.ToTable ();
+
+			List<double> t = new List<double> ();
+			/*
+			for (int i = 0; i < Table.Rows.Count - 1; i++) {
+				tmpThreshold = (Table.Rows[i].Field<double>(col.Ordinal) + Table.Rows[i + 1].Field<double>(col.Ordinal)) / 2.0;
+				if (prevTmpThreshold != tmpThreshold) {
+					prevTmpThreshold = tmpThreshold;
+					if (!t.Contains (tmpThreshold)) {
+						t.Add (tmpThreshold);
+					}
+				}
+			}
+			*/
+
+			object lck = new object ();
+			Parallel.For (0, Table.Rows.Count - 1, i => {
+				double thr = (Table.Rows[i].Field<double>(col.Ordinal) + Table.Rows[i + 1].Field<double>(col.Ordinal)) / 2.0;
+				lock(lck)
+				{
+					if (!t.Contains (thr)) {
+						t.Add (thr);
+					}
+				}
+			});
 
 			//sw.Stop ();
 			//Delays.delays ["CalcBestNumSplit_Sort"].Add (sw.ElapsedTicks);
@@ -132,23 +156,25 @@ namespace DataMining {
 
 			//int del_index = 0;
 
-			for (int i = 0; i < Table.Rows.Count - 1; i++) {
-			//for (int i = 0; i < Thrshld.dict[col.Ordinal].Count(); i++) {
+			//object syncLeft = new object ();
+			//object syncRight = new object ();
 
-				tmpThreshold = (Table.Rows[i].Field<double>(col.Ordinal) + Table.Rows[i + 1].Field<double>(col.Ordinal)) / 2.0;	// вычисляем порог, как среднее
+			//for (int i = 0; i < Table.Rows.Count - 1; i++) {
+			//for (int i = 0; i < Thrshld.dict[col.Ordinal].Count(); i++) {
+			for (int i = 0; i < t.Count; i++) {
+				tmpThreshold = t [i];
+				//tmpThreshold = (Table.Rows[i].Field<double>(col.Ordinal) + Table.Rows[i + 1].Field<double>(col.Ordinal)) / 2.0;	// вычисляем порог, как среднее
 				//tmpThreshold = Thrshld.dict [col.Ordinal] [i];
 
-				if (prevTmpThreshold != tmpThreshold) {
+				//if (prevTmpThreshold != tmpThreshold) {
 
-					prevTmpThreshold = tmpThreshold;
+				//	prevTmpThreshold = tmpThreshold;
 
 					List<DataTable> tmpSplits = new List<DataTable> () { Table.Clone(), Table.Clone() };
 
 					// разделить данные на блоки и вывести длительновть выполнения каждого блока (попробовать вывести информацию по длительности в разрезе колонок)
 
 					/*
-					var syncLeft = new object ();
-					var syncRight = new object ();
 					Parallel.For(0, Table.Rows.Count, (j) => {
 						//Console.WriteLine("Beginning iteration {0}", j);
 						if (Table.Rows [j].Field<double> (col.Ordinal) <= tmpThreshold) {
@@ -167,14 +193,15 @@ namespace DataMining {
 
 					//sw.Start ();
 
-					for (int j = 0; j < Table.Rows.Count; j++) {
 
+					for (int j = 0; j < Table.Rows.Count; j++) {
 						if (Table.Rows [j].Field<double> (col.Ordinal) <= tmpThreshold) {
 							tmpSplits [0].ImportRow (Table.Rows [j]);
 						} else {
 							tmpSplits [1].ImportRow (Table.Rows [j]);
 						}
 					}
+
 
 					//sw.Stop ();
 					//Delays.delays ["CalcBestNumSplit_FillSplits"].Add (sw.ElapsedTicks);
@@ -200,7 +227,7 @@ namespace DataMining {
 						//del_index = i;
 						Fix (tmpQuality, tmpThreshold, tmpSplits, col);
 					}
-				}
+				//}
 			}
 
 			//if (Thrshld.dict [col.Ordinal].Count () > 0) {

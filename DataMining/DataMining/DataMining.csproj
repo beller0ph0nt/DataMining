@@ -99,7 +99,9 @@
     <Compile Include="DecisionTree\Split\Split.cs" />
     <Compile Include="DecisionTree\Tree\CART.cs" />
     <Compile Include="DecisionTree\Diagnostics\Delays.cs" />
-    <Compile Include="DecisionTree\ThresholdDict\ThresholdDict.cs" />
+    <Compile Include="DecisionTree\ThresholdDict\ThrshldDict.cs" />
+    <Compile Include="DecisionTree\SplitQualityAlgorithm\GiniSplitAsync.cs" />
+    <Compile Include="DecisionTree\SplitQualityAlgorithm\GiniSplitOptimized2.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

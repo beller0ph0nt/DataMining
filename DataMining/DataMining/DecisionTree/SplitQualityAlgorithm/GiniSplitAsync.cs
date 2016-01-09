@@ -8,15 +8,57 @@ using System.Threading.Tasks;
 
 namespace DataMining.DecisionTree.SplitQualityAlgorithm {
 	[Serializable]
-    public class GiniSplit : ISplitQualityAlgorithm {
+    public class GiniSplitAsync : ISplitQualityAlgorithm {
 		public double GiniIndex(DataTable table, DataColumn col) {
-			double count = table.Rows.Count;
-			return 1 - table.AsEnumerable ().GroupBy (row => row [col.Ordinal], (k, e) => new { cnt = e.Count () }).Sum (a => Math.Pow (a.cnt / count, 2));
+			int count = table.Rows.Count;
+
+			object lck = new object ();
+			Dictionary<object, long> grp = new Dictionary<object, long>();
+
+
+			Parallel.For (0, count, i => {
+				object key = table.Rows [i] [col.Ordinal];
+
+				bool c;
+				lock (lck) {
+					c = grp.Keys.Contains (key);
+
+					if (!c) {
+						grp [key] = 1;
+					}
+				}
+
+				if (!c) {
+					return;
+				}
+
+				lock (lck) {
+					if (c) {
+						grp [key]++;
+					}
+				}
+			});
+
+			double sum = 0;
+			double count2 = count * count;
+			long e;
+			for (int i = grp.Count - 1; i >= 0 ; i--) {
+				e = grp.Values.ElementAt (i);
+				sum += (e * e / count2);
+			}
+
+			return 1 - sum;
 		}
 
 		public double CalcSplitQuality(List<DataTable> tables, DataColumn column) {
-			double totalCount = tables.Sum(t => t.Rows.Count);
-			return tables.Sum(t => t.Rows.Count * GiniIndex(t, column) / totalCount);
+			double totalCount = 0;
+			int i;
+			for (i = 0; i < tables.Count; i++) {
+				totalCount += tables [i].Rows.Count;
+			}
+			double res = 0;
+			Parallel.For(0, tables.Count, j => res += tables [j].Rows.Count * GiniIndex (tables [j], column) / totalCount);
+			return res;
 		}
         
         // сравнивает показатели качества разбиения
