@@ -116,7 +116,7 @@ namespace DataMining {
 			double tmpThreshold;
 			double prevTmpThreshold = -1.0;
 
-					// lock
+			// lock
 			//var sw = new Stopwatch ();
 			//sw.Start ();
 
