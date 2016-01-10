@@ -20,7 +20,7 @@ namespace DataMining {
 		public int ColOrdinal { get; private set; }
 		public ISplitQualityAlgorithm SplitQualityAlgorithm { get; private set; }
 
-
+		private
 
 		public Split(DataTable table):this(table, new GiniSplit()) {}
 		public Split(DataTable table, ISplitQualityAlgorithm algo) {
@@ -31,29 +31,15 @@ namespace DataMining {
 		}
 
 		public List<DataTable> CalcBestSplit() {
-			//var sw = new Stopwatch ();
 			for (int col = 0; col < Table.Columns.Count - 1; col++) {
 				if (Table.Rows[0][col] is int) {
-					//sw.Start ();
 					CalcBestCatSplit(Table.Columns[col]);
-					//sw.Stop ();
-					//Delays.delays ["CalcBestCatSplit"].Add (sw.ElapsedTicks);
-					//Console.WriteLine ("[" + sw.Elapsed + "]" + " CalcBestCatSplit");
-					//sw.Reset ();
 				} else if (Table.Rows[0][col] is double) {
-					//sw.Start ();
 					CalcBestNumSplit(Table.Columns[col]);
-					//sw.Stop ();
-					//Delays.delays ["CalcBestNumSplit"].Add (sw.ElapsedTicks);
-					//Console.WriteLine ("[" + sw.Elapsed + "]" + " CalcBestNumSplit");
-					//sw.Reset ();
 				} else {
 					throw new Exception ("Bad col type");
 				}
 			}
-
-			//Console.WriteLine ("delays [\"CalcBestCatSplit\"] = " + Delays.delays ["CalcBestCatSplit"].First ());
-			//Console.WriteLine ("delays [\"CalcBestNumSplit\"] = " + Delays.delays ["CalcBestNumSplit"].First ());
 
 			return Splits;
 		}
@@ -112,67 +98,36 @@ namespace DataMining {
 		}
 
 		private void CalcBestNumSplit(DataColumn col) {
-			double tmpQuality;
-			double tmpThreshold;
-			//double prevTmpThreshold = -1.0;
-
-			// lock
-			//var sw = new Stopwatch ();
-			//sw.Start ();
-
-			//Table.DefaultView.Sort = col.ColumnName + " asc";
-			//Table = Table.DefaultView.ToTable ();
-
-			List<double> t = new List<double> ();
-			/*
-			for (int i = 0; i < Table.Rows.Count - 1; i++) {
-				tmpThreshold = (Table.Rows[i].Field<double>(col.Ordinal) + Table.Rows[i + 1].Field<double>(col.Ordinal)) / 2.0;
-				if (prevTmpThreshold != tmpThreshold) {
-					prevTmpThreshold = tmpThreshold;
-					if (!t.Contains (tmpThreshold)) {
-						t.Add (tmpThreshold);
+			if (Table.Rows.Count > 1) {
+				//Table.DefaultView.Sort = col.ColumnName + " asc";
+				//Table = Table.DefaultView.ToTable ();
+				object lck = new object ();
+				List<double> thresholdList = new List<double> ();
+				Parallel.For (0, Table.Rows.Count - 1, i => {
+					double thr = ((double)Table.Rows [i] [col.Ordinal] + (double)Table.Rows [i + 1] [col.Ordinal]) / 2.0;
+					lock (lck) {
+						if (!thresholdList.Contains (thr)) {
+							thresholdList.Add (thr);
+						}
 					}
-				}
-			}
-			*/
+				});
 
-			object lck = new object ();
-			Parallel.For (0, Table.Rows.Count - 1, i => {
-				double thr = (Table.Rows[i].Field<double>(col.Ordinal) + Table.Rows[i + 1].Field<double>(col.Ordinal)) / 2.0;
-				lock(lck)
-				{
-					if (!t.Contains (thr)) {
-						t.Add (thr);
+				object lck1 = new object ();
+				object lck2 = new object ();
+				object lck3 = new object ();
+				ManualResetEventSlim initLock = new ManualResetEventSlim (false);
+				//for (int i = 0; i < Table.Rows.Count - 1; i++) {
+				//for (int i = 0; i < t.Count; i++)
+				Parallel.For (0, thresholdList.Count, i => {
+					double tmpThreshold = thresholdList [i];
+					//tmpThreshold = (Table.Rows[i].Field<double>(col.Ordinal) + Table.Rows[i + 1].Field<double>(col.Ordinal)) / 2.0;	// вычисляем порог, как среднее
+
+					//List<DataTable> tmpSplits = new List<DataTable> () { Table.Clone(), Table.Clone() };
+					List<DataTable> tmpSplits = new List<DataTable> ();
+					lock (lck3) {
+						tmpSplits.Add (Table.Clone ());
 					}
-				}
-			});
-
-			//sw.Stop ();
-			//Delays.delays ["CalcBestNumSplit_Sort"].Add (sw.ElapsedTicks);
-			//Console.WriteLine ("delays [\"CalcBestNumSplit_Sort\"] = " + Delays.delays ["CalcBestNumSplit_Sort"].First ());
-			//Console.WriteLine ("[" + sw.Elapsed + "]" + " CalcBestNumSplit_Sort");
-			//sw.Reset ();
-			// unlock
-
-			//int del_index = 0;
-
-			//object syncLeft = new object ();
-			//object syncRight = new object ();
-
-			//for (int i = 0; i < Table.Rows.Count - 1; i++) {
-			//for (int i = 0; i < Thrshld.dict[col.Ordinal].Count(); i++) {
-			for (int i = 0; i < t.Count; i++) {
-				tmpThreshold = t [i];
-				//tmpThreshold = (Table.Rows[i].Field<double>(col.Ordinal) + Table.Rows[i + 1].Field<double>(col.Ordinal)) / 2.0;	// вычисляем порог, как среднее
-				//tmpThreshold = Thrshld.dict [col.Ordinal] [i];
-
-				//if (prevTmpThreshold != tmpThreshold) {
-
-				//	prevTmpThreshold = tmpThreshold;
-
-					List<DataTable> tmpSplits = new List<DataTable> () { Table.Clone(), Table.Clone() };
-
-					// разделить данные на блоки и вывести длительновть выполнения каждого блока (попробовать вывести информацию по длительности в разрезе колонок)
+					tmpSplits.Add (tmpSplits [0].Clone ());
 
 					/*
 					Parallel.For(0, Table.Rows.Count, (j) => {
@@ -189,85 +144,94 @@ namespace DataMining {
 							}
 						}
 					});
-					*/
+				*/
 
-					//sw.Start ();
-
-
-					for (int j = 0; j < Table.Rows.Count; j++) {
-						if (Table.Rows [j].Field<double> (col.Ordinal) <= tmpThreshold) {
-							tmpSplits [0].ImportRow (Table.Rows [j]);
-						} else {
-							tmpSplits [1].ImportRow (Table.Rows [j]);
+					int cnt = Table.Rows.Count;
+					int ordinal = col.Ordinal;
+					lock (lck2) {
+						for (int j = 0; j < cnt; j++) {
+							if ((double)Table.Rows [j] [ordinal] <= tmpThreshold) {
+								tmpSplits [0].ImportRow (Table.Rows [j]);
+							} else {
+								tmpSplits [1].ImportRow (Table.Rows [j]);
+							}
 						}
 					}
 
-
-					//sw.Stop ();
-					//Delays.delays ["CalcBestNumSplit_FillSplits"].Add (sw.ElapsedTicks);
-					//Console.WriteLine ("delays [\"CalcBestNumSplit_FillSplits\"] = " + Delays.delays ["CalcBestNumSplit_FillSplits"].First ());
-					//Console.WriteLine ("[" + sw.Elapsed + "]" + " CalcBestNumSplit_FillSplits");
-					//sw.Reset ();
-
-					//sw.Start ();
-
-					tmpQuality = SplitQualityAlgorithm.CalcSplitQuality (tmpSplits, col);
-
-					//sw.Stop ();
-					//Delays.delays ["CalcBestNumSplit_CalcQuality"].Add (sw.ElapsedTicks);
-					//Console.WriteLine ("delays [\"CalcBestNumSplit_CalcQuality\"] = " + Delays.delays ["CalcBestNumSplit_CalcQuality"].First ());
-					//Console.WriteLine ("[" + sw.Elapsed + "]" + " CalcBestNumSplit_CalcQuality");
-					//sw.Reset ();
+					double tmpQuality;
+					lock (lck1) {
+						tmpQuality = SplitQualityAlgorithm.CalcSplitQuality (tmpSplits, col);
+					}
 
 					if (i == 0) {
-						//del_index = i;
-						//Console.WriteLine ("first fix threshold");
 						Fix (tmpQuality, tmpThreshold, tmpSplits, col);
-					} else if (SplitQualityAlgorithm.Compare (tmpQuality, Quality) < 0) {
-						//del_index = i;
-						Fix (tmpQuality, tmpThreshold, tmpSplits, col);
+						initLock.Set ();
 					}
-				//}
+
+					if (i != 0) {
+						initLock.Wait ();
+						lock (lck) {
+							if (SplitQualityAlgorithm.Compare (tmpQuality, Quality) < 0) {
+								Fix (tmpQuality, tmpThreshold, tmpSplits, col);
+							}
+						}
+					}
+				});
+			} else {
+				Quality = 0;
 			}
-
-			//if (Thrshld.dict [col.Ordinal].Count () > 0) {
-				//Console.WriteLine ("del threshold " + Threshold + " from dict. dict cnt = " + Thrshld.dict [col.Ordinal].Count ());
-				//Thrshld.Del (del_index);
-			//}
-			//Thrshld.dict [col.Ordinal].Remove ((double)Threshold);
-			//Thrshld.dict [col.Ordinal].RemoveAt (del_i);
-
-			//sw.Start ();
-
 			CalcClass ();
-
-			//sw.Stop ();
-			//Delays.delays ["CalcBestNumSplit_CalcClass"].Add (sw.ElapsedTicks);
-			//Console.WriteLine ("delays [\"CalcBestNumSplit_CalcClass\"] = " + Delays.delays ["CalcBestNumSplit_CalcClass"].First ());
-			//Console.WriteLine ("[" + sw.Elapsed + "]" + " CalcBestNumSplit_CalcClass");
-			//sw.Reset ();
 		}
 
 		private void CalcBestCatSplit(DataColumn col) {
-			double tmpQuality;
 			int max = Table.AsEnumerable().Max(r => (int)r[col]);
 			int Categories = (int)(Math.Pow(2, (int)(Math.Log(max, 2) + 1)) - 1);	// определяем кол-во категорий как максимальное значение категориального аттрибута
-			for (long set = 1; set < Categories - 1; set++) {	// перебираем все катигории
-				List<DataTable> tmpSplits = new List<DataTable>() { Table.Clone(), Table.Clone() };
-				for (int i = 0; i < Table.Rows.Count; i++) {
-					if ((~set & Table.Rows [i].Field<int> (col)) == 0) {
-						tmpSplits [0].ImportRow (Table.Rows [i]);
-					} else {
-						tmpSplits [1].ImportRow (Table.Rows [i]);
-					}
+
+			object lck0 = new object ();
+			//object lck1 = new object ();
+			//object lck2 = new object ();
+			object lck3 = new object ();
+			ManualResetEventSlim initLock = new ManualResetEventSlim (false);
+			//for (int set = 1; set < Categories - 1; set++) {	// перебираем все катигории
+			Parallel.For (1, Categories - 1, set => {
+				//List<DataTable> tmpSplits = new List<DataTable> () { Table.Clone(), Table.Clone() };
+				List<DataTable> tmpSplits = new List<DataTable> ();
+				lock (lck3) {
+					tmpSplits.Add (Table.Clone ());
 				}
-				tmpQuality = SplitQualityAlgorithm.CalcSplitQuality(tmpSplits, col);
+				tmpSplits.Add (tmpSplits [0].Clone ());
+
+				//lock (lck2) {
+					for (int i = 0; i < Table.Rows.Count; i++) {
+						if ((~set & Table.Rows [i].Field<int> (col)) == 0) {
+							tmpSplits [0].ImportRow (Table.Rows [i]);
+						} else {
+							tmpSplits [1].ImportRow (Table.Rows [i]);
+						}
+					}
+				//}
+
+				double tmpQuality;
+				//lock (lck1) {
+					tmpQuality = SplitQualityAlgorithm.CalcSplitQuality (tmpSplits, col);
+				//}
+
 				if (set == 1) {
 					Fix (tmpQuality, set, tmpSplits, col);
-				} else if (SplitQualityAlgorithm.Compare (tmpQuality, Quality) < 0) {
-					Fix (tmpQuality, set, tmpSplits, col);
+					initLock.Set ();
 				}
-			}
+
+				if (set != 1) {
+					initLock.Wait ();
+					lock (lck0) {
+						if (SplitQualityAlgorithm.Compare (tmpQuality, Quality) < 0) {
+							Fix (tmpQuality, set, tmpSplits, col);
+						}
+					}
+				}
+
+			});
+			//}
 			CalcClass ();
 		}
 	}

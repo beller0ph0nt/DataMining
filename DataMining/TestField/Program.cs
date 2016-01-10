@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using DataMining.DecisionTree;
 using DataMining;
@@ -44,6 +45,21 @@ namespace TestField
 				//Console.WriteLine(row["cat"].ToString() + ", " + row["num"].ToString() + ", " + row["func"].ToString());
 				table.Rows.Add(row);
 			}
+
+			/*
+			object lck = new object ();
+			List<double> t = new List<double> ();
+			Parallel.For (0, table.Rows.Count - 1, i => {
+				double thr = ((double)table.Rows[i]["num"] + (double)table.Rows[i + 1]["num"]) / 2.0;
+				lock(lck)
+				{
+					Console.WriteLine("thread ID: " + Thread.CurrentThread.ManagedThreadId);
+					if (!t.Contains (thr)) {
+						t.Add (thr);
+					}
+				}
+			});
+			*/
 
 			CARTLearning learn = new CARTLearning ();
 			CART tree = learn.Training (table);

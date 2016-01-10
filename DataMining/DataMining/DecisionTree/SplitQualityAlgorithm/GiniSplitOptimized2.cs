@@ -27,10 +27,24 @@ namespace DataMining.DecisionTree.SplitQualityAlgorithm {
 			double sum = 0;
 			double count2 = count * count;
 			long e;
+
 			for (i = grp.Count - 1; i >= 0 ; i--) {
 				e = grp.Values.ElementAt (i);
 				sum += (e * e / count2);
 			}
+
+
+			/*
+			object lck = new object ();
+			Parallel.For (0, grp.Count, j => {
+				e = grp.Values.ElementAt (j);
+				double tmp = (e * e) / count2;
+				lock(lck)
+				{
+					sum += tmp;
+				}
+			});
+			*/
 
 			return 1 - sum;
 		}
