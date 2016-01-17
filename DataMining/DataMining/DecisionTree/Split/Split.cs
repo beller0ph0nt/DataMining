@@ -10,6 +10,17 @@ using System.Threading.Tasks;
 
 namespace DataMining {
 	[Serializable]
+	public class ThreadParam {
+		public DataColumn col;
+		public AutoResetEvent threadIsDone;
+
+		public ThreadParam(DataColumn column, AutoResetEvent e) {
+			col = column;
+			threadIsDone = e;
+		}
+	}
+
+	[Serializable]
 	public class Split {
 		//public enum SplitType : int { Left = 0, Right = 1 }
 		public DataTable Table { get; set; }
@@ -20,7 +31,12 @@ namespace DataMining {
 		public int ColOrdinal { get; private set; }
 		public ISplitQualityAlgorithm SplitQualityAlgorithm { get; private set; }
 
-		private
+		private bool initDone;
+		private object lck1;
+		private object lck2;
+		private object lck3;
+		private object lck4;
+		private object fixLock;
 
 		public Split(DataTable table):this(table, new GiniSplit()) {}
 		public Split(DataTable table, ISplitQualityAlgorithm algo) {
@@ -28,17 +44,35 @@ namespace DataMining {
 			Table = table;
 			SplitQualityAlgorithm = algo;
 			Splits = new List<DataTable> ();
+
+			initDone = false;
+			lck1 = new object ();
+			lck2 = new object ();
+			lck3 = new object ();
+			lck4 = new object ();
+			fixLock = new object ();
 		}
 
 		public List<DataTable> CalcBestSplit() {
+			List<AutoResetEvent> locks = new List<AutoResetEvent> ();
 			for (int col = 0; col < Table.Columns.Count - 1; col++) {
-				if (Table.Rows[0][col] is int) {
-					CalcBestCatSplit(Table.Columns[col]);
-				} else if (Table.Rows[0][col] is double) {
-					CalcBestNumSplit(Table.Columns[col]);
+				if (Table.Rows [0] [col] is int) {
+					AutoResetEvent e = new AutoResetEvent (false);
+					ThreadPool.QueueUserWorkItem (CalcBestCatSplit, new ThreadParam(Table.Columns [col], e));
+					locks.Add (e);
+					//CalcBestCatSplit (Table.Columns [col]);
+				} else if (Table.Rows [0] [col] is double) {
+					AutoResetEvent e = new AutoResetEvent (false);
+					ThreadPool.QueueUserWorkItem (CalcBestNumSplit, new ThreadParam(Table.Columns [col], e));
+					locks.Add (e);
+					//CalcBestNumSplit (Table.Columns [col]);
 				} else {
 					throw new Exception ("Bad col type");
 				}
+			}
+
+			for (int i = 0; i < locks.Count; i++) {
+				locks [i].WaitOne ();
 			}
 
 			return Splits;
@@ -69,6 +103,8 @@ namespace DataMining {
 				//Console.WriteLine ("col is double");
 				return (((double)row [ColOrdinal]) <= ((double)Threshold)) ? 0 : 1;
 			} else {
+				Console.WriteLine ("[ ERROR ] wrong type of col");
+				Console.WriteLine ("type: " + row [ColOrdinal].GetType ().ToString ());
 				throw new Exception ("wrong type of col");
 			}
 		}
@@ -97,25 +133,24 @@ namespace DataMining {
 			}
 		}
 
-		private void CalcBestNumSplit(DataColumn col) {
+		//private void CalcBestNumSplit(DataColumn col) {
+		private void CalcBestNumSplit(object par) {
+			ThreadParam p = par as ThreadParam;
 			if (Table.Rows.Count > 1) {
+				DataColumn col = p.col;
 				//Table.DefaultView.Sort = col.ColumnName + " asc";
 				//Table = Table.DefaultView.ToTable ();
-				object lck = new object ();
+
 				List<double> thresholdList = new List<double> ();
 				Parallel.For (0, Table.Rows.Count - 1, i => {
 					double thr = ((double)Table.Rows [i] [col.Ordinal] + (double)Table.Rows [i + 1] [col.Ordinal]) / 2.0;
-					lock (lck) {
+					lock (lck4) {
 						if (!thresholdList.Contains (thr)) {
 							thresholdList.Add (thr);
 						}
 					}
 				});
 
-				object lck1 = new object ();
-				object lck2 = new object ();
-				object lck3 = new object ();
-				ManualResetEventSlim initLock = new ManualResetEventSlim (false);
 				//for (int i = 0; i < Table.Rows.Count - 1; i++) {
 				//for (int i = 0; i < t.Count; i++)
 				Parallel.For (0, thresholdList.Count, i => {
@@ -159,21 +194,18 @@ namespace DataMining {
 					}
 
 					double tmpQuality;
-					lock (lck1) {
+					lock (lck1)
+					{
 						tmpQuality = SplitQualityAlgorithm.CalcSplitQuality (tmpSplits, col);
 					}
 
-					if (i == 0) {
-						Fix (tmpQuality, tmpThreshold, tmpSplits, col);
-						initLock.Set ();
-					}
 
-					if (i != 0) {
-						initLock.Wait ();
-						lock (lck) {
-							if (SplitQualityAlgorithm.Compare (tmpQuality, Quality) < 0) {
-								Fix (tmpQuality, tmpThreshold, tmpSplits, col);
-							}
+					lock (fixLock) {
+						if (!initDone) {
+							Fix (tmpQuality, tmpThreshold, tmpSplits, col);
+							initDone = true;
+						} else if (SplitQualityAlgorithm.Compare (tmpQuality, Quality) < 0) {
+							Fix (tmpQuality, tmpThreshold, tmpSplits, col);
 						}
 					}
 				});
@@ -181,17 +213,18 @@ namespace DataMining {
 				Quality = 0;
 			}
 			CalcClass ();
+			p.threadIsDone.Set ();
 		}
 
-		private void CalcBestCatSplit(DataColumn col) {
+		//private void CalcBestCatSplit(DataColumn col) {
+		private void CalcBestCatSplit(object par) {
+			ThreadParam p = par as ThreadParam;
+			DataColumn col = p.col;
+
 			int max = Table.AsEnumerable().Max(r => (int)r[col]);
 			int Categories = (int)(Math.Pow(2, (int)(Math.Log(max, 2) + 1)) - 1);	// определяем кол-во категорий как максимальное значение категориального аттрибута
 
-			object lck0 = new object ();
-			//object lck1 = new object ();
-			//object lck2 = new object ();
-			object lck3 = new object ();
-			ManualResetEventSlim initLock = new ManualResetEventSlim (false);
+
 			//for (int set = 1; set < Categories - 1; set++) {	// перебираем все катигории
 			Parallel.For (1, Categories - 1, set => {
 				//List<DataTable> tmpSplits = new List<DataTable> () { Table.Clone(), Table.Clone() };
@@ -201,7 +234,7 @@ namespace DataMining {
 				}
 				tmpSplits.Add (tmpSplits [0].Clone ());
 
-				//lock (lck2) {
+				lock (lck2) {
 					for (int i = 0; i < Table.Rows.Count; i++) {
 						if ((~set & Table.Rows [i].Field<int> (col)) == 0) {
 							tmpSplits [0].ImportRow (Table.Rows [i]);
@@ -209,16 +242,33 @@ namespace DataMining {
 							tmpSplits [1].ImportRow (Table.Rows [i]);
 						}
 					}
-				//}
+				}
 
 				double tmpQuality;
-				//lock (lck1) {
+				lock (lck1)
+				{
 					tmpQuality = SplitQualityAlgorithm.CalcSplitQuality (tmpSplits, col);
-				//}
+				}
 
+				lock (fixLock) {
+					if (!initDone) {
+						Fix (tmpQuality, set, tmpSplits, col);
+						initDone = true;
+					} else if (SplitQualityAlgorithm.Compare (tmpQuality, Quality) < 0) {
+						Fix (tmpQuality, set, tmpSplits, col);
+					}
+				}
+
+				/*
 				if (set == 1) {
-					Fix (tmpQuality, set, tmpSplits, col);
-					initLock.Set ();
+					lock (_initLock) {
+						if (!initLock.IsSet) {
+							Fix (tmpQuality, set, tmpSplits, col);
+							initLock.Set ();
+						} else if (SplitQualityAlgorithm.Compare (tmpQuality, Quality) < 0) {
+							Fix (tmpQuality, set, tmpSplits, col);
+						}
+					}
 				}
 
 				if (set != 1) {
@@ -229,10 +279,11 @@ namespace DataMining {
 						}
 					}
 				}
-
+				*/
 			});
 			//}
 			CalcClass ();
+			p.threadIsDone.Set ();
 		}
 	}
 }

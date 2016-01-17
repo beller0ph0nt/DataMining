@@ -3,6 +3,8 @@ using System.IO;
 using System.Data;
 using System.Linq;
 using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Runtime.Serialization.Formatters.Binary;
 
@@ -45,14 +47,17 @@ namespace DataMining.DecisionTree {
 		}
 
 		private object Search(DataRow row, ICARTNode<Split> node) {
+			//Console.WriteLine ("search...");
 			if (node.Type == NodeType.Leaf) {
 				Console.WriteLine ("class founded!");
 				return node.Variable.ClassVal;
 			} else if (node.Variable.IsLeftSplit (row)) {
 				Console.WriteLine ("go to the left. " + node.Id + " -> " + node.Left.Id);
+				//Console.WriteLine ("go to the left. " + node.Id + " -> " + node.Left.Id);
 				return Search (row, node.Left);
 			} else {
 				Console.WriteLine ("go to the right. " + node.Id + " -> " + node.Right.Id);
+				//Console.WriteLine ("go to the right. " + node.Id + " -> " + node.Right.Id);
 				return Search (row, node.Right);
 			}
 		}

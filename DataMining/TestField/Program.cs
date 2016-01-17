@@ -15,12 +15,20 @@ namespace TestField
     {
         static void Main(string[] args)
         {
+			//ThreadPool.SetMaxThreads (7, 7);
+			//ThreadPool.SetMinThreads (4, 4);
+
 			//Random rnd = new Random();
 			DataTable table = new DataTable("TEST");
 			DataRow row;
 
 			table.Columns.Add(new DataColumn("cat", System.Type.GetType("System.Int32")));
 			table.Columns.Add(new DataColumn("num", System.Type.GetType("System.Double")));
+			table.Columns.Add(new DataColumn("num1", System.Type.GetType("System.Double")));
+			table.Columns.Add(new DataColumn("num2", System.Type.GetType("System.Double")));
+			table.Columns.Add(new DataColumn("num3", System.Type.GetType("System.Double")));
+			table.Columns.Add(new DataColumn("num4", System.Type.GetType("System.Double")));
+			table.Columns.Add(new DataColumn("num5", System.Type.GetType("System.Double")));
 			table.Columns.Add(new DataColumn("func", System.Type.GetType("System.Int32")));
 
 			int count = 500;
@@ -41,6 +49,11 @@ namespace TestField
 				row = table.NewRow();
 				row["cat"] = i % 3;		//row["cat"] = rnd.Next();
 				row["num"] = i;
+				row["num1"] = i + 1;
+				row["num2"] = i + 2;
+				row["num3"] = i + 3;
+				row["num4"] = i + 4;
+				row["num5"] = i + 5;
 				row["func"] = (i < 5) ? 1 : 2;
 				//Console.WriteLine(row["cat"].ToString() + ", " + row["num"].ToString() + ", " + row["func"].ToString());
 				table.Rows.Add(row);
@@ -70,6 +83,11 @@ namespace TestField
 			row = table.NewRow ();
 			row ["cat"] = 1;
 			row ["num"] = 8.0;
+			row ["num1"] = 9.0;
+			row ["num2"] = 10.0;
+			row ["num3"] = 11.0;
+			row ["num4"] = 12.0;
+			row ["num5"] = 13.0;
 			//row ["func"] = 0;
 			Console.WriteLine("key col: " + tree.Calc (row));
 
