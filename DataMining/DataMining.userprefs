@@ -1,13 +1,13 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Release" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="TestField/Program.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="DataMining/DecisionTree/SplitQualityAlgorithm/GiniSplitOptimized2.cs">
     <Files>
-      <File FileName="DataMining/DecisionTree/Split/Split.cs" Line="243" Column="7" />
+      <File FileName="DataMining/DecisionTree/Split/Split.cs" Line="1" Column="1" />
       <File FileName="DataMining/DecisionTree/LearningAlgorithms/CARTLearning.cs" Line="1" Column="1" />
       <File FileName="DataMining/DecisionTree/LearningAlgorithms/ILearningAlgorithm.cs" Line="1" Column="1" />
-      <File FileName="DataMining/DecisionTree/Tree/CART.cs" Line="39" Column="39" />
+      <File FileName="DataMining/DecisionTree/Tree/CART.cs" Line="1" Column="1" />
       <File FileName="DataMining/DecisionTree/Tree/ITree.cs" Line="1" Column="1" />
-      <File FileName="TestField/Program.cs" Line="26" Column="21" />
+      <File FileName="TestField/Program.cs" Line="1" Column="1" />
       <File FileName="DataMining/DecisionTree/NodeBase/CARTNode/ICARTNode.cs" Line="1" Column="1" />
       <File FileName="DataMining/DecisionTree/NodeBase/BinaryNode/IBinaryNode.cs" Line="1" Column="1" />
       <File FileName="DataMining/DecisionTree/NodeBase/CARTNode/AbstractCARTNode.cs" Line="1" Column="1" />
@@ -35,7 +35,7 @@
       <File FileName="DataMining/DecisionTree/Diagnostics/Delays.cs" Line="1" Column="1" />
       <File FileName="DataMining/DecisionTree/ThresholdDict/ThrshldDict.cs" Line="1" Column="1" />
       <File FileName="DataMining/DecisionTree/SplitQualityAlgorithm/GiniSplitAsync.cs" Line="1" Column="1" />
-      <File FileName="DataMining/DecisionTree/SplitQualityAlgorithm/GiniSplitOptimized2.cs" Line="29" Column="11" />
+      <File FileName="DataMining/DecisionTree/SplitQualityAlgorithm/GiniSplitOptimized2.cs" Line="39" Column="38" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -44,14 +44,14 @@
             <Node name="DecisionTree" expanded="True">
               <Node name="LearningAlgorithms" expanded="True" />
               <Node name="Split" expanded="True" />
-              <Node name="SplitQualityAlgorithm" expanded="True" />
+              <Node name="SplitQualityAlgorithm" expanded="True">
+                <Node name="GiniSplitOptimized2.cs" selected="True" />
+              </Node>
               <Node name="ThresholdDict" expanded="True" />
               <Node name="Tree" expanded="True" />
             </Node>
           </Node>
-          <Node name="TestField" expanded="True">
-            <Node name="Program.cs" selected="True" />
-          </Node>
+          <Node name="TestField" expanded="True" />
         </State>
       </Pad>
     </Pads>
